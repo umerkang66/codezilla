@@ -12,6 +12,7 @@ import {
   BookOpen,
   Mail,
   Briefcase,
+  Package,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin, getAdminEmails } from "@/utils/admin";
@@ -156,6 +157,12 @@ export default async function AdminDashboardPage() {
   const totalJobApps = jobApps?.length || 0;
   const pendingJobApps = jobApps?.filter((a) => a.status === "pending").length || 0;
 
+  // Fetch Packages statistics
+  const { data: packagesData } = await supabase
+    .from("packages")
+    .select("id, status");
+  const totalPackages = packagesData?.length || 0;
+
   // 4. OVERVIEW PAGE WITH SHARED SIDEBAR & HEADER
   return (
     <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex font-sans select-none">
@@ -294,7 +301,26 @@ export default async function AdminDashboardPage() {
           </div>
 
           {/* Quick Navigation Callout Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+              <div className="space-y-1">
+                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                  <Package className="w-4 h-4 text-[#81D607]" />
+                  <span>Packages Management</span>
+                </h3>
+                <p className="text-xs text-[#9DA4B0]">
+                  Create, update, order, or hide Flexible Engineering Packages pricing cards.
+                </p>
+              </div>
+              <Link
+                href="/admin/packages"
+                className="px-4 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full"
+              >
+                <Package className="w-4 h-4" />
+                <span>Manage Packages</span>
+              </Link>
+            </div>
+
             <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
               <div className="space-y-1">
                 <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
@@ -307,7 +333,7 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/teams"
-                className="px-4 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full"
+                className="px-4 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <Users className="w-4 h-4" />
                 <span>Manage Team</span>

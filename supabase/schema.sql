@@ -392,6 +392,61 @@ create policy "Admins can delete team members"
   to authenticated
   using ( public.is_admin() );
 
+-- 10. Create Packages Table for Flexible Engineering Packages Management
+create table if not exists public.packages (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  subtitle text default '',
+  price text not null,
+  period text default 'Starting price',
+  featured boolean not null default false,
+  features text[] default '{}'::text[],
+  cta_text text default 'Choose Package',
+  display_order integer not null default 0,
+  status text not null default 'active',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Performance Indexes
+create index if not exists packages_display_order_idx on public.packages (display_order asc, created_at asc);
+
+-- Enable RLS on packages
+alter table public.packages enable row level security;
+
+-- Policy 1: Anyone can view packages
+drop policy if exists "Packages are viewable by everyone" on public.packages;
+create policy "Packages are viewable by everyone"
+  on public.packages
+  for select
+  using ( true );
+
+-- Policy 2: Admins can insert packages
+drop policy if exists "Admins can insert packages" on public.packages;
+create policy "Admins can insert packages"
+  on public.packages
+  for insert
+  to authenticated
+  with check ( public.is_admin() );
+
+-- Policy 3: Admins can update packages
+drop policy if exists "Admins can update packages" on public.packages;
+create policy "Admins can update packages"
+  on public.packages
+  for update
+  to authenticated
+  using ( public.is_admin() )
+  with check ( public.is_admin() );
+
+-- Policy 4: Admins can delete packages
+drop policy if exists "Admins can delete packages" on public.packages;
+create policy "Admins can delete packages"
+  on public.packages
+  for delete
+  to authenticated
+  using ( public.is_admin() );
+
+
 
 
 
