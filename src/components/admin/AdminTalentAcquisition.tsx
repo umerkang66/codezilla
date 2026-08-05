@@ -928,34 +928,37 @@ export default function AdminTalentAcquisition({
 
       {/* MODAL 3: APPLICATION DETAIL & CV FILE VIEWER (.PDF, .DOCX) */}
       {selectedApp && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md overflow-y-auto">
-          <div className="relative w-full max-w-5xl bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl p-6 sm:p-8 space-y-6 my-6 rounded-none text-left flex flex-col max-h-[92vh]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-hidden">
+          <div className="relative w-full max-w-6xl h-[92vh] max-h-[900px] bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl flex flex-col rounded-none text-left overflow-hidden">
+            
             {/* Modal Header */}
-            <div className="flex items-start justify-between gap-4 border-b border-[#E1E6EB]/10 pb-4 shrink-0">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] font-mono text-[10px] font-bold uppercase">
-                    Job Application
-                  </span>
-                  <span className="text-xs font-mono text-[#9DA4B0]">
-                    ID: {selectedApp.id.substring(0, 8)}...
-                  </span>
+            <div className="px-6 py-4 bg-[#141414] border-b border-[#E1E6EB]/10 flex items-center justify-between gap-4 shrink-0">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-9 h-9 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] shrink-0">
+                  <FileText className="w-5 h-5" />
                 </div>
-                <h2 className="text-2xl font-mono font-extrabold text-[#E1E6EB]">
-                  {selectedApp.full_name}
-                </h2>
-                <p className="text-xs text-[#9DA4B0]">
-                  Applied for <span className="text-[#81D607] font-semibold">{selectedApp.job_title}</span> on {new Date(selectedApp.created_at).toLocaleDateString()}
-                </p>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-lg font-mono font-bold text-[#E1E6EB] truncate">
+                      {selectedApp.full_name}
+                    </h2>
+                    <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] font-mono text-[10px] font-extrabold uppercase shrink-0">
+                      {selectedApp.job_title}
+                    </span>
+                  </div>
+                  <p className="text-[11px] font-mono text-[#9DA4B0] truncate">
+                    {selectedApp.email} • Applied on {new Date(selectedApp.created_at).toLocaleDateString()}
+                  </p>
+                </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                {/* Status Selector in Modal */}
+              <div className="flex items-center gap-3 shrink-0">
+                {/* Status Dropdown */}
                 <select
                   value={selectedApp.status}
                   onChange={(e) => handleUpdateAppStatus(selectedApp.id, e.target.value)}
                   disabled={isUpdatingAppStatus}
-                  className={`px-3 py-1.5 text-xs font-mono font-bold border focus:outline-none rounded-none ${
+                  className={`px-3 py-1.5 text-xs font-mono font-bold border focus:outline-none rounded-none cursor-pointer ${
                     selectedApp.status === "shortlisted"
                       ? "bg-[#81D607]/20 text-[#81D607] border-[#81D607]"
                       : selectedApp.status === "rejected"
@@ -965,213 +968,238 @@ export default function AdminTalentAcquisition({
                       : "bg-yellow-950/60 text-yellow-400 border-yellow-500"
                   }`}
                 >
-                  <option value="pending">Pending</option>
-                  <option value="reviewing">Reviewing</option>
-                  <option value="shortlisted">Shortlisted</option>
-                  <option value="rejected">Rejected</option>
+                  <option value="pending">Status: Pending</option>
+                  <option value="reviewing">Status: Reviewing</option>
+                  <option value="shortlisted">Status: Shortlisted</option>
+                  <option value="rejected">Status: Rejected</option>
                 </select>
 
                 <button
                   type="button"
                   onClick={() => setSelectedApp(null)}
-                  className="p-2 text-[#9DA4B0] hover:text-[#E1E6EB] bg-[#111111] border border-[#E1E6EB]/15"
+                  className="p-2 text-[#9DA4B0] hover:text-[#E1E6EB] bg-[#111111] border border-[#E1E6EB]/15 hover:border-[#81D607] transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
-            {/* Application Overview Info Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 shrink-0 font-mono text-xs">
-              <div className="p-3.5 bg-[#111111] border border-[#E1E6EB]/10 space-y-1">
-                <span className="text-[#9DA4B0] text-[10px] uppercase block">Email Address</span>
-                <a
-                  href={`mailto:${selectedApp.email}`}
-                  className="text-[#81D607] font-bold hover:underline flex items-center gap-1.5 truncate"
-                >
-                  <Mail className="w-3.5 h-3.5 shrink-0" />
-                  <span className="truncate">{selectedApp.email}</span>
-                </a>
-              </div>
-
-              <div className="p-3.5 bg-[#111111] border border-[#E1E6EB]/10 space-y-1">
-                <span className="text-[#9DA4B0] text-[10px] uppercase block">Phone / Contact</span>
-                <span className="text-[#E1E6EB] font-bold flex items-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-[#81D607] shrink-0" />
-                  <span>{selectedApp.phone || "Not provided"}</span>
-                </span>
-              </div>
-
-              <div className="p-3.5 bg-[#111111] border border-[#E1E6EB]/10 space-y-1">
-                <span className="text-[#9DA4B0] text-[10px] uppercase block">External Links</span>
-                <div className="flex items-center gap-3">
-                  {selectedApp.portfolio_url ? (
-                    <a
-                      href={selectedApp.portfolio_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#81D607] hover:underline text-[11px] flex items-center gap-1"
-                    >
-                      <Globe className="w-3.5 h-3.5" />
-                      <span>Portfolio</span>
-                    </a>
-                  ) : null}
-                  {selectedApp.linkedin_url ? (
-                    <a
-                      href={selectedApp.linkedin_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#81D607] hover:underline text-[11px] flex items-center gap-1"
-                    >
-                      <Share2 className="w-3.5 h-3.5" />
-                      <span>LinkedIn</span>
-                    </a>
-                  ) : null}
-                  {!selectedApp.portfolio_url && !selectedApp.linkedin_url && (
-                    <span className="text-[#9DA4B0]">None provided</span>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Cover Letter Section (if exists) */}
-            {selectedApp.cover_letter && (
-              <div className="p-4 bg-[#111111] border border-[#E1E6EB]/10 space-y-1 shrink-0 text-xs">
-                <span className="text-[10px] font-mono text-[#81D607] uppercase font-bold">
-                  Cover Letter / Candidate Note:
-                </span>
-                <p className="text-[#E1E6EB] leading-relaxed whitespace-pre-wrap font-sans">
-                  {selectedApp.cover_letter}
-                </p>
-              </div>
-            )}
-
-            {/* CV FILE VIEWER CONTAINER (.PDF & .DOCX INLINE MODAL PREVIEW) */}
-            <div className="flex-1 flex flex-col space-y-3 min-h-[420px]">
-              {/* Document Header Bar */}
-              <div className="p-3 bg-[#111111] border border-[#81D607]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shrink-0">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-[#1A1A1A] border border-[#81D607] flex items-center justify-center text-[#81D607]">
-                    <FileText className="w-4 h-4" />
-                  </div>
-                  <div className="space-y-0.5 font-mono">
-                    <p className="text-xs font-bold text-[#E1E6EB] truncate max-w-md">
-                      {selectedApp.resume_file_name}
-                    </p>
-                    <span className="text-[10px] text-[#81D607] uppercase font-bold">
-                      Format: {selectedApp.resume_file_type?.toUpperCase() || "CV FILE"}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 font-mono text-xs w-full sm:w-auto justify-end">
-                  {/* DOCX Embed Viewer Mode Toggle */}
-                  {(selectedApp.resume_file_type === "docx" || selectedApp.resume_file_type === "doc" || selectedApp.resume_file_name.endsWith(".docx")) && (
-                    <div className="flex items-center gap-1 bg-[#1A1A1A] border border-[#E1E6EB]/10 p-1">
-                      <button
-                        type="button"
-                        onClick={() => setDocxViewerMode("google")}
-                        className={`px-2 py-0.5 text-[10px] font-bold ${
-                          docxViewerMode === "google"
-                            ? "bg-[#81D607] text-[#111111]"
-                            : "text-[#9DA4B0]"
-                        }`}
-                      >
-                        Google Viewer
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setDocxViewerMode("office")}
-                        className={`px-2 py-0.5 text-[10px] font-bold ${
-                          docxViewerMode === "office"
-                            ? "bg-[#81D607] text-[#111111]"
-                            : "text-[#9DA4B0]"
-                        }`}
-                      >
-                        MS Office Viewer
-                      </button>
+            {/* Modal Body Grid (Split View on desktop: Candidate Info on left, Document Viewer on right) */}
+            <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden bg-[#111111]">
+              
+              {/* Left Side: Candidate Profile & Details (4 columns) */}
+              <div className="lg:col-span-4 p-5 bg-[#141414] border-r border-[#E1E6EB]/10 overflow-y-auto space-y-5 font-mono text-xs">
+                
+                {/* Candidate Card */}
+                <div className="p-4 bg-[#1A1A1A] border border-[#81D607]/30 space-y-3">
+                  <span className="text-[10px] text-[#81D607] uppercase font-bold tracking-wider">
+                    Candidate Information
+                  </span>
+                  <div className="space-y-2">
+                    <div>
+                      <span className="text-[10px] text-[#9DA4B0] block">Full Name</span>
+                      <p className="font-bold text-[#E1E6EB] text-sm">{selectedApp.full_name}</p>
                     </div>
-                  )}
+                    <div>
+                      <span className="text-[10px] text-[#9DA4B0] block">Email</span>
+                      <a href={`mailto:${selectedApp.email}`} className="text-[#81D607] font-bold hover:underline break-all">
+                        {selectedApp.email}
+                      </a>
+                    </div>
+                    {selectedApp.phone && (
+                      <div>
+                        <span className="text-[10px] text-[#9DA4B0] block">Phone</span>
+                        <p className="text-[#E1E6EB]">{selectedApp.phone}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
 
-                  <a
-                    href={selectedApp.resume_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-[#1A1A1A] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] font-bold text-xs flex items-center gap-1.5"
-                  >
-                    <ExternalLink className="w-3.5 h-3.5" />
-                    <span>Open Tab</span>
-                  </a>
+                {/* Links */}
+                <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2">
+                  <span className="text-[10px] text-[#9DA4B0] uppercase font-bold">Candidate Links</span>
+                  <div className="flex flex-col gap-2 pt-1">
+                    {selectedApp.portfolio_url ? (
+                      <a
+                        href={selectedApp.portfolio_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#81D607] hover:border-[#81D607] flex items-center justify-between"
+                      >
+                        <span className="flex items-center gap-2">
+                          <Globe className="w-3.5 h-3.5" />
+                          <span>Portfolio Website</span>
+                        </span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    ) : null}
 
+                    {selectedApp.linkedin_url ? (
+                      <a
+                        href={selectedApp.linkedin_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#81D607] hover:border-[#81D607] flex items-center justify-between"
+                      >
+                        <span className="flex items-center gap-2">
+                          <Share2 className="w-3.5 h-3.5" />
+                          <span>LinkedIn Profile</span>
+                        </span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    ) : null}
+
+                    {!selectedApp.portfolio_url && !selectedApp.linkedin_url && (
+                      <span className="text-[#9DA4B0] italic">No portfolio or LinkedIn provided.</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Cover Letter */}
+                {selectedApp.cover_letter && (
+                  <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2">
+                    <span className="text-[10px] text-[#81D607] uppercase font-bold">Cover Letter / Note</span>
+                    <p className="text-[#E1E6EB] font-sans text-xs leading-relaxed whitespace-pre-wrap bg-[#111111] p-3 border border-[#E1E6EB]/10 max-h-48 overflow-y-auto">
+                      {selectedApp.cover_letter}
+                    </p>
+                  </div>
+                )}
+
+                {/* Quick Actions */}
+                <div className="pt-2 flex flex-col gap-2">
                   <a
                     href={selectedApp.resume_url}
                     download={selectedApp.resume_file_name}
-                    className="px-3 py-1.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold text-xs flex items-center gap-1.5"
+                    className="w-full py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold text-xs flex items-center justify-center gap-2 transition-colors"
                   >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Download CV</span>
+                    <Download className="w-4 h-4" />
+                    <span>Download CV ({selectedApp.resume_file_name})</span>
                   </a>
+
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteApp(selectedApp.id)}
+                    className="w-full py-2 bg-red-950/40 border border-red-500/40 text-red-400 hover:bg-red-900/60 font-bold text-xs flex items-center justify-center gap-2"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Delete Application</span>
+                  </button>
                 </div>
               </div>
 
-              {/* Embedded Document Viewer Canvas */}
-              <div className="flex-1 bg-[#111111] border border-[#E1E6EB]/10 relative min-h-[380px] w-full overflow-hidden">
-                {(() => {
-                  const url = selectedApp.resume_url;
-                  const isPdf =
-                    selectedApp.resume_file_type === "pdf" ||
-                    selectedApp.resume_file_name.toLowerCase().endsWith(".pdf") ||
-                    url.startsWith("data:application/pdf");
+              {/* Right Side: Embedded PDF / DOCX Document Viewer Canvas (8 columns) */}
+              <div className="lg:col-span-8 flex flex-col h-full overflow-hidden bg-[#111111]">
+                {/* Document Toolbar Header */}
+                <div className="px-4 py-3 bg-[#181818] border-b border-[#E1E6EB]/10 flex items-center justify-between gap-3 shrink-0 font-mono text-xs">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <FileText className="w-4 h-4 text-[#81D607] shrink-0" />
+                    <span className="font-bold text-[#E1E6EB] truncate">
+                      {selectedApp.resume_file_name}
+                    </span>
+                    <span className="px-2 py-0.5 bg-[#111111] text-[#81D607] border border-[#81D607]/30 text-[10px] uppercase font-bold shrink-0">
+                      {selectedApp.resume_file_type?.toUpperCase() || "PDF"}
+                    </span>
+                  </div>
 
-                  if (isPdf) {
+                  <div className="flex items-center gap-2 shrink-0">
+                    {/* If DOCX, offer viewer switcher */}
+                    {(selectedApp.resume_file_type === "docx" || selectedApp.resume_file_type === "doc" || selectedApp.resume_file_name.endsWith(".docx")) && (
+                      <div className="flex items-center gap-1 bg-[#111111] p-1 border border-[#E1E6EB]/10">
+                        <button
+                          type="button"
+                          onClick={() => setDocxViewerMode("google")}
+                          className={`px-2 py-1 text-[10px] font-bold ${
+                            docxViewerMode === "google"
+                              ? "bg-[#81D607] text-[#111111]"
+                              : "text-[#9DA4B0]"
+                          }`}
+                        >
+                          Google Viewer
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setDocxViewerMode("office")}
+                          className={`px-2 py-1 text-[10px] font-bold ${
+                            docxViewerMode === "office"
+                              ? "bg-[#81D607] text-[#111111]"
+                              : "text-[#9DA4B0]"
+                          }`}
+                        >
+                          MS Office Viewer
+                        </button>
+                      </div>
+                    )}
+
+                    <a
+                      href={selectedApp.resume_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-3 py-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] font-bold text-xs flex items-center gap-1.5"
+                      title="Open in new browser tab"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>Open in Tab</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Viewport Frame */}
+                <div className="flex-1 w-full h-full relative overflow-hidden bg-[#0A0A0A]">
+                  {(() => {
+                    const url = selectedApp.resume_url;
+                    const isPdf =
+                      selectedApp.resume_file_type === "pdf" ||
+                      selectedApp.resume_file_name.toLowerCase().endsWith(".pdf") ||
+                      url.startsWith("data:application/pdf");
+
+                    if (isPdf) {
+                      return (
+                        <iframe
+                          src={url}
+                          title={`CV Preview - ${selectedApp.full_name}`}
+                          className="w-full h-full border-0 block"
+                        />
+                      );
+                    }
+
+                    // DOCX / DOC Viewer
+                    if (url.startsWith("data:")) {
+                      return (
+                        <div className="p-8 text-center space-y-4 flex flex-col justify-center items-center h-full">
+                          <FileText className="w-12 h-12 text-[#81D607]" />
+                          <div className="space-y-1 font-mono">
+                            <h4 className="text-sm font-bold text-[#E1E6EB]">
+                              Word Document (.docx)
+                            </h4>
+                            <p className="text-xs text-[#9DA4B0] max-w-sm mx-auto">
+                              This CV was uploaded as a Word file. Click below to download and view.
+                            </p>
+                          </div>
+                          <a
+                            href={url}
+                            download={selectedApp.resume_file_name}
+                            className="px-5 py-2.5 bg-[#81D607] text-[#111111] font-mono font-bold text-xs flex items-center gap-2"
+                          >
+                            <Download className="w-4 h-4" />
+                            <span>Download Word CV</span>
+                          </a>
+                        </div>
+                      );
+                    }
+
+                    const googleViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
+                    const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}`;
+                    const embedSrc = docxViewerMode === "office" ? officeViewerUrl : googleViewerUrl;
+
                     return (
                       <iframe
-                        src={url}
-                        title={`CV Preview - ${selectedApp.full_name}`}
-                        className="w-full h-full min-h-[400px] border-0"
+                        src={embedSrc}
+                        title={`DOCX Preview - ${selectedApp.full_name}`}
+                        className="w-full h-full border-0 block"
                       />
                     );
-                  }
-
-                  // DOCX / DOC Viewer
-                  if (url.startsWith("data:")) {
-                    // Data URI fallback preview
-                    return (
-                      <div className="p-12 text-center space-y-4 flex flex-col justify-center items-center h-full">
-                        <FileText className="w-14 h-14 text-[#81D607] opacity-80" />
-                        <div className="space-y-1">
-                          <h4 className="text-base font-mono font-bold text-[#E1E6EB]">
-                            Word Document Attachment (.docx)
-                          </h4>
-                          <p className="text-xs text-[#9DA4B0] max-w-md mx-auto">
-                            This CV file is formatted as Microsoft Word (.docx). Click below to download or view directly in your desktop application.
-                          </p>
-                        </div>
-                        <a
-                          href={url}
-                          download={selectedApp.resume_file_name}
-                          className="px-6 py-2.5 bg-[#81D607] text-[#111111] font-mono font-bold text-xs flex items-center gap-2 rounded-none"
-                        >
-                          <Download className="w-4 h-4" />
-                          <span>Download Word CV ({selectedApp.resume_file_name})</span>
-                        </a>
-                      </div>
-                    );
-                  }
-
-                  // Remote URL DOCX via Embed Viewers
-                  const googleViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
-                  const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}`;
-                  const embedSrc = docxViewerMode === "office" ? officeViewerUrl : googleViewerUrl;
-
-                  return (
-                    <iframe
-                      src={embedSrc}
-                      title={`DOCX Preview - ${selectedApp.full_name}`}
-                      className="w-full h-full min-h-[400px] border-0"
-                    />
-                  );
-                })()}
+                  })()}
+                </div>
               </div>
             </div>
           </div>
