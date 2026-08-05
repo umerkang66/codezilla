@@ -32,7 +32,7 @@ export default async function AdminManagementPage() {
   // 2. Fetch User Profile from Database
   let { data: profile } = await dbClient
     .from("profiles")
-    .select("role, email")
+    .select("role, email, full_name, avatar_url")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -42,8 +42,22 @@ export default async function AdminManagementPage() {
 
   // Extract Google Auth Metadata (Profile Picture & Name)
   const userMeta = user.user_metadata || {};
-  const avatarUrl = userMeta.avatar_url || userMeta.picture;
-  const fullName = userMeta.full_name || userMeta.name || "Admin User";
+  const identityMeta = user.identities?.[0]?.identity_data || {};
+  const avatarUrl =
+    profile?.avatar_url ||
+    userMeta.avatar_url ||
+    userMeta.picture ||
+    identityMeta.avatar_url ||
+    identityMeta.picture ||
+    "";
+  const fullName =
+    profile?.full_name ||
+    userMeta.full_name ||
+    userMeta.name ||
+    identityMeta.full_name ||
+    identityMeta.name ||
+    user.email?.split("@")[0] ||
+    "Admin User";
 
   // Sync role to database if email matches ADMIN env variable but DB profile is outdated
   if (isSuperAdmin && profile?.role !== "admin") {
@@ -51,6 +65,8 @@ export default async function AdminManagementPage() {
       {
         id: user.id,
         email: user.email!,
+        full_name: fullName,
+        avatar_url: avatarUrl,
         role: "admin",
         updated_at: new Date().toISOString(),
       },
@@ -105,7 +121,7 @@ export default async function AdminManagementPage() {
 
   // 4. FETCH REGISTERED USERS FOR ADMIN USER MANAGEMENT
   // Map auth users metadata (full_name, avatar_url) from Auth Admin API
-  const authUsersMap: Record<string, { full_name?: string; avatar_url?: string }> = {};
+  const authUsersMap: Record<string, { email?: string; full_name?: string; avatar_url?: string; created_at?: string }> = {};
 
   if (adminDbClient) {
     try {
@@ -115,27 +131,59 @@ export default async function AdminManagementPage() {
 
         for (const authUser of authUsersData.users) {
           const meta = authUser.user_metadata || {};
-          const fullName = meta.full_name || meta.name || authUser.email?.split("@")[0] || "Registered User";
-          const avatarUrl = meta.avatar_url || meta.picture || "";
+          const idMeta = authUser.identities?.[0]?.identity_data || {};
+          const fullName =
+            meta.full_name ||
+            meta.name ||
+            idMeta.full_name ||
+            idMeta.name ||
+            authUser.email?.split("@")[0] ||
+            "Registered User";
+          const avatarUrl =
+            meta.avatar_url ||
+            meta.picture ||
+            idMeta.avatar_url ||
+            idMeta.picture ||
+            "";
 
           authUsersMap[authUser.id] = {
+            email: authUser.email || "",
             full_name: fullName,
             avatar_url: avatarUrl,
+            created_at: authUser.created_at,
           };
 
           profilesToUpsert.push({
             id: authUser.id,
             email: authUser.email || "",
+            full_name: fullName,
+            avatar_url: avatarUrl,
             role: isMainAdmin(authUser.email) ? "admin" : "user",
             updated_at: new Date().toISOString(),
           });
         }
 
         if (profilesToUpsert.length > 0) {
-          await adminDbClient.from("profiles").upsert(profilesToUpsert, {
-            onConflict: "id",
-            ignoreDuplicates: true,
-          });
+          const { error: upsertErr } = await adminDbClient
+            .from("profiles")
+            .upsert(profilesToUpsert, {
+              onConflict: "id",
+              ignoreDuplicates: true,
+            });
+
+          if (upsertErr) {
+            // Fallback without full_name/avatar_url if DB schema lacks those columns
+            const fallbackProfiles = profilesToUpsert.map((p) => ({
+              id: p.id,
+              email: p.email,
+              role: p.role,
+              updated_at: p.updated_at,
+            }));
+            await adminDbClient.from("profiles").upsert(fallbackProfiles, {
+              onConflict: "id",
+              ignoreDuplicates: true,
+            });
+          }
         }
       }
     } catch (e) {
@@ -145,22 +193,38 @@ export default async function AdminManagementPage() {
 
   const { data: rawUsers, error: usersError } = await dbClient
     .from("profiles")
-    .select("id, email, role, created_at")
+    .select("*")
     .order("created_at", { ascending: false });
 
   if (usersError) {
     console.error("Error fetching profiles:", usersError);
   }
 
-  const initialUsers = (rawUsers || []).map((u) => {
+  let initialUsers = (rawUsers || []).map((u: any) => {
     const meta = authUsersMap[u.id] || {};
     return {
-      ...u,
-      full_name: meta.full_name || u.email?.split("@")[0] || "Registered User",
-      avatar_url: meta.avatar_url || "",
+      id: u.id,
+      email: u.email,
+      role: u.role || (isMainAdmin(u.email) ? "admin" : "user"),
+      full_name: u.full_name || meta.full_name || u.email?.split("@")[0] || "Registered User",
+      avatar_url: u.avatar_url || meta.avatar_url || "",
+      created_at: u.created_at || new Date().toISOString(),
       isMainAdmin: isMainAdmin(u.email),
     };
   });
+
+  // Fallback: If profiles query returned 0 rows, populate list directly from authUsersMap
+  if (initialUsers.length === 0 && Object.keys(authUsersMap).length > 0) {
+    initialUsers = Object.entries(authUsersMap).map(([id, meta]) => ({
+      id,
+      email: meta.email || "",
+      role: isMainAdmin(meta.email) ? "admin" : "user",
+      full_name: meta.full_name || meta.email?.split("@")[0] || "Registered User",
+      avatar_url: meta.avatar_url || "",
+      created_at: meta.created_at || new Date().toISOString(),
+      isMainAdmin: isMainAdmin(meta.email),
+    }));
+  }
 
   // 5. RENDER DEDICATED ADMIN MANAGEMENT PAGE
   return (

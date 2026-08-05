@@ -36,9 +36,9 @@ export default async function AdminDashboardPage() {
   // 2. Fetch User Profile from Database
   let { data: profile } = await supabase
     .from("profiles")
-    .select("role, email")
+    .select("*")
     .eq("id", user.id)
-    .single();
+    .maybeSingle();
 
   const isSuperAdmin = isMainAdmin(user.email);
   const isRoleAdmin = profile?.role === "admin";
@@ -46,20 +46,49 @@ export default async function AdminDashboardPage() {
 
   // Extract Google Auth Metadata (Profile Picture & Name)
   const userMeta = user.user_metadata || {};
-  const avatarUrl = userMeta.avatar_url || userMeta.picture;
-  const fullName = userMeta.full_name || userMeta.name || "Admin User";
+  const identityMeta = user.identities?.[0]?.identity_data || {};
+  const avatarUrl =
+    profile?.avatar_url ||
+    userMeta.avatar_url ||
+    userMeta.picture ||
+    identityMeta.avatar_url ||
+    identityMeta.picture ||
+    "";
+  const fullName =
+    profile?.full_name ||
+    userMeta.full_name ||
+    userMeta.name ||
+    identityMeta.full_name ||
+    identityMeta.name ||
+    user.email?.split("@")[0] ||
+    "Admin User";
 
-  // Sync role to database if email matches ADMIN env variable but DB profile is outdated
+  // Sync profile & role to database if email matches ADMIN env variable or profile is updated
   if (isSuperAdmin && profile?.role !== "admin") {
-    await supabase.from("profiles").upsert(
-      {
-        id: user.id,
-        email: user.email!,
-        role: "admin",
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: "id" }
-    );
+    const payload: Record<string, any> = {
+      id: user.id,
+      email: user.email!,
+      role: "admin",
+      updated_at: new Date().toISOString(),
+    };
+    if (fullName) payload.full_name = fullName;
+    if (avatarUrl) payload.avatar_url = avatarUrl;
+
+    const { error: upsertErr } = await supabase
+      .from("profiles")
+      .upsert(payload, { onConflict: "id" });
+
+    if (upsertErr) {
+      await supabase.from("profiles").upsert(
+        {
+          id: user.id,
+          email: user.email!,
+          role: "admin",
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "id" }
+      );
+    }
   }
 
   // 3. ENFORCE ROLE-BASED ACCESS CONTROL (NON-ADMIN ACCESS DENIED VIEW)

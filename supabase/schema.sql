@@ -14,6 +14,10 @@ create table if not exists public.profiles (
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
+-- Ensure full_name and avatar_url columns exist if table was previously created without them
+alter table public.profiles add column if not exists full_name text;
+alter table public.profiles add column if not exists avatar_url text;
+
 -- Enable RLS
 alter table public.profiles enable row level security;
 
@@ -47,7 +51,24 @@ create policy "Admins can view all profiles"
   to authenticated
   using ( public.is_admin() );
 
--- Policy C: Admins can update roles of users
+-- Policy C: Users can insert their own profile
+drop policy if exists "Users can insert own profile" on public.profiles;
+create policy "Users can insert own profile"
+  on public.profiles
+  for insert
+  to authenticated
+  with check ( (select auth.uid()) = id );
+
+-- Policy D: Users can update their own profile
+drop policy if exists "Users can update own profile" on public.profiles;
+create policy "Users can update own profile"
+  on public.profiles
+  for update
+  to authenticated
+  using ( (select auth.uid()) = id )
+  with check ( (select auth.uid()) = id );
+
+-- Policy E: Admins can update all profiles
 drop policy if exists "Admins can update profiles" on public.profiles;
 create policy "Admins can update profiles"
   on public.profiles
@@ -66,14 +87,14 @@ begin
   values (
     new.id,
     new.email,
-    coalesce(new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'name', 'User'),
-    coalesce(new.raw_user_meta_data->>'avatar_url', new.raw_user_meta_data->>'picture', ''),
+    coalesce(new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'name', split_part(new.email, '@', 1)),
+    coalesce(new.raw_user_meta_data->>'avatar_url', new.raw_user_meta_data->>'picture', new.raw_user_meta_data->>'avatar', ''),
     'user'
   )
   on conflict (id) do update set
     email = excluded.email,
-    full_name = coalesce(excluded.full_name, public.profiles.full_name),
-    avatar_url = coalesce(excluded.avatar_url, public.profiles.avatar_url);
+    full_name = coalesce(nullif(excluded.full_name, ''), public.profiles.full_name),
+    avatar_url = coalesce(nullif(excluded.avatar_url, ''), public.profiles.avatar_url);
   return new;
 exception
   when others then

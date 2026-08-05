@@ -18,32 +18,59 @@ export async function GET(request: Request) {
 
       if (user && user.email) {
         const userMeta = user.user_metadata || {};
-        const fullName = userMeta.full_name || userMeta.name || "User";
-        const avatarUrl = userMeta.avatar_url || userMeta.picture || "";
+        const identityMeta = user.identities?.[0]?.identity_data || {};
+        const fullName =
+          userMeta.full_name ||
+          userMeta.name ||
+          identityMeta.full_name ||
+          identityMeta.name ||
+          user.email.split("@")[0] ||
+          "User";
+        const avatarUrl =
+          userMeta.avatar_url ||
+          userMeta.picture ||
+          identityMeta.avatar_url ||
+          identityMeta.picture ||
+          "";
         const isSuperAdmin = isMainAdmin(user.email);
 
         // Fetch existing profile to check current assigned role
         const { data: existingProfile } = await supabase
           .from("profiles")
-          .select("role")
+          .select("*")
           .eq("id", user.id)
-          .single();
+          .maybeSingle();
 
         let assignedRole = existingProfile?.role || "user";
         if (isSuperAdmin) {
           assignedRole = "admin";
         }
 
-        // Upsert user profile into public.profiles table
-        await supabase.from("profiles").upsert(
-          {
-            id: user.id,
-            email: user.email,
-            role: assignedRole,
-            updated_at: new Date().toISOString(),
-          },
-          { onConflict: "id" }
-        );
+        // Upsert user profile into public.profiles table with fallback
+        const payload: Record<string, any> = {
+          id: user.id,
+          email: user.email,
+          role: assignedRole,
+          updated_at: new Date().toISOString(),
+        };
+        if (fullName) payload.full_name = fullName;
+        if (avatarUrl) payload.avatar_url = avatarUrl;
+
+        const { error: upsertErr } = await supabase
+          .from("profiles")
+          .upsert(payload, { onConflict: "id" });
+
+        if (upsertErr) {
+          await supabase.from("profiles").upsert(
+            {
+              id: user.id,
+              email: user.email,
+              role: assignedRole,
+              updated_at: new Date().toISOString(),
+            },
+            { onConflict: "id" }
+          );
+        }
       }
 
       return NextResponse.redirect(`${origin}${next}`);

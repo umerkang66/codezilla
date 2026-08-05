@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldCheck, ArrowLeft, LogOut } from "lucide-react";
+import { ShieldCheck, ArrowLeft, LogOut, User } from "lucide-react";
 
 interface AdminHeaderProps {
   userEmail: string;
@@ -26,12 +26,16 @@ export default function AdminHeader({
 
         {/* Header User Profile Badge */}
         <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-[#E1E6EB]/10">
-          {avatarUrl && (
+          {avatarUrl ? (
             <img
               src={avatarUrl}
               alt={fullName}
               className="w-6 h-6 border border-[#81D607] object-cover rounded-none"
             />
+          ) : (
+            <div className="w-6 h-6 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] rounded-none">
+              <User className="w-3.5 h-3.5" />
+            </div>
           )}
           <span className="text-xs font-mono text-[#9DA4B0]">
             {fullName} (<span className="text-[#E1E6EB]">{userEmail}</span>)
