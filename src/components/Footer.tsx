@@ -101,8 +101,9 @@ export default function Footer() {
                 { name: "Services", href: "/#services" },
                 { name: "Portfolio", href: "/#portfolio" },
                 { name: "Our Team", href: "/#team" },
+                { name: "Careers / Talent", href: "/talent-acquisition" },
                 { name: "Blog / Insights", href: "/blog" },
-                { name: "Contact", href: "/#contact" },
+                { name: "Contact", href: "/contact" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link

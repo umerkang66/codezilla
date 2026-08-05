@@ -29,8 +29,9 @@ export default function Header() {
     { name: "Services", href: "/#services" },
     { name: "Portfolio", href: "/#portfolio" },
     { name: "Team", href: "/#team" },
+    { name: "Careers", href: "/talent-acquisition" },
     { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/#contact" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -88,7 +89,7 @@ export default function Header() {
             </a>
 
             <a
-              href="/#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 px-5 py-2.5 font-mono font-bold text-xs text-[#111111] bg-[#81D607] hover:bg-[#72BE06] transition-colors rounded-none"
               id="header-cta-btn"
             >
@@ -138,7 +139,7 @@ export default function Header() {
             </a>
 
             <a
-              href="/#contact"
+              href="/contact"
               onClick={() => setIsMobileMenuOpen(false)}
               className="w-full text-center px-5 py-3 font-mono font-bold text-xs text-[#111111] bg-[#81D607] hover:bg-[#72BE06] transition-all rounded-none"
             >

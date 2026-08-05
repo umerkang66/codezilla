@@ -11,7 +11,6 @@ import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
 import Faq from "@/components/Faq";
-import Careers from "@/components/Careers";
 import BlogPreview from "@/components/BlogPreview";
 import CtaBanner from "@/components/CtaBanner";
 import ContactUs from "@/components/ContactUs";
@@ -57,9 +56,6 @@ export default function Home() {
 
       {/* 15 // FAQ Accordion */}
       <Faq />
-
-      {/* 17 // Careers / Join The Team */}
-      <Careers />
 
       {/* 14 // Blog / Insights */}
       <BlogPreview />
