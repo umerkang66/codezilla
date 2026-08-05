@@ -39,7 +39,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
   }
 
   return (
-    <main className="min-h-screen py-16 bg-[#111111] text-[#E1E6EB]">
+    <main className="min-h-screen py-16 pt-28 bg-[#111111] text-[#E1E6EB]">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-left">
         {/* Navigation */}
         <Link

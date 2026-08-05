@@ -59,7 +59,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-[#111111] text-[#E1E6EB] selection:bg-[#81D607] selection:text-[#111111]">
         <Header />
-        <div className="flex-1 pt-20">{children}</div>
+        <div className="flex-1">{children}</div>
         <Footer />
         <CookieBanner />
       </body>

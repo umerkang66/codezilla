@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Code2,
   Mail,
@@ -9,7 +12,13 @@ import {
 } from "lucide-react";
 
 export default function Footer() {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
+
+  // Hide footer completely on admin pages
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <footer className="bg-[#0D0D0D] border-t border-[#E1E6EB]/10 pt-16 pb-8 text-[#E1E6EB] relative overflow-hidden rounded-none">

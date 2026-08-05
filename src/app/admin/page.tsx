@@ -1,23 +1,23 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import {
-  ShieldAlert,
   ShieldCheck,
+  ShieldAlert,
   LogOut,
-  Users,
-  MessageSquare,
-  Activity,
-  Database,
   ArrowLeft,
-  Lock,
-  Mail,
+  User,
+  CheckCircle2,
+  Database,
+  Users,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
-import { isAdminEmail, getAdminEmails } from "@/utils/admin";
+import { isMainAdmin, getAdminEmails } from "@/utils/admin";
+import AdminSidebar from "@/components/admin/AdminSidebar";
+import AdminHeader from "@/components/admin/AdminHeader";
 
 export const metadata = {
-  title: "Admin Dashboard | Codzilla Technologies",
-  description: "Restricted Administrative Control Panel for Codzilla Technologies.",
+  title: "Admin Panel | Codzilla Technologies",
+  description: "Administrative Dashboard Overview for Codzilla Technologies.",
 };
 
 export default async function AdminDashboardPage() {
@@ -40,16 +40,23 @@ export default async function AdminDashboardPage() {
     .eq("id", user.id)
     .single();
 
-  const isEmailAdmin = isAdminEmail(user.email);
+  const isSuperAdmin = isMainAdmin(user.email);
   const isRoleAdmin = profile?.role === "admin";
-  const hasAdminAccess = isEmailAdmin || isRoleAdmin;
+  const hasAdminAccess = isSuperAdmin || isRoleAdmin;
+
+  // Extract Google Auth Metadata (Profile Picture & Name)
+  const userMeta = user.user_metadata || {};
+  const avatarUrl = userMeta.avatar_url || userMeta.picture;
+  const fullName = userMeta.full_name || userMeta.name || "Admin User";
 
   // Sync role to database if email matches ADMIN env variable but DB profile is outdated
-  if (isEmailAdmin && profile?.role !== "admin") {
+  if (isSuperAdmin && profile?.role !== "admin") {
     await supabase.from("profiles").upsert(
       {
         id: user.id,
         email: user.email!,
+        full_name: fullName,
+        avatar_url: avatarUrl,
         role: "admin",
         updated_at: new Date().toISOString(),
       },
@@ -57,31 +64,25 @@ export default async function AdminDashboardPage() {
     );
   }
 
-  // 3. ENFORCE ROLE-BASED ACCESS CONTROL (RBAC)
+  // 3. ENFORCE ROLE-BASED ACCESS CONTROL (NON-ADMIN ACCESS DENIED VIEW)
   if (!hasAdminAccess) {
     return (
-      <main className="min-h-screen py-16 bg-[#111111] text-[#E1E6EB] flex flex-col justify-center items-center px-4">
-        <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-8 space-y-6 text-center rounded-none">
+      <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex flex-col justify-center items-center p-4">
+        <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-8 space-y-6 text-center rounded-none shadow-2xl">
           <div className="w-14 h-14 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 mx-auto rounded-none">
-            <ShieldAlert className="w-8 h-8" />
+            <ShieldAlert className="w-7 h-7" />
           </div>
 
           <div className="space-y-2">
             <div className="inline-block px-3 py-1 bg-red-950/80 border border-red-500/40 text-red-400 text-[10px] font-mono font-bold uppercase tracking-wider rounded-none">
               Access Denied
             </div>
-            <h1 className="text-2xl font-extrabold text-[#E1E6EB]">
+            <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
               Admin Role Required
             </h1>
             <p className="text-xs text-[#9DA4B0] font-sans leading-relaxed">
-              You are signed in as <span className="text-[#81D607] font-mono">{user.email}</span>, but your account has not been granted the <span className="text-red-400 font-mono">'admin'</span> role.
+              Signed in as <span className="text-[#81D607] font-mono">{user.email}</span>. You do not have permission to view this panel.
             </p>
-          </div>
-
-          <div className="p-4 bg-[#111111] border border-[#E1E6EB]/10 text-left text-xs font-mono text-[#9DA4B0] space-y-2 rounded-none">
-            <p className="text-[#E1E6EB] font-bold">Why am I seeing this?</p>
-            <p>1. Only emails configured in the <code className="text-[#81D607]">ADMIN</code> environment variable can access this panel.</p>
-            <p>2. Non-admin users are restricted to standard features.</p>
           </div>
 
           <div className="flex flex-col gap-3 pt-2">
@@ -91,15 +92,16 @@ export default async function AdminDashboardPage() {
                 className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs transition-colors rounded-none flex items-center justify-center gap-2"
               >
                 <LogOut className="w-4 h-4" />
-                <span>Sign Out & Try Admin Account</span>
+                <span>Sign Out</span>
               </button>
             </form>
 
             <Link
               href="/"
-              className="w-full py-3 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] font-mono text-xs text-center transition-colors rounded-none"
+              className="w-full py-3 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] font-mono text-xs text-center transition-colors rounded-none flex items-center justify-center gap-2"
             >
-              Return to Homepage
+              <ArrowLeft className="w-4 h-4" />
+              <span>Return to Website</span>
             </Link>
           </div>
         </div>
@@ -107,116 +109,154 @@ export default async function AdminDashboardPage() {
     );
   }
 
-  // 4. RENDER AUTHORIZED ADMIN DASHBOARD
   const configuredAdmins = getAdminEmails();
 
+  // 4. OVERVIEW PAGE WITH SHARED SIDEBAR & HEADER
   return (
-    <main className="min-h-screen py-12 bg-[#111111] text-[#E1E6EB]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-left">
-        {/* Top Admin Header Bar */}
-        <div className="bg-[#1A1A1A] border border-[#81D607]/40 p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 rounded-none">
-          <div className="space-y-2">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] rounded-none">
-                <Lock className="w-4 h-4" />
-              </div>
-              <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] font-mono font-extrabold text-[10px] uppercase tracking-wider rounded-none">
-                Admin Role Active
-              </span>
+    <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex font-sans select-none">
+      {/* Sidebar */}
+      <AdminSidebar
+        userEmail={user.email!}
+        fullName={fullName}
+        avatarUrl={avatarUrl}
+        isSuperAdmin={isSuperAdmin}
+      />
+
+      {/* Main Panel Content Canvas */}
+      <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#111111]">
+        {/* Top Header */}
+        <AdminHeader
+          userEmail={user.email!}
+          fullName={fullName}
+          avatarUrl={avatarUrl}
+          isSuperAdmin={isSuperAdmin}
+        />
+
+        {/* Dashboard Main Workspace Canvas */}
+        <div className="flex-1 p-8 flex flex-col justify-between overflow-y-auto text-left space-y-8">
+          {/* Welcome & Overview Header */}
+          <div className="space-y-6">
+            <div className="space-y-1">
+              <h2 className="text-2xl font-mono font-extrabold text-[#E1E6EB]">
+                Admin Dashboard Overview
+              </h2>
+              <p className="text-xs text-[#9DA4B0]">
+                Welcome back, <span className="text-[#81D607] font-mono">{fullName}</span> ({isSuperAdmin ? "Main Admin" : "Sub-Admin"}). System is fully operational and synchronized.
+              </p>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl font-extrabold text-[#E1E6EB] tracking-tight">
-              Codzilla Administrative Control Panel
-            </h1>
-            <p className="text-xs font-mono text-[#9DA4B0]">
-              Logged in as: <span className="text-[#81D607] font-bold">{user.email}</span>
-            </p>
+            {/* Admin Profile Details Card (Featured Avatar Picture) */}
+            <div className="p-6 bg-[#1A1A1A] border border-[#81D607]/40 space-y-4 rounded-none">
+              <div className="flex items-center gap-4 border-b border-[#E1E6EB]/10 pb-4">
+                {avatarUrl ? (
+                  <img
+                    src={avatarUrl}
+                    alt={fullName}
+                    className="w-14 h-14 border-2 border-[#81D607] object-cover shrink-0 rounded-none shadow-md"
+                  />
+                ) : (
+                  <div className="w-14 h-14 bg-[#111111] border-2 border-[#81D607] flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+                    <User className="w-7 h-7" />
+                  </div>
+                )}
+
+                <div className="space-y-1 text-left">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-lg font-mono font-bold text-[#E1E6EB]">
+                      {fullName}
+                    </h3>
+                    <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] font-mono font-extrabold text-[10px] uppercase">
+                      {isSuperAdmin ? "Main Admin" : "Sub-Admin"}
+                    </span>
+                  </div>
+                  <p className="text-xs font-mono text-[#81D607]">{user.email}</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
+                <div className="p-3 bg-[#111111] border border-[#E1E6EB]/10">
+                  <span className="text-[#9DA4B0] block text-[10px] uppercase">User Email</span>
+                  <span className="text-[#81D607] font-bold truncate block">{user.email}</span>
+                </div>
+                <div className="p-3 bg-[#111111] border border-[#E1E6EB]/10">
+                  <span className="text-[#9DA4B0] block text-[10px] uppercase">RBAC Role</span>
+                  <span className="text-[#81D607] font-bold block">
+                    {isSuperAdmin ? "MAIN ADMIN (Env)" : "SUB-ADMIN"}
+                  </span>
+                </div>
+                <div className="p-3 bg-[#111111] border border-[#E1E6EB]/10">
+                  <span className="text-[#9DA4B0] block text-[10px] uppercase">Supabase Auth</span>
+                  <span className="text-[#81D607] font-bold block flex items-center gap-1">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>Connected</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Metrics Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
+                <div className="flex items-center justify-between text-[#81D607]">
+                  <span className="text-xs font-mono uppercase">System Health</span>
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div className="text-xl font-extrabold text-[#81D607] font-mono">100% Operational</div>
+                <p className="text-[11px] text-[#9DA4B0]">Supabase Auth & RLS Active</p>
+              </div>
+
+              <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
+                <div className="flex items-center justify-between text-[#81D607]">
+                  <span className="text-xs font-mono uppercase">Database Engine</span>
+                  <Database className="w-5 h-5" />
+                </div>
+                <div className="text-xl font-extrabold text-[#E1E6EB] font-mono">PostgreSQL</div>
+                <p className="text-[11px] text-[#9DA4B0]">Row-Level Security Enabled</p>
+              </div>
+
+              <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
+                <div className="flex items-center justify-between text-[#81D607]">
+                  <span className="text-xs font-mono uppercase">Configured Admins</span>
+                  <Users className="w-5 h-5" />
+                </div>
+                <div className="text-xl font-extrabold text-[#E1E6EB] font-mono">{configuredAdmins.length} Emails</div>
+                <p className="text-[11px] text-[#9DA4B0]">From process.env.ADMIN</p>
+              </div>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          {/* Quick Navigation Callout to Admin Management */}
+          <div className="p-6 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-none">
+            <div className="space-y-1">
+              <h3 className="text-sm font-mono font-bold text-[#E1E6EB]">User & Admin Management</h3>
+              <p className="text-xs text-[#9DA4B0]">
+                Search registered users by name or email, assign sub-admin privileges, or revoke access.
+              </p>
+            </div>
             <Link
-              href="/"
-              className="px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors rounded-none inline-flex items-center gap-2"
+              href="/admin/adminmanagement"
+              className="px-5 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs shrink-0 rounded-none flex items-center gap-2"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>View Website</span>
+              <Users className="w-4 h-4" />
+              <span>Go to Admin Management</span>
             </Link>
+          </div>
 
-            <form action="/auth/signout" method="post">
-              <button
-                type="submit"
-                className="px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs transition-colors rounded-none inline-flex items-center gap-2"
+          {/* Quick Actions Footer Bar */}
+          <div className="pt-4 border-t border-[#E1E6EB]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="text-xs font-mono text-[#9DA4B0]">
+              Codzilla Administrative System v1.0
+            </span>
+
+            <div className="flex items-center gap-3">
+              <Link
+                href="/"
+                className="px-5 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none flex items-center gap-2"
               >
-                <LogOut className="w-4 h-4" />
-                <span>Sign Out</span>
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* Metrics Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
-            <div className="flex items-center justify-between text-[#81D607]">
-              <span className="text-xs font-mono uppercase">System Health</span>
-              <Activity className="w-5 h-5" />
+                <ArrowLeft className="w-4 h-4" />
+                <span>Return to Website</span>
+              </Link>
             </div>
-            <div className="text-2xl font-extrabold text-[#E1E6EB] font-mono">100% Operational</div>
-            <p className="text-[11px] text-[#9DA4B0] font-sans">Supabase Auth & Database Online</p>
-          </div>
-
-          <div className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
-            <div className="flex items-center justify-between text-[#81D607]">
-              <span className="text-xs font-mono uppercase">Active Role</span>
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div className="text-2xl font-extrabold text-[#81D607] font-mono">ADMIN</div>
-            <p className="text-[11px] text-[#9DA4B0] font-sans">Verified via Env & RLS Policy</p>
-          </div>
-
-          <div className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
-            <div className="flex items-center justify-between text-[#81D607]">
-              <span className="text-xs font-mono uppercase">Configured Admins</span>
-              <Users className="w-5 h-5" />
-            </div>
-            <div className="text-2xl font-extrabold text-[#E1E6EB] font-mono">{configuredAdmins.length} Accounts</div>
-            <p className="text-[11px] text-[#9DA4B0] font-sans">Parsed from process.env.ADMIN</p>
-          </div>
-
-          <div className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
-            <div className="flex items-center justify-between text-[#81D607]">
-              <span className="text-xs font-mono uppercase">Database Engine</span>
-              <Database className="w-5 h-5" />
-            </div>
-            <div className="text-2xl font-extrabold text-[#E1E6EB] font-mono">PostgreSQL</div>
-            <p className="text-[11px] text-[#9DA4B0] font-sans">Row-Level Security Enabled</p>
-          </div>
-        </div>
-
-        {/* Section: Configured Admin Emails */}
-        <div className="bg-[#1A1A1A] border border-[#E1E6EB]/10 p-6 sm:p-8 space-y-6 rounded-none">
-          <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 pb-4">
-            <h2 className="text-lg font-bold text-[#E1E6EB] font-mono flex items-center gap-2">
-              <Mail className="w-5 h-5 text-[#81D607]" />
-              <span>Configured Admin Email Registry</span>
-            </h2>
-            <span className="text-xs font-mono text-[#81D607]">ADMIN env var</span>
-          </div>
-
-          <p className="text-xs text-[#9DA4B0] font-sans">
-            Users signing in with the following Google emails are automatically assigned the <code className="text-[#81D607]">admin</code> role:
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 font-mono text-xs">
-            {configuredAdmins.map((email, idx) => (
-              <div
-                key={idx}
-                className="p-3 bg-[#111111] border border-[#81D607]/40 flex items-center justify-between text-[#E1E6EB] rounded-none"
-              >
-                <span>{email}</span>
-                <span className="text-[10px] text-[#81D607] font-bold">AUTHORIZED</span>
-              </div>
-            ))}
           </div>
         </div>
       </div>

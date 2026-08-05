@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { isAdminEmail } from "@/utils/admin";
+import { isMainAdmin } from "@/utils/admin";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -17,14 +17,30 @@ export async function GET(request: Request) {
       } = await supabase.auth.getUser();
 
       if (user && user.email) {
-        const isAdmin = isAdminEmail(user.email);
-        const assignedRole = isAdmin ? "admin" : "user";
+        const userMeta = user.user_metadata || {};
+        const fullName = userMeta.full_name || userMeta.name || "User";
+        const avatarUrl = userMeta.avatar_url || userMeta.picture || "";
+        const isSuperAdmin = isMainAdmin(user.email);
 
-        // Sync role to public.profiles table
+        // Fetch existing profile to check current assigned role
+        const { data: existingProfile } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .single();
+
+        let assignedRole = existingProfile?.role || "user";
+        if (isSuperAdmin) {
+          assignedRole = "admin";
+        }
+
+        // Upsert user profile into public.profiles table
         await supabase.from("profiles").upsert(
           {
             id: user.id,
             email: user.email,
+            full_name: fullName,
+            avatar_url: avatarUrl,
             role: assignedRole,
             updated_at: new Date().toISOString(),
           },
