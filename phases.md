@@ -82,36 +82,36 @@ The site development is structured into **5 logical phases**, prioritizing core 
 
 ### 3.1 Trust & Proof Sections
 
-- [ ] **03 // Trust Bar / Client Logos**
+- [x] **03 // Trust Bar / Client Logos**
   - Client/Partner logo strip OR rating badges (Upwork Top Rated, Fiverr Level 2, project metrics)
   - Eyebrow header: _"Trusted by teams at"_
-- [ ] **07 // Technologies & Tools Showcase**
+- [x] **07 // Technologies & Tools Showcase**
   - Categorized tech stack grid:
     - **Languages**: Python, C++, JavaScript
     - **Frameworks**: React, Next.js, TensorFlow, PyTorch
     - **Tools**: MATLAB, KiCad, Docker, Figma
   - Grayscale logos with vibrant hover states
-- [ ] **08 // Our Process / How We Work**
+- [x] **08 // Our Process / How We Work**
   - 5-step interactive timeline:
     1. Discovery Call
     2. Proposal & Planning
     3. Design & Development
     4. Testing & QA
     5. Delivery & Support
-- [ ] **09 // Portfolio / Case Studies**
+- [x] **09 // Portfolio / Case Studies**
   - Category filter tabs (`All`, `AI/ML`, `Web`, `PCB/Embedded`, `MATLAB`, `Mobile`)
   - 6–9 Project cards with screenshots, outcomes (e.g., _"Reduced manual QA time by 40%"_), and tech tags
   - Dynamic route template for detailed case study pages (`/portfolio/[slug]`)
-- [ ] **10 // Team Showcase**
+- [x] **10 // Team Showcase**
   - Team member cards (Photo, Full Name, Role, Specialty, Social links)
   - Founder spotlight: Muhammad Ahmed (Pasha) — Founder & CEO
-- [ ] **11 // Stats & Achievements**
+- [x] **11 // Stats & Achievements**
   - Animated count-up numbers triggered on scroll:
     - 50+ Projects Delivered
     - 30+ Happy Clients
     - 5+ Countries Served
     - 98% Client Satisfaction Rate
-- [ ] **12 // Testimonials**
+- [x] **12 // Testimonials**
   - Testimonial slider/carousel featuring client quotes, ratings (5-star), client name & role
   - Sourced from verified Upwork/Fiverr client feedback
 
