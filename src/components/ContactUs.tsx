@@ -14,6 +14,7 @@ export default function ContactUs() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const serviceOptions = [
     { label: "AI & Automation", value: "AI & Automation" },
@@ -26,13 +27,24 @@ export default function ContactUs() {
     { label: "Other / Custom Inquiry", value: "Other" },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage("");
 
-    // Simulate asynchronous contact form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send contact message");
+      }
+
       setIsSubmitted(true);
       setFormData({
         name: "",
@@ -40,8 +52,13 @@ export default function ContactUs() {
         service: "AI & Automation",
         message: "",
       });
-    }, 1000);
+    } catch (err: any) {
+      setErrorMessage(err.message || "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
 
   return (
     <section id="contact" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,6 +138,12 @@ export default function ContactUs() {
               <MessageSquare className="w-5 h-5 text-[#81D607]" />
               <span>Send Us a Message</span>
             </h3>
+
+            {errorMessage && (
+              <div className="mb-4 p-3 bg-red-950/80 border border-red-500/50 text-red-400 text-xs font-mono">
+                {errorMessage}
+              </div>
+            )}
 
             {isSubmitted ? (
               <div className="p-6 bg-[#111111] border border-[#81D607] text-center space-y-3">
