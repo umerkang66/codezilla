@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #81D607;
+  --primary-hover: #72BE06;
+  --bg-main: #111111;
+  --bg-dark: #1A1A1A;
+  --bg-darker: #0D0D0D;
+  --bg-card: #1A1A1A;
+  --bg-card-hover: #242424;
+  --text-white: #E1E6EB;
+  --text-muted: #9DA4B0;
+  --border-subtle: rgba(225, 230, 235, 0.12);
+  --border-bright: #81D607;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-brand-primary: #81D607;
+  --color-brand-bg: #111111;
+  --color-brand-dark: #1A1A1A;
+  --color-brand-darker: #0D0D0D;
+  --color-brand-white: #E1E6EB;
+  --color-brand-muted: #9DA4B0;
+  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: var(--font-roboto);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Force sharp corners globally across elements */
+*, *::before, *::after {
+  border-radius: 0px !important;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-white);
+  font-family: var(--font-roboto), system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Headings font: JetBrains Mono */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-jetbrains-mono), monospace;
+}
+
+/* Clean Sharp Header & Card Utilities */
+.glass-header {
+  background: rgba(17, 17, 17, 0.95);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.glass-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-bright);
+}
+
+/* Custom Scrollbar - Sharp */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 0px;
+  border: 1px solid rgba(225, 230, 235, 0.1);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #81D607;
 }
