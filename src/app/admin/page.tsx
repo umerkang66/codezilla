@@ -55,8 +55,6 @@ export default async function AdminDashboardPage() {
       {
         id: user.id,
         email: user.email!,
-        full_name: fullName,
-        avatar_url: avatarUrl,
         role: "admin",
         updated_at: new Date().toISOString(),
       },

@@ -17,8 +17,22 @@ create table if not exists public.profiles (
 -- Enable RLS
 alter table public.profiles enable row level security;
 
+-- Helper function to check if current user is admin without triggering RLS recursion
+create or replace function public.is_admin()
+returns boolean
+language sql
+security definer
+set search_path = ''
+as $$
+  select exists (
+    select 1 from public.profiles
+    where id = auth.uid() and role = 'admin'
+  );
+$$;
+
 -- 2. Row Level Security Policies
 -- Policy A: Users can view their own profile
+drop policy if exists "Users can view own profile" on public.profiles;
 create policy "Users can view own profile"
   on public.profiles
   for select
@@ -26,28 +40,20 @@ create policy "Users can view own profile"
   using ( (select auth.uid()) = id );
 
 -- Policy B: Admins can view all profiles for user management
+drop policy if exists "Admins can view all profiles" on public.profiles;
 create policy "Admins can view all profiles"
   on public.profiles
   for select
   to authenticated
-  using (
-    exists (
-      select 1 from public.profiles
-      where id = (select auth.uid()) and role = 'admin'
-    )
-  );
+  using ( public.is_admin() );
 
 -- Policy C: Admins can update roles of users
+drop policy if exists "Admins can update profiles" on public.profiles;
 create policy "Admins can update profiles"
   on public.profiles
   for update
   to authenticated
-  using (
-    exists (
-      select 1 from public.profiles
-      where id = (select auth.uid()) and role = 'admin'
-    )
-  );
+  using ( public.is_admin() );
 
 -- 3. Trigger Function for Automatic Profile Creation on New User Registration
 create or replace function public.handle_new_user()

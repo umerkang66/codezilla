@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import { isMainAdmin } from "@/utils/admin";
 
 export async function POST(request: Request) {
@@ -38,8 +39,11 @@ export async function POST(request: Request) {
       );
     }
 
+    const adminDbClient = createAdminClient();
+    const dbClient = adminDbClient || supabase;
+
     // 4. Fetch target user to prevent altering Main Admin status
-    const { data: targetUser, error: fetchError } = await supabase
+    const { data: targetUser, error: fetchError } = await dbClient
       .from("profiles")
       .select("email, role")
       .eq("id", userId)
@@ -57,7 +61,7 @@ export async function POST(request: Request) {
     }
 
     // 5. Update target user's role in public.profiles table
-    const { error: updateError } = await supabase
+    const { error: updateError } = await dbClient
       .from("profiles")
       .update({
         role: targetRole,
@@ -85,3 +89,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
