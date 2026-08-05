@@ -123,20 +123,20 @@ The site development is structured into **5 logical phases**, prioritizing core 
 
 ### 4.1 Conversion & Differentiators
 
-- [ ] **06 // Why Choose Us (USPs)**
+- [x] **06 // Why Choose Us (USPs)**
   - Feature grid highlighting: On-Time Delivery, Dedicated Support, Transparent Pricing, Cross-Domain Expertise (Software + Hardware + AI), Direct Founder Communication
-- [ ] **13 // Pricing / Packages (Optional/Flexible)**
+- [x] **13 // Pricing / Packages (Optional/Flexible)**
   - Tiered package cards: Starter, Standard, Pro (for catalog services like PCB & Web)
   - "Custom Quote" callout for bespoke AI/ML engineering
-- [ ] **15 // Frequently Asked Questions (FAQ)**
+- [x] **15 // Frequently Asked Questions (FAQ)**
   - Expandable accordion answering key client objections (Timelines, Pricing Models, NDA/Confidentiality, Revision Policies, Post-launch support)
 
 ### 4.2 Growth & Talent Acquisition
 
-- [ ] **17 // Careers / Join The Team**
+- [x] **17 // Careers / Join The Team**
   - Culture pitch: Project-based earning model for top student & developer talent
   - Open roles list (Title, Remote/Onsite status, Domain) with application form
-- [ ] **14 // Blog / Insights (SEO Engine)**
+- [x] **14 // Blog / Insights (SEO Engine)**
   - Integration with MDX / Headless CMS (Sanity / Contentful)
   - Article cards with tag, title, excerpt, and read time
   - Article detail page template (`/blog/[slug]`) with SEO meta structure
