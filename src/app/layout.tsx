@@ -3,6 +3,7 @@ import { JetBrains_Mono, Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CookieBanner from "@/components/CookieBanner";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -29,6 +30,21 @@ export const metadata: Metadata = {
     "Embedded Systems",
     "Lahore Pakistan",
   ],
+  authors: [{ name: "Codzilla Technologies", url: "https://codzilla.com" }],
+  openGraph: {
+    title: "Codzilla Technologies | AI, Web & Hardware Engineering",
+    description:
+      "Enterprise software development, AI/ML models, Next.js web applications, and embedded KiCad PCB hardware design.",
+    url: "https://codzilla.com",
+    siteName: "Codzilla Technologies",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Codzilla Technologies | AI, Web & Hardware Engineering",
+    description:
+      "Enterprise software development, AI/ML models, Next.js web applications, and embedded KiCad PCB hardware design.",
+  },
 };
 
 export default function RootLayout({
@@ -45,6 +61,7 @@ export default function RootLayout({
         <Header />
         <div className="flex-1 pt-20">{children}</div>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );
