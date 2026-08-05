@@ -17,19 +17,23 @@ export async function PUT(
     }
 
     const body = await request.json();
-    const { title, category, excerpt, content, author, authorRole, readTime } = body;
+    const { title, category, excerpt, content, author, authorRole, author_role, readTime, read_time } = body;
 
     const payload: Record<string, any> = {
       updated_at: new Date().toISOString(),
     };
 
-    if (title !== undefined) payload.title = title;
-    if (category !== undefined) payload.category = category;
-    if (excerpt !== undefined) payload.excerpt = excerpt;
-    if (content !== undefined) payload.content = content;
-    if (author !== undefined) payload.author = author;
-    if (authorRole !== undefined) payload.author_role = authorRole;
-    if (readTime !== undefined) payload.read_time = readTime;
+    if (title !== undefined) payload.title = title.trim();
+    if (category !== undefined) payload.category = category.trim();
+    if (excerpt !== undefined) payload.excerpt = excerpt.trim();
+    if (content !== undefined) payload.content = content.trim();
+    if (author !== undefined) payload.author = author.trim();
+    
+    const roleVal = authorRole !== undefined ? authorRole : author_role;
+    if (roleVal !== undefined) payload.author_role = roleVal.trim();
+
+    const timeVal = readTime !== undefined ? readTime : read_time;
+    if (timeVal !== undefined) payload.read_time = timeVal.trim();
 
     const { data: updatedBlog, error } = await auth.dbClient!
       .from("blogs")
@@ -39,11 +43,13 @@ export async function PUT(
       .single();
 
     if (error) {
+      console.error("Error updating blog:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
     return NextResponse.json({ success: true, blog: updatedBlog });
   } catch (err: any) {
+    console.error("Exception updating blog:", err);
     return NextResponse.json({ error: err.message || "Failed to update blog post" }, { status: 500 });
   }
 }
@@ -69,11 +75,13 @@ export async function DELETE(
       .eq("id", id);
 
     if (error) {
+      console.error("Error deleting blog:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
     return NextResponse.json({ success: true, id, message: "Blog post deleted successfully." });
   } catch (err: any) {
+    console.error("Exception deleting blog:", err);
     return NextResponse.json({ error: err.message || "Failed to delete blog post" }, { status: 500 });
   }
 }

@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { title, category, excerpt, content, author, authorRole, readTime } = body;
+    const { title, category, excerpt, content, author, authorRole, author_role, readTime, read_time } = body;
 
     if (!title || !content) {
       return NextResponse.json(
@@ -37,13 +37,13 @@ export async function POST(request: Request) {
     }
 
     const payload = {
-      title,
-      category: category || "Engineering",
-      excerpt: excerpt || "",
-      content,
-      author: author || "Codzilla Team",
-      author_role: authorRole || "Engineering Team",
-      read_time: readTime || "5 min read",
+      title: title.trim(),
+      category: (category || "Engineering").trim(),
+      excerpt: (excerpt || "").trim(),
+      content: content.trim(),
+      author: (author || "Codzilla Team").trim(),
+      author_role: (authorRole || author_role || "Engineering Team").trim(),
+      read_time: (readTime || read_time || "5 min read").trim(),
       updated_at: new Date().toISOString(),
     };
 
@@ -54,11 +54,13 @@ export async function POST(request: Request) {
       .single();
 
     if (error) {
+      console.error("Error inserting blog into database:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
     return NextResponse.json({ success: true, blog: newBlog });
   } catch (err: any) {
+    console.error("Exception creating blog:", err);
     return NextResponse.json({ error: err.message || "Failed to create blog post" }, { status: 500 });
   }
 }

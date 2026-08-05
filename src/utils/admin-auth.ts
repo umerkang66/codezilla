@@ -16,13 +16,28 @@ export async function verifyAdminAuth() {
   const isSuperAdmin = isMainAdmin(user.email);
 
   // Fetch profile role from database
-  const { data: profile } = await supabase
+  let { data: profile } = await supabase
     .from("profiles")
     .select("role")
     .eq("id", user.id)
     .maybeSingle();
 
-  const isRoleAdmin = profile?.role === "admin";
+  // Auto-sync superadmin profile to admin role if missing
+  if (isSuperAdmin && profile?.role !== "admin") {
+    const adminDb = createAdminClient();
+    const db = adminDb || supabase;
+    await db.from("profiles").upsert(
+      {
+        id: user.id,
+        email: user.email,
+        role: "admin",
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: "id" }
+    );
+  }
+
+  const isRoleAdmin = profile?.role === "admin" || isSuperAdmin;
   const hasAdminAccess = isSuperAdmin || isRoleAdmin;
 
   if (!hasAdminAccess) {
