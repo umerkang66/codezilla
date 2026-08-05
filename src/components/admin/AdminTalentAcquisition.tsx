@@ -287,21 +287,34 @@ export default function AdminTalentAcquisition({
     }
   };
 
+  // Application Delete Modal state
+  const [deletingApp, setDeletingApp] = useState<JobApplication | null>(null);
+  const [isDeletingApp, setIsDeletingApp] = useState(false);
+
   // Delete Application
-  const handleDeleteApp = async (appId: string) => {
-    if (!confirm("Are you sure you want to delete this candidate application?")) return;
+  const handleDeleteApp = async () => {
+    if (!deletingApp) return;
+    setIsDeletingApp(true);
     try {
-      const res = await fetch(`/api/admin/talent-acquisition/applications/${appId}`, {
+      const res = await fetch(`/api/admin/talent-acquisition/applications/${deletingApp.id}`, {
         method: "DELETE",
       });
       if (res.ok) {
-        showToast("success", "Application deleted.");
-        setSelectedApp(null);
+        showToast("success", "Application deleted successfully.");
+        if (selectedApp && selectedApp.id === deletingApp.id) {
+          setSelectedApp(null);
+        }
+        setDeletingApp(null);
         fetchApplications();
         fetchJobs();
+      } else {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete application.");
       }
-    } catch (err) {
-      showToast("error", "Failed to delete application.");
+    } catch (err: any) {
+      showToast("error", err.message || "Failed to delete application.");
+    } finally {
+      setIsDeletingApp(false);
     }
   };
 
@@ -741,7 +754,7 @@ export default function AdminTalentAcquisition({
 
                           <button
                             type="button"
-                            onClick={() => handleDeleteApp(app.id)}
+                            onClick={() => setDeletingApp(app)}
                             className="p-1.5 bg-red-950/40 border border-red-500/40 text-red-400 hover:bg-red-900/60 inline-flex items-center"
                             title="Delete application"
                           >
@@ -1078,7 +1091,7 @@ export default function AdminTalentAcquisition({
 
                   <button
                     type="button"
-                    onClick={() => handleDeleteApp(selectedApp.id)}
+                    onClick={() => setDeletingApp(selectedApp)}
                     className="w-full py-2 bg-red-950/40 border border-red-500/40 text-red-400 hover:bg-red-900/60 font-bold text-xs flex items-center justify-center gap-2"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -1201,6 +1214,49 @@ export default function AdminTalentAcquisition({
                   })()}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 4: DELETE CANDIDATE APPLICATION CONFIRMATION */}
+      {deletingApp && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-4 text-left shadow-2xl rounded-none">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 shrink-0">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base font-mono font-bold text-[#E1E6EB]">Delete Candidate Application</h3>
+                <p className="text-[11px] font-mono text-red-400">Action cannot be undone</p>
+              </div>
+            </div>
+
+            <p className="text-xs font-mono text-[#9DA4B0] leading-relaxed">
+              Are you sure you want to delete the application submitted by{" "}
+              <span className="text-[#E1E6EB] font-bold">{deletingApp.full_name}</span> ({deletingApp.email}) for position{" "}
+              <span className="text-[#81D607] font-semibold">{deletingApp.job_title}</span>?
+            </p>
+
+            <div className="flex items-center justify-end gap-3 pt-2 border-t border-[#E1E6EB]/10 font-mono text-xs">
+              <button
+                type="button"
+                onClick={() => setDeletingApp(null)}
+                disabled={isDeletingApp}
+                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB]"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteApp}
+                disabled={isDeletingApp}
+                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold flex items-center gap-2 transition-colors disabled:opacity-50"
+              >
+                {isDeletingApp ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                <span>Confirm Delete</span>
+              </button>
             </div>
           </div>
         </div>
