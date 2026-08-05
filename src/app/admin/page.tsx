@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Database,
   Users,
+  BookOpen,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin, getAdminEmails } from "@/utils/admin";
@@ -252,21 +253,45 @@ export default async function AdminDashboardPage() {
             </div>
           </div>
 
-          {/* Quick Navigation Callout to Admin Management */}
-          <div className="p-6 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-none">
-            <div className="space-y-1">
-              <h3 className="text-sm font-mono font-bold text-[#E1E6EB]">User & Admin Management</h3>
-              <p className="text-xs text-[#9DA4B0]">
-                Search registered users by name or email, assign sub-admin privileges, or revoke access.
-              </p>
+          {/* Quick Navigation Callout Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="p-6 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+              <div className="space-y-1">
+                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 text-[#81D607]" />
+                  <span>Blogs Management</span>
+                </h3>
+                <p className="text-xs text-[#9DA4B0]">
+                  Create, edit, delete, and publish technical articles using live Markdown editor.
+                </p>
+              </div>
+              <Link
+                href="/admin/blogs"
+                className="px-5 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full"
+              >
+                <BookOpen className="w-4 h-4" />
+                <span>Manage Blog Articles</span>
+              </Link>
             </div>
-            <Link
-              href="/admin/adminmanagement"
-              className="px-5 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs shrink-0 rounded-none flex items-center gap-2"
-            >
-              <Users className="w-4 h-4" />
-              <span>Go to Admin Management</span>
-            </Link>
+
+            <div className="p-6 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+              <div className="space-y-1">
+                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                  <Users className="w-4 h-4 text-[#81D607]" />
+                  <span>User & Admin Management</span>
+                </h3>
+                <p className="text-xs text-[#9DA4B0]">
+                  Search registered users by name or email, assign sub-admin privileges, or revoke access.
+                </p>
+              </div>
+              <Link
+                href="/admin/adminmanagement"
+                className="px-5 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+              >
+                <Users className="w-4 h-4" />
+                <span>Go to Admin Management</span>
+              </Link>
+            </div>
           </div>
 
           {/* Quick Actions Footer Bar */}

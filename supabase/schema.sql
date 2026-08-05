@@ -107,3 +107,53 @@ drop trigger if exists on_auth_user_created on auth.users;
 create or replace trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
+
+-- 5. Create Blogs Table for Dynamic Content Management
+create table if not exists public.blogs (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  category text not null default 'Engineering',
+  excerpt text not null default '',
+  content text not null default '',
+  author text not null default 'Codzilla Team',
+  author_role text not null default 'Engineering Team',
+  read_time text not null default '5 min read',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS on blogs table
+alter table public.blogs enable row level security;
+
+-- Policy 1: Anyone (anon and authenticated) can view blogs
+drop policy if exists "Blogs are viewable by everyone" on public.blogs;
+create policy "Blogs are viewable by everyone"
+  on public.blogs
+  for select
+  using ( true );
+
+-- Policy 2: Authenticated admins can insert blogs
+drop policy if exists "Admins can insert blogs" on public.blogs;
+create policy "Admins can insert blogs"
+  on public.blogs
+  for insert
+  to authenticated
+  with check ( public.is_admin() );
+
+-- Policy 3: Authenticated admins can update blogs
+drop policy if exists "Admins can update blogs" on public.blogs;
+create policy "Admins can update blogs"
+  on public.blogs
+  for update
+  to authenticated
+  using ( public.is_admin() )
+  with check ( public.is_admin() );
+
+-- Policy 4: Authenticated admins can delete blogs
+drop policy if exists "Admins can delete blogs" on public.blogs;
+create policy "Admins can delete blogs"
+  on public.blogs
+  for delete
+  to authenticated
+  using ( public.is_admin() );
+

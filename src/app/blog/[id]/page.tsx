@@ -1,22 +1,28 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Clock, User, Calendar, Tag, ArrowRight, MessageSquare } from "lucide-react";
-import { staticBlogs } from "@/data/blogs";
+import { ArrowLeft, Clock, User, Calendar, MessageSquare } from "lucide-react";
+import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 interface BlogDetailProps {
   params: Promise<{ id: string }>;
 }
 
-export async function generateStaticParams() {
-  return staticBlogs.map((post) => ({
-    id: post.id,
-  }));
-}
+export const revalidate = 0; // Dynamic route
 
 export async function generateMetadata({ params }: BlogDetailProps): Promise<Metadata> {
   const { id } = await params;
-  const post = staticBlogs.find((p) => p.id === id);
+  const supabase = await createClient();
+  const adminDb = createAdminClient();
+  const db = adminDb || supabase;
+
+  const { data: post } = await db
+    .from("blogs")
+    .select("title, excerpt")
+    .eq("id", id)
+    .maybeSingle();
 
   if (!post) {
     return {
@@ -32,11 +38,27 @@ export async function generateMetadata({ params }: BlogDetailProps): Promise<Met
 
 export default async function BlogDetailPage({ params }: BlogDetailProps) {
   const { id } = await params;
-  const post = staticBlogs.find((p) => p.id === id);
+  const supabase = await createClient();
+  const adminDb = createAdminClient();
+  const db = adminDb || supabase;
 
-  if (!post) {
+  const { data: post, error } = await db
+    .from("blogs")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error || !post) {
     notFound();
   }
+
+  const formattedDate = post.created_at
+    ? new Date(post.created_at).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "August 2026";
 
   return (
     <main className="min-h-screen py-16 pt-28 bg-[#111111] text-[#E1E6EB]">
@@ -57,12 +79,12 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
               {post.category}
             </span>
             <span className="text-xs font-mono text-[#9DA4B0] flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" />
-              {post.readTime}
+              <Clock className="w-3.5 h-3.5 text-[#81D607]" />
+              {post.read_time || "5 min read"}
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight font-mono">
             {post.title}
           </h1>
 
@@ -72,20 +94,20 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
               <User className="w-4 h-4 text-[#81D607]" />
               <div>
                 <span className="font-mono font-bold text-[#E1E6EB]">{post.author}</span>
-                <span className="block text-[10px] text-[#9DA4B0]">{post.authorRole}</span>
+                <span className="block text-[10px] text-[#9DA4B0]">{post.author_role}</span>
               </div>
             </div>
 
             <div className="flex items-center gap-2 font-mono">
               <Calendar className="w-4 h-4 text-[#81D607]" />
-              <span>{post.date}</span>
+              <span>{formattedDate}</span>
             </div>
           </div>
         </header>
 
-        {/* Article Content */}
-        <div className="space-y-6 text-base text-[#9DA4B0] font-sans leading-relaxed pt-2 border-b border-[#E1E6EB]/10 pb-12 whitespace-pre-line">
-          {post.content}
+        {/* Article Markdown Content - Beautifully Rendered */}
+        <div className="py-2 border-b border-[#E1E6EB]/10 pb-12">
+          <MarkdownRenderer content={post.content} />
         </div>
 
         {/* Article Bottom Call To Action */}

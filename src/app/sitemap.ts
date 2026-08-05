@@ -1,15 +1,30 @@
 import { MetadataRoute } from "next";
-import { staticBlogs } from "@/data/blogs";
+import { createAdminClient } from "@/utils/supabase/admin";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://codzilla.com";
 
-  const blogRoutes: MetadataRoute.Sitemap = staticBlogs.map((post) => ({
-    url: `${baseUrl}/blog/${post.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  let blogRoutes: MetadataRoute.Sitemap = [];
+
+  try {
+    const adminDb = createAdminClient();
+    if (adminDb) {
+      const { data: blogs } = await adminDb
+        .from("blogs")
+        .select("id, updated_at");
+
+      if (blogs && blogs.length > 0) {
+        blogRoutes = blogs.map((post) => ({
+          url: `${baseUrl}/blog/${post.id}`,
+          lastModified: post.updated_at ? new Date(post.updated_at) : new Date(),
+          changeFrequency: "monthly",
+          priority: 0.7,
+        }));
+      }
+    }
+  } catch (err) {
+    console.error("Sitemap dynamic blog fetch error:", err);
+  }
 
   return [
     {
