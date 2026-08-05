@@ -100,7 +100,7 @@ export default function Footer() {
                 { name: "About Us", href: "/#about" },
                 { name: "Services", href: "/#services" },
                 { name: "Portfolio", href: "/#portfolio" },
-                { name: "Our Team", href: "/#team" },
+                { name: "Our Team", href: "/team" },
                 { name: "Careers / Talent", href: "/talent-acquisition" },
                 { name: "Blog / Insights", href: "/blog" },
                 { name: "Contact", href: "/contact" },

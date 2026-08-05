@@ -335,5 +335,63 @@ select
   'active'
 where not exists (select 1 from public.job_postings where title = 'Full-Stack Next.js Developer');
 
+-- 9. Create Team Members Table
+create table if not exists public.team_members (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  role text not null,
+  specialty text default '',
+  bio text default '',
+  avatar_url text default '',
+  initials text default '',
+  is_founder boolean not null default false,
+  linkedin_url text default '',
+  github_url text default '',
+  x_url text default '',
+  display_order integer not null default 0,
+  status text not null default 'active',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Performance Indexes
+create index if not exists team_members_display_order_idx on public.team_members (display_order asc, created_at asc);
+
+-- Enable RLS on team_members
+alter table public.team_members enable row level security;
+
+-- Policy 1: Anyone can view team members
+drop policy if exists "Team members are viewable by everyone" on public.team_members;
+create policy "Team members are viewable by everyone"
+  on public.team_members
+  for select
+  using ( true );
+
+-- Policy 2: Admins can insert team members
+drop policy if exists "Admins can insert team members" on public.team_members;
+create policy "Admins can insert team members"
+  on public.team_members
+  for insert
+  to authenticated
+  with check ( public.is_admin() );
+
+-- Policy 3: Admins can update team members
+drop policy if exists "Admins can update team members" on public.team_members;
+create policy "Admins can update team members"
+  on public.team_members
+  for update
+  to authenticated
+  using ( public.is_admin() )
+  with check ( public.is_admin() );
+
+-- Policy 4: Admins can delete team members
+drop policy if exists "Admins can delete team members" on public.team_members;
+create policy "Admins can delete team members"
+  on public.team_members
+  for delete
+  to authenticated
+  using ( public.is_admin() );
+
+
 
 
