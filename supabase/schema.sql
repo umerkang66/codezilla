@@ -208,4 +208,132 @@ create policy "Admins can delete contact messages"
   to authenticated
   using ( public.is_admin() );
 
+-- 7. Create Job Postings Table for Talent Acquisition
+create table if not exists public.job_postings (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  domain text not null default 'Engineering',
+  type text not null default 'Remote / Project-Based',
+  description text not null,
+  skills text[] default '{}'::text[],
+  requirements text default '',
+  status text not null default 'active',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS on job_postings
+alter table public.job_postings enable row level security;
+
+-- Policy 1: Anyone can view job postings
+drop policy if exists "Job postings are viewable by everyone" on public.job_postings;
+create policy "Job postings are viewable by everyone"
+  on public.job_postings
+  for select
+  using ( true );
+
+-- Policy 2: Admins can insert job postings
+drop policy if exists "Admins can insert job postings" on public.job_postings;
+create policy "Admins can insert job postings"
+  on public.job_postings
+  for insert
+  to authenticated
+  with check ( public.is_admin() );
+
+-- Policy 3: Admins can update job postings
+drop policy if exists "Admins can update job postings" on public.job_postings;
+create policy "Admins can update job postings"
+  on public.job_postings
+  for update
+  to authenticated
+  using ( public.is_admin() )
+  with check ( public.is_admin() );
+
+-- Policy 4: Admins can delete job postings
+drop policy if exists "Admins can delete job postings" on public.job_postings;
+create policy "Admins can delete job postings"
+  on public.job_postings
+  for delete
+  to authenticated
+  using ( public.is_admin() );
+
+-- 8. Create Job Applications Table
+create table if not exists public.job_applications (
+  id uuid primary key default gen_random_uuid(),
+  job_id uuid references public.job_postings(id) on delete cascade,
+  full_name text not null,
+  email text not null,
+  phone text default '',
+  portfolio_url text default '',
+  linkedin_url text default '',
+  cover_letter text default '',
+  resume_url text not null,
+  resume_file_name text not null,
+  resume_file_type text not null,
+  status text not null default 'pending',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Performance Indexes
+create index if not exists job_applications_job_id_idx on public.job_applications (job_id);
+create index if not exists job_applications_created_at_idx on public.job_applications (created_at desc);
+
+-- Enable RLS on job_applications
+alter table public.job_applications enable row level security;
+
+-- Policy 1: Anyone can insert job applications
+drop policy if exists "Anyone can insert job applications" on public.job_applications;
+create policy "Anyone can insert job applications"
+  on public.job_applications
+  for insert
+  with check ( true );
+
+-- Policy 2: Admins can view job applications
+drop policy if exists "Admins can view job applications" on public.job_applications;
+create policy "Admins can view job applications"
+  on public.job_applications
+  for select
+  to authenticated
+  using ( public.is_admin() );
+
+-- Policy 3: Admins can update job applications
+drop policy if exists "Admins can update job applications" on public.job_applications;
+create policy "Admins can update job applications"
+  on public.job_applications
+  for update
+  to authenticated
+  using ( public.is_admin() )
+  with check ( public.is_admin() );
+
+-- Policy 4: Admins can delete job applications
+drop policy if exists "Admins can delete job applications" on public.job_applications;
+create policy "Admins can delete job applications"
+  on public.job_applications
+  for delete
+  to authenticated
+  using ( public.is_admin() );
+
+-- Seed default initial jobs if not existing
+insert into public.job_postings (title, domain, type, description, skills, status)
+select
+  'AI & Computer Vision Researcher',
+  'AI / ML Engineering',
+  'Remote / Project-Based',
+  'Train, fine-tune, and deploy computer vision models, object detection pipelines, and high-performance inference APIs.',
+  ARRAY['PyTorch', 'OpenCV', 'YOLO', 'FastAPI'],
+  'active'
+where not exists (select 1 from public.job_postings where title = 'AI & Computer Vision Researcher');
+
+insert into public.job_postings (title, domain, type, description, skills, status)
+select
+  'Full-Stack Next.js Developer',
+  'Web Development',
+  'Remote / Project-Based',
+  'Architect dynamic, responsive web applications using Next.js, TypeScript, Tailwind CSS, and REST/GraphQL APIs.',
+  ARRAY['Next.js', 'TypeScript', 'Tailwind CSS', 'REST APIs'],
+  'active'
+where not exists (select 1 from public.job_postings where title = 'Full-Stack Next.js Developer');
+
+
 

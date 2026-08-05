@@ -11,6 +11,7 @@ import {
   Users,
   BookOpen,
   Mail,
+  Briefcase,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin, getAdminEmails } from "@/utils/admin";
@@ -148,6 +149,13 @@ export default async function AdminDashboardPage() {
   const totalContactMsgs = contactMsgs?.length || 0;
   const unreadContactMsgs = contactMsgs?.filter((m) => !m.is_read).length || 0;
 
+  // Fetch Talent Acquisition statistics
+  const { data: jobApps } = await supabase
+    .from("job_applications")
+    .select("id, status");
+  const totalJobApps = jobApps?.length || 0;
+  const pendingJobApps = jobApps?.filter((a) => a.status === "pending").length || 0;
+
   // 4. OVERVIEW PAGE WITH SHARED SIDEBAR & HEADER
   return (
     <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex font-sans select-none">
@@ -235,11 +243,18 @@ export default async function AdminDashboardPage() {
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
               <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
                 <div className="flex items-center justify-between text-[#81D607]">
-                  <span className="text-xs font-mono uppercase">System Health</span>
-                  <ShieldCheck className="w-5 h-5" />
+                  <span className="text-xs font-mono uppercase">Talent Applications</span>
+                  <Briefcase className="w-5 h-5" />
                 </div>
-                <div className="text-xl font-extrabold text-[#81D607] font-mono">100% Operational</div>
-                <p className="text-[11px] text-[#9DA4B0]">Supabase Auth & RLS Active</p>
+                <div className="text-xl font-extrabold text-[#E1E6EB] font-mono flex items-center gap-2">
+                  <span>{totalJobApps} Total</span>
+                  {pendingJobApps > 0 && (
+                    <span className="text-xs px-2 py-0.5 bg-[#81D607] text-[#111111] font-bold">
+                      {pendingJobApps} New
+                    </span>
+                  )}
+                </div>
+                <p className="text-[11px] text-[#9DA4B0]">From /talent-acquisition</p>
               </div>
 
               <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
@@ -279,7 +294,26 @@ export default async function AdminDashboardPage() {
           </div>
 
           {/* Quick Navigation Callout Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="p-6 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+              <div className="space-y-1">
+                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                  <Briefcase className="w-4 h-4 text-[#81D607]" />
+                  <span>Talent Acquisition</span>
+                </h3>
+                <p className="text-xs text-[#9DA4B0]">
+                  Manage job postings CRUD and review candidate CV applications (.pdf, .docx) in modal.
+                </p>
+              </div>
+              <Link
+                href="/admin/talent-acquisition"
+                className="px-5 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full"
+              >
+                <Briefcase className="w-4 h-4" />
+                <span>Talent Acquisition</span>
+              </Link>
+            </div>
+
             <div className="p-6 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
               <div className="space-y-1">
                 <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
@@ -292,10 +326,10 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/contact-messages"
-                className="px-5 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full"
+                className="px-5 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                <span>View Contact Messages</span>
+                <span>View Messages</span>
               </Link>
             </div>
 
@@ -314,7 +348,7 @@ export default async function AdminDashboardPage() {
                 className="px-5 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <BookOpen className="w-4 h-4" />
-                <span>Manage Blog Articles</span>
+                <span>Manage Blogs</span>
               </Link>
             </div>
 
@@ -322,7 +356,7 @@ export default async function AdminDashboardPage() {
               <div className="space-y-1">
                 <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
                   <Users className="w-4 h-4 text-[#81D607]" />
-                  <span>User & Admin Management</span>
+                  <span>User Management</span>
                 </h3>
                 <p className="text-xs text-[#9DA4B0]">
                   Search registered users by name or email, assign sub-admin privileges, or revoke access.
@@ -333,7 +367,7 @@ export default async function AdminDashboardPage() {
                 className="px-5 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <Users className="w-4 h-4" />
-                <span>Go to Admin Management</span>
+                <span>User Management</span>
               </Link>
             </div>
           </div>
