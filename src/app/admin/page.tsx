@@ -7,7 +7,6 @@ import {
   ArrowLeft,
   User,
   CheckCircle2,
-  Database,
   Users,
   BookOpen,
   Mail,
@@ -249,7 +248,7 @@ export default async function AdminDashboardPage() {
             </div>
 
             {/* Quick Metrics Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
                 <div className="flex items-center justify-between text-[#81D607]">
                   <span className="text-xs font-mono uppercase">Talent Applications</span>
@@ -284,15 +283,6 @@ export default async function AdminDashboardPage() {
 
               <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
                 <div className="flex items-center justify-between text-[#81D607]">
-                  <span className="text-xs font-mono uppercase">Database Engine</span>
-                  <Database className="w-5 h-5" />
-                </div>
-                <div className="text-xl font-extrabold text-[#E1E6EB] font-mono">PostgreSQL</div>
-                <p className="text-[11px] text-[#9DA4B0]">Row-Level Security Enabled</p>
-              </div>
-
-              <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
-                <div className="flex items-center justify-between text-[#81D607]">
                   <span className="text-xs font-mono uppercase">Configured Admins</span>
                   <Users className="w-5 h-5" />
                 </div>
@@ -316,12 +306,13 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/portfolio"
-                className="px-4 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full"
+                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <FolderGit2 className="w-4 h-4" />
                 <span>Manage Portfolio</span>
               </Link>
             </div>
+
             <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
               <div className="space-y-1">
                 <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
@@ -334,7 +325,7 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/packages"
-                className="px-4 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full"
+                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <Package className="w-4 h-4" />
                 <span>Manage Packages</span>
@@ -353,7 +344,7 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/teams"
-                className="px-4 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <Users className="w-4 h-4" />
                 <span>Manage Team</span>
@@ -372,7 +363,7 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/testimonials"
-                className="px-4 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <MessageSquareQuote className="w-4 h-4" />
                 <span>Manage Reviews</span>
@@ -391,7 +382,7 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/talent-acquisition"
-                className="px-4 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <Briefcase className="w-4 h-4" />
                 <span>Talent Acquisition</span>
@@ -410,7 +401,7 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/contact-messages"
-                className="px-4 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 <span>View Messages</span>
@@ -429,7 +420,7 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/blogs"
-                className="px-4 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <BookOpen className="w-4 h-4" />
                 <span>Manage Blogs</span>
@@ -440,7 +431,7 @@ export default async function AdminDashboardPage() {
               <div className="space-y-1">
                 <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
                   <Users className="w-4 h-4 text-[#81D607]" />
-                  <span>User Management</span>
+                  <span>Admin Management</span>
                 </h3>
                 <p className="text-xs text-[#9DA4B0]">
                   Search registered users by name or email, assign sub-admin privileges, or revoke.
@@ -448,10 +439,10 @@ export default async function AdminDashboardPage() {
               </div>
               <Link
                 href="/admin/adminmanagement"
-                className="px-4 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
               >
                 <Users className="w-4 h-4" />
-                <span>User Roles</span>
+                <span>Admin Management</span>
               </Link>
             </div>
           </div>

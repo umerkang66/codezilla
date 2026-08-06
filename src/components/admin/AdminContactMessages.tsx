@@ -16,6 +16,8 @@ import {
   Inbox,
   Filter,
   CheckCheck,
+  AlertTriangle,
+  Loader2,
 } from "lucide-react";
 
 export interface ContactMessage {
@@ -40,6 +42,8 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
   const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [actionMessage, setActionMessage] = useState<string | null>(null);
+  const [messageToDelete, setMessageToDelete] = useState<ContactMessage | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Unread count and Total count
   const unreadCount = messages.filter((m) => !m.is_read).length;
@@ -132,9 +136,16 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
     }
   };
 
-  // Delete message
-  const handleDeleteMessage = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this contact message?")) return;
+  // Open delete confirmation modal
+  const promptDeleteMessage = (msg: ContactMessage) => {
+    setMessageToDelete(msg);
+  };
+
+  // Confirm delete message
+  const confirmDeleteMessage = async () => {
+    if (!messageToDelete) return;
+    const id = messageToDelete.id;
+    setIsDeleting(true);
 
     // Optimistic remove
     setMessages((prev) => prev.filter((msg) => msg.id !== id));
@@ -156,6 +167,9 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
     } catch (err) {
       console.error("Error deleting message", err);
       refreshMessages();
+    } finally {
+      setIsDeleting(false);
+      setMessageToDelete(null);
     }
   };
 
@@ -410,7 +424,10 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                       {/* Delete Button */}
                       <button
                         title="Delete Message"
-                        onClick={() => handleDeleteMessage(msg.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          promptDeleteMessage(msg);
+                        }}
                         className="p-1.5 text-[#9DA4B0] hover:text-red-400 hover:bg-[#111111] transition-colors rounded-none"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -536,7 +553,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
 
               <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
                 <button
-                  onClick={() => handleDeleteMessage(selectedMessage.id)}
+                  onClick={() => promptDeleteMessage(selectedMessage)}
                   className="px-4 py-2.5 bg-red-950/80 border border-red-500/50 text-red-400 hover:bg-red-900 font-mono text-xs transition-colors rounded-none flex items-center justify-center gap-2"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -550,6 +567,67 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                   <span>Close Modal</span>
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* DELETE CONFIRMATION MODAL */}
+      {messageToDelete && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-6 text-left shadow-2xl rounded-none animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center gap-3 text-red-500">
+              <div className="w-10 h-10 bg-[#111111] border border-red-500 flex items-center justify-center shrink-0">
+                <AlertTriangle className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-base font-mono font-bold text-[#E1E6EB]">
+                  Delete Contact Message?
+                </h3>
+                <p className="text-xs text-[#9DA4B0]">This action cannot be undone.</p>
+              </div>
+            </div>
+
+            <div className="text-xs text-[#9DA4B0] bg-[#111111] p-3.5 border border-red-500/20 font-mono space-y-1">
+              <div>
+                <span className="text-[#9DA4B0]">From: </span>
+                <strong className="text-[#E1E6EB]">{messageToDelete.name}</strong>{" "}
+                <span className="text-[#81D607]">({messageToDelete.email})</span>
+              </div>
+              {messageToDelete.service && (
+                <div>
+                  <span className="text-[#9DA4B0]">Service: </span>
+                  <span className="text-[#E1E6EB]">{messageToDelete.service}</span>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setMessageToDelete(null)}
+                disabled={isDeleting}
+                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] font-mono text-xs rounded-none transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={confirmDeleteMessage}
+                disabled={isDeleting}
+                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2 rounded-none transition-colors disabled:opacity-50"
+              >
+                {isDeleting ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Deleting...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Confirm Delete</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>
