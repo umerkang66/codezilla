@@ -4,8 +4,7 @@ import { ShieldAlert, LogOut, ArrowLeft } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { isMainAdmin } from "@/utils/admin";
-import AdminSidebar from "@/components/admin/AdminSidebar";
-import AdminHeader from "@/components/admin/AdminHeader";
+import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 import AdminUserManagement from "@/components/admin/AdminUserManagement";
 
 export const metadata = {
@@ -228,34 +227,19 @@ export default async function AdminManagementPage() {
 
   // 5. RENDER DEDICATED ADMIN MANAGEMENT PAGE
   return (
-    <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex font-sans select-none">
-      {/* Sidebar */}
-      <AdminSidebar
-        userEmail={user.email!}
-        fullName={fullName}
-        avatarUrl={avatarUrl}
-        isSuperAdmin={isSuperAdmin}
-      />
-
-      {/* Main Content Canvas */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#111111]">
-        {/* Top Header */}
-        <AdminHeader
-          userEmail={user.email!}
-          fullName={fullName}
-          avatarUrl={avatarUrl}
+    <AdminLayoutClient
+      userEmail={user.email!}
+      fullName={fullName}
+      avatarUrl={avatarUrl}
+      isSuperAdmin={isSuperAdmin}
+    >
+      <div className="flex-1 p-4 sm:p-8 space-y-6 overflow-y-auto text-left">
+        <AdminUserManagement
           isSuperAdmin={isSuperAdmin}
+          initialUsers={initialUsers}
         />
-
-        {/* User Management Content Canvas */}
-        <div className="flex-1 p-8 space-y-6 overflow-y-auto text-left">
-          <AdminUserManagement
-            isSuperAdmin={isSuperAdmin}
-            initialUsers={initialUsers}
-          />
-        </div>
       </div>
-    </main>
+    </AdminLayoutClient>
   );
 }
 

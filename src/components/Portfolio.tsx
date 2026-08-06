@@ -84,26 +84,26 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+    <section id="portfolio" className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3 sm:space-y-4">
         <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
           Proof of Work
         </div>
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
+        <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
           Selected Portfolio & Case Studies
         </h2>
-        <p className="text-base text-[#9DA4B0]">
+        <p className="text-sm sm:text-base text-[#9DA4B0]">
           Explore representative engineering projects delivered across software engineering, machine learning, dynamic web apps, and KiCad PCB hardware.
         </p>
 
         {/* Filter Category Tabs */}
         {!loading && availableCategories.length > 1 && (
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 pt-3 sm:pt-4">
             {availableCategories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 text-xs font-mono tracking-wide transition-colors rounded-none ${
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono tracking-wide transition-colors rounded-none ${
                   activeCategory === cat
                     ? "bg-[#81D607] text-[#111111] font-bold"
                     : "bg-[#1A1A1A] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -126,7 +126,7 @@ export default function Portfolio() {
         </div>
       ) : filteredProjects.length === 0 ? (
         /* Empty State */
-        <div className="p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-3 rounded-none max-w-xl mx-auto">
+        <div className="p-8 sm:p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-3 rounded-none max-w-xl mx-auto">
           <FolderGit2 className="w-8 h-8 text-[#81D607]/40 mx-auto" />
           <h3 className="text-sm font-mono font-bold text-[#E1E6EB]">
             No projects available
@@ -139,12 +139,12 @@ export default function Portfolio() {
         </div>
       ) : (
         /* Projects Grid */
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredProjects.map((project) => {
             const IconComponent = getIconComponent(project.icon);
 
             const CardContent = (
-              <div className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none text-left h-full">
+              <div className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none text-left h-full">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider px-2 py-0.5 bg-[#111111] border border-[#81D607]/30">

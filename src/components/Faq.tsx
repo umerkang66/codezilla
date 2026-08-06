@@ -40,15 +40,15 @@ export default function Faq() {
   ];
 
   return (
-    <section id="faq" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+    <section id="faq" className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
         <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
           Got Questions?
         </div>
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
+        <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
           Frequently Asked Questions
         </h2>
-        <p className="text-base text-[#9DA4B0]">
+        <p className="text-sm sm:text-base text-[#9DA4B0]">
           Clear answers to common questions about timelines, NDA policies, pricing models, and how we work with client engineering teams.
         </p>
       </div>
@@ -69,9 +69,9 @@ export default function Faq() {
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : idx)}
-                className="w-full px-6 py-4 flex items-center justify-between gap-4 text-left font-mono font-bold text-sm sm:text-base text-[#E1E6EB] focus:outline-none"
+                className="w-full px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 text-left font-mono font-bold text-xs sm:text-base text-[#E1E6EB] focus:outline-none"
               >
-                <span className="flex items-center gap-3">
+                <span className="flex items-center gap-2.5 sm:gap-3">
                   <HelpCircle className="w-4 h-4 text-[#81D607] shrink-0" />
                   <span>{faq.question}</span>
                 </span>
@@ -81,7 +81,7 @@ export default function Faq() {
               </button>
 
               {isOpen && (
-                <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#9DA4B0] font-sans leading-relaxed border-t border-[#E1E6EB]/5">
+                <div className="px-4 sm:px-6 pb-4 sm:pb-5 pt-1 text-xs sm:text-sm text-[#9DA4B0] font-sans leading-relaxed border-t border-[#E1E6EB]/5">
                   {faq.answer}
                 </div>
               )}

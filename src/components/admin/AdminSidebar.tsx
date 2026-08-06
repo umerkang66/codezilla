@@ -9,6 +9,8 @@ interface AdminSidebarProps {
   fullName: string;
   avatarUrl?: string;
   isSuperAdmin: boolean;
+  isOpenMobile?: boolean;
+  onCloseMobile?: () => void;
 }
 
 export default function AdminSidebar({
@@ -16,6 +18,8 @@ export default function AdminSidebar({
   fullName,
   avatarUrl,
   isSuperAdmin,
+  isOpenMobile = false,
+  onCloseMobile,
 }: AdminSidebarProps) {
   const pathname = usePathname();
 
@@ -76,21 +80,23 @@ export default function AdminSidebar({
     },
   ];
 
-  return (
-    <aside className="w-64 bg-[#1A1A1A] border-r border-[#81D607]/20 flex flex-col justify-between p-5 shrink-0 select-none">
-      <div className="space-y-8">
+  const SidebarContent = (
+    <div className="flex flex-col justify-between h-full p-5 text-left select-none">
+      <div className="space-y-6">
         {/* Sidebar Brand Header */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] rounded-none">
-            <Lock className="w-5 h-5 stroke-[2.5]" />
-          </div>
-          <div className="flex flex-col text-left">
-            <span className="font-mono font-bold text-sm text-[#E1E6EB]">
-              CODZILLA
-            </span>
-            <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider">
-              Admin Panel
-            </span>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] rounded-none">
+              <Lock className="w-5 h-5 stroke-[2.5]" />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="font-mono font-bold text-sm text-[#E1E6EB]">
+                CODZILLA
+              </span>
+              <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider">
+                Admin Panel
+              </span>
+            </div>
           </div>
         </div>
 
@@ -103,6 +109,7 @@ export default function AdminSidebar({
             <Link
               key={item.name}
               href={item.href}
+              onClick={onCloseMobile}
               className={`flex items-center gap-3 px-3 py-2.5 font-mono font-bold text-xs transition-colors rounded-none ${
                 item.active
                   ? "bg-[#81D607] text-[#111111]"
@@ -142,12 +149,35 @@ export default function AdminSidebar({
 
         <Link
           href="/"
+          onClick={onCloseMobile}
           className="w-full inline-flex items-center justify-center gap-2 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Return to Website</span>
         </Link>
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar (hidden on screens < lg) */}
+      <aside className="w-64 bg-[#1A1A1A] border-r border-[#81D607]/20 hidden lg:flex flex-col shrink-0">
+        {SidebarContent}
+      </aside>
+
+      {/* Mobile Drawer Overlay (visible when open on < lg) */}
+      {isOpenMobile && (
+        <div className="fixed inset-0 z-50 flex lg:hidden">
+          <div
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+            onClick={onCloseMobile}
+          />
+          <aside className="relative w-72 bg-[#1A1A1A] border-r border-[#81D607]/40 h-full shadow-2xl z-10 overflow-y-auto">
+            {SidebarContent}
+          </aside>
+        </div>
+      )}
+    </>
   );
 }

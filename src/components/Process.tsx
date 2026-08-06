@@ -42,30 +42,30 @@ export default function Process() {
   ];
 
   return (
-    <section id="process" className="py-20 bg-[#0D0D0D] border-t border-b border-[#E1E6EB]/10">
+    <section id="process" className="py-12 sm:py-20 bg-[#0D0D0D] border-t border-b border-[#E1E6EB]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
           <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
             Proven Workflow
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
             How We Work — Step by Step
           </h2>
-          <p className="text-base text-[#9DA4B0]">
+          <p className="text-sm sm:text-base text-[#9DA4B0]">
             Our structured engineering process ensures complete transparency, on-time delivery, and zero unexpected technical surprises.
           </p>
         </div>
 
         {/* Process Timeline Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
           {steps.map((step, idx) => (
             <div
               key={idx}
-              className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between text-left group rounded-none relative"
+              className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between text-left group rounded-none relative"
             >
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-3xl font-extrabold text-[#81D607] font-mono">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-[#81D607] font-mono">
                     {step.number}
                   </span>
                   <div className="w-8 h-8 bg-[#111111] border border-[#E1E6EB]/10 flex items-center justify-center text-[#81D607] rounded-none">
@@ -73,7 +73,7 @@ export default function Process() {
                   </div>
                 </div>
 
-                <h3 className="text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-snug">
+                <h3 className="text-base sm:text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-snug">
                   {step.title}
                 </h3>
 
@@ -82,7 +82,7 @@ export default function Process() {
                 </p>
               </div>
 
-              <div className="pt-4 mt-6 border-t border-[#E1E6EB]/10 flex items-center justify-between text-[11px] font-mono text-[#9DA4B0]">
+              <div className="pt-4 mt-5 sm:mt-6 border-t border-[#E1E6EB]/10 flex items-center justify-between text-[11px] font-mono text-[#9DA4B0]">
                 <span>Est. Duration:</span>
                 <span className="text-[#81D607] font-semibold">{step.duration}</span>
               </div>

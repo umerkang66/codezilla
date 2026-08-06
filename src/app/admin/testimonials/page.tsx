@@ -3,8 +3,7 @@ import Link from "next/link";
 import { ShieldAlert, LogOut, ArrowLeft } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin } from "@/utils/admin";
-import AdminSidebar from "@/components/admin/AdminSidebar";
-import AdminHeader from "@/components/admin/AdminHeader";
+import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 import AdminTestimonialsManagement from "@/components/admin/AdminTestimonialsManagement";
 
 export const metadata = {
@@ -108,27 +107,13 @@ export default async function AdminTestimonialsPage() {
     .order("created_at", { ascending: false });
 
   return (
-    <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex font-sans select-none">
-      {/* Sidebar Navigation */}
-      <AdminSidebar
-        userEmail={user.email!}
-        fullName={fullName}
-        avatarUrl={avatarUrl}
-        isSuperAdmin={isSuperAdmin}
-      />
-
-      {/* Main Panel Canvas */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#111111]">
-        <AdminHeader
-          userEmail={user.email!}
-          fullName={fullName}
-          avatarUrl={avatarUrl}
-          isSuperAdmin={isSuperAdmin}
-        />
-
-        {/* Testimonials Management Workspace */}
-        <AdminTestimonialsManagement initialTestimonials={testimonials || []} />
-      </div>
-    </main>
+    <AdminLayoutClient
+      userEmail={user.email!}
+      fullName={fullName}
+      avatarUrl={avatarUrl}
+      isSuperAdmin={isSuperAdmin}
+    >
+      <AdminTestimonialsManagement initialTestimonials={testimonials || []} />
+    </AdminLayoutClient>
   );
 }

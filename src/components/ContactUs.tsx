@@ -61,15 +61,15 @@ export default function ContactUs() {
 
 
   return (
-    <section id="contact" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <section id="contact" className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left Column: Direct Info & Location */}
-        <div className="lg:col-span-5 space-y-8 text-left">
+        <div className="lg:col-span-5 space-y-6 sm:space-y-8 text-left">
           <div className="space-y-3">
             <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
               Let&apos;s Work Together
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#E1E6EB] tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
               Get in Touch with Our Engineering Team
             </h2>
             <p className="text-sm text-[#9DA4B0] leading-relaxed">
@@ -78,54 +78,54 @@ export default function ContactUs() {
           </div>
 
           {/* Contact Details Grid */}
-          <div className="space-y-4 pt-2">
-            <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-4">
-              <div className="w-10 h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
-                <Mail className="w-5 h-5" />
+          <div className="space-y-3 sm:space-y-4 pt-2">
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-3 sm:gap-4">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <div>
-                <div className="text-xs text-[#9DA4B0] uppercase font-mono">Email Address</div>
+              <div className="min-w-0 flex-1">
+                <div className="text-[10px] sm:text-xs text-[#9DA4B0] uppercase font-mono">Email Address</div>
                 <a
                   href="mailto:codzilla.company@gmail.com"
-                  className="text-sm font-bold text-[#E1E6EB] hover:text-[#81D607] transition-colors break-all"
+                  className="text-xs sm:text-sm font-bold text-[#E1E6EB] hover:text-[#81D607] transition-colors break-all block"
                 >
                   codzilla.company@gmail.com
                 </a>
               </div>
             </div>
 
-            <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-4">
-              <div className="w-10 h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
-                <Phone className="w-5 h-5" />
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-3 sm:gap-4">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <div className="text-xs text-[#9DA4B0] uppercase font-mono">Phone / WhatsApp</div>
+                <div className="text-[10px] sm:text-xs text-[#9DA4B0] uppercase font-mono">Phone / WhatsApp</div>
                 <a
                   href="tel:+923339072742"
-                  className="text-sm font-bold text-[#E1E6EB] hover:text-[#81D607] transition-colors"
+                  className="text-xs sm:text-sm font-bold text-[#E1E6EB] hover:text-[#81D607] transition-colors"
                 >
                   +92 333 9072742
                 </a>
               </div>
             </div>
 
-            <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-4">
-              <div className="w-10 h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
-                <MapPin className="w-5 h-5" />
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-3 sm:gap-4">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <div className="text-xs text-[#9DA4B0] uppercase font-mono">Headquarters</div>
-                <div className="text-sm font-bold text-[#E1E6EB]">Lahore, Pakistan</div>
+                <div className="text-[10px] sm:text-xs text-[#9DA4B0] uppercase font-mono">Headquarters</div>
+                <div className="text-xs sm:text-sm font-bold text-[#E1E6EB]">Lahore, Pakistan</div>
               </div>
             </div>
 
-            <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-4">
-              <div className="w-10 h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
-                <Clock className="w-5 h-5" />
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-3 sm:gap-4">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
-                <div className="text-xs text-[#9DA4B0] uppercase font-mono">Response Time</div>
-                <div className="text-sm font-bold text-[#E1E6EB]">Guaranteed within 24 Hours</div>
+                <div className="text-[10px] sm:text-xs text-[#9DA4B0] uppercase font-mono">Response Time</div>
+                <div className="text-xs sm:text-sm font-bold text-[#E1E6EB]">Guaranteed within 24 Hours</div>
               </div>
             </div>
           </div>
@@ -133,8 +133,8 @@ export default function ContactUs() {
 
         {/* Right Column: Contact Form */}
         <div className="lg:col-span-7">
-          <div className="bg-[#1A1A1A] border border-[#E1E6EB]/15 p-6 sm:p-8 rounded-none">
-            <h3 className="text-xl font-bold text-[#E1E6EB] mb-6 flex items-center gap-2">
+          <div className="bg-[#1A1A1A] border border-[#E1E6EB]/15 p-5 sm:p-8 rounded-none">
+            <h3 className="text-lg sm:text-xl font-bold text-[#E1E6EB] mb-5 sm:mb-6 flex items-center gap-2">
               <MessageSquare className="w-5 h-5 text-[#81D607]" />
               <span>Send Us a Message</span>
             </h3>

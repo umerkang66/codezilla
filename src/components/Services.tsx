@@ -65,44 +65,44 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-20 bg-[#0D0D0D] border-t border-b border-[#E1E6EB]/10">
+    <section id="services" className="py-12 sm:py-20 bg-[#0D0D0D] border-t border-b border-[#E1E6EB]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
           <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
             Commercial Offerings
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
             End-to-End Technology Solutions Under One Roof
           </h2>
-          <p className="text-base sm:text-lg text-[#9DA4B0]">
+          <p className="text-sm sm:text-lg text-[#9DA4B0]">
             From software architecture and AI models to physical hardware PCB engineering, we turn technical complexities into scalable commercial products.
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {servicesList.map((service, index) => (
             <div
               key={index}
-              className="glass-card p-6 border border-[#E1E6EB]/10 bg-[#1A1A1A] hover:bg-[#222222] hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none"
+              className="glass-card p-5 sm:p-6 border border-[#E1E6EB]/10 bg-[#1A1A1A] hover:bg-[#222222] hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none text-left"
             >
-              <div className="space-y-4">
-                <div className="w-12 h-12 bg-[#111111] border border-[#E1E6EB]/15 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] transition-all rounded-none">
-                  <service.icon className="w-6 h-6" />
+              <div className="space-y-3 sm:space-y-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#111111] border border-[#E1E6EB]/15 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] transition-all rounded-none">
+                  <service.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider">
                   {service.category}
                 </span>
-                <h3 className="text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-snug">
+                <h3 className="text-base sm:text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-snug">
                   {service.title}
                 </h3>
-                <p className="text-xs text-[#9DA4B0] leading-relaxed">
+                <p className="text-xs text-[#9DA4B0] leading-relaxed font-sans">
                   {service.description}
                 </p>
               </div>
 
-              <div className="pt-6 mt-4 border-t border-[#E1E6EB]/10">
+              <div className="pt-4 sm:pt-6 mt-4 border-t border-[#E1E6EB]/10">
                 <a
                   href="#contact"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[#81D607] hover:text-[#72BE06] transition-colors"

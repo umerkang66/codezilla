@@ -31,21 +31,21 @@ export default function Stats() {
   ];
 
   return (
-    <section id="stats" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="bg-[#1A1A1A] border border-[#81D607]/40 p-8 sm:p-12 rounded-none">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-[#E1E6EB]/10">
+    <section id="stats" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#1A1A1A] border border-[#81D607]/40 p-6 sm:p-12 rounded-none">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-[#E1E6EB]/10">
           {statItems.map((stat, idx) => (
             <div
               key={idx}
               className={`text-center space-y-2 ${
-                idx > 0 ? "pt-6 sm:pt-0 sm:pl-6" : ""
+                idx > 0 ? "pt-5 sm:pt-0 sm:pl-6" : ""
               }`}
             >
-              <stat.icon className="w-6 h-6 text-[#81D607] mx-auto mb-2" />
-              <div className="text-4xl sm:text-5xl font-extrabold text-[#81D607] font-mono tracking-tight">
+              <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#81D607] mx-auto mb-2" />
+              <div className="text-3xl sm:text-5xl font-extrabold text-[#81D607] font-mono tracking-tight">
                 {stat.number}
               </div>
-              <h4 className="text-base font-bold text-[#E1E6EB]">{stat.label}</h4>
+              <h4 className="text-sm sm:text-base font-bold text-[#E1E6EB]">{stat.label}</h4>
               <p className="text-xs text-[#9DA4B0] font-sans">{stat.detail}</p>
             </div>
           ))}

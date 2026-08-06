@@ -27,15 +27,15 @@ export default function BlogPreview() {
   }, []);
 
   return (
-    <section id="blog" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+    <section id="blog" className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
         <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
           Technical Insights & Articles
         </div>
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
+        <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
           Latest Engineering Articles
         </h2>
-        <p className="text-base text-[#9DA4B0]">
+        <p className="text-sm sm:text-base text-[#9DA4B0]">
           Engineering insights, hardware prototyping guides, and AI architecture breakdowns written by Codzilla engineers.
         </p>
       </div>
@@ -52,13 +52,13 @@ export default function BlogPreview() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 text-left">
           {blogs.slice(0, 3).map((post) => (
             <article
               key={post.id}
-              className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none"
+              className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none"
             >
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono px-2.5 py-0.5 bg-[#111111] text-[#81D607] border border-[#81D607]/30">
                     {post.category}
@@ -70,7 +70,7 @@ export default function BlogPreview() {
                 </div>
 
                 <Link href={`/blog/${post.id}`}>
-                  <h3 className="text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-snug">
+                  <h3 className="text-base sm:text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-snug">
                     {post.title}
                   </h3>
                 </Link>
@@ -82,7 +82,7 @@ export default function BlogPreview() {
                 )}
               </div>
 
-              <div className="pt-6 mt-6 border-t border-[#E1E6EB]/10 flex items-center justify-between">
+              <div className="pt-4 sm:pt-6 mt-5 sm:mt-6 border-t border-[#E1E6EB]/10 flex items-center justify-between">
                 <Link
                   href={`/blog/${post.id}`}
                   className="text-xs font-mono font-bold text-[#81D607] hover:underline inline-flex items-center gap-1"

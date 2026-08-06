@@ -19,6 +19,7 @@ import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin, getAdminEmails } from "@/utils/admin";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminHeader from "@/components/admin/AdminHeader";
+import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 
 export const metadata = {
   title: "Admin Panel | Codzilla Technologies",
@@ -165,306 +166,293 @@ export default async function AdminDashboardPage() {
   const totalPortfolioProjects = portfolioData?.length || 0;
 
   // 4. OVERVIEW PAGE WITH SHARED SIDEBAR & HEADER
+  // 4. OVERVIEW PAGE WITH SHARED RESPONSIVE LAYOUT
   return (
-    <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex font-sans select-none">
-      {/* Sidebar */}
-      <AdminSidebar
-        userEmail={user.email!}
-        fullName={fullName}
-        avatarUrl={avatarUrl}
-        isSuperAdmin={isSuperAdmin}
-      />
+    <AdminLayoutClient
+      userEmail={user.email!}
+      fullName={fullName}
+      avatarUrl={avatarUrl}
+      isSuperAdmin={isSuperAdmin}
+    >
+      {/* Dashboard Main Workspace Canvas */}
+      <div className="flex-1 p-4 sm:p-8 flex flex-col justify-between overflow-y-auto text-left space-y-6 sm:space-y-8">
+        {/* Welcome & Overview Header */}
+        <div className="space-y-6">
+          <div className="space-y-1">
+            <h2 className="text-xl sm:text-2xl font-mono font-extrabold text-[#E1E6EB]">
+              Admin Dashboard Overview
+            </h2>
+            <p className="text-xs text-[#9DA4B0]">
+              Welcome back, <span className="text-[#81D607] font-mono">{fullName}</span> ({isSuperAdmin ? "Main Admin" : "Sub-Admin"}). System is fully operational and synchronized.
+            </p>
+          </div>
 
-      {/* Main Panel Content Canvas */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#111111]">
-        {/* Top Header */}
-        <AdminHeader
-          userEmail={user.email!}
-          fullName={fullName}
-          avatarUrl={avatarUrl}
-          isSuperAdmin={isSuperAdmin}
-        />
+          {/* Admin Profile Details Card (Featured Avatar Picture) */}
+          <div className="p-4 sm:p-6 bg-[#1A1A1A] border border-[#81D607]/40 space-y-4 rounded-none">
+            <div className="flex items-center gap-3 sm:gap-4 border-b border-[#E1E6EB]/10 pb-4">
+              {avatarUrl ? (
+                <img
+                  src={avatarUrl}
+                  alt={fullName}
+                  className="w-12 h-12 sm:w-14 sm:h-14 border-2 border-[#81D607] object-cover shrink-0 rounded-none shadow-md"
+                />
+              ) : (
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-[#111111] border-2 border-[#81D607] flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+                  <User className="w-6 h-6 sm:w-7 sm:h-7" />
+                </div>
+              )}
 
-        {/* Dashboard Main Workspace Canvas */}
-        <div className="flex-1 p-8 flex flex-col justify-between overflow-y-auto text-left space-y-8">
-          {/* Welcome & Overview Header */}
-          <div className="space-y-6">
-            <div className="space-y-1">
-              <h2 className="text-2xl font-mono font-extrabold text-[#E1E6EB]">
-                Admin Dashboard Overview
-              </h2>
-              <p className="text-xs text-[#9DA4B0]">
-                Welcome back, <span className="text-[#81D607] font-mono">{fullName}</span> ({isSuperAdmin ? "Main Admin" : "Sub-Admin"}). System is fully operational and synchronized.
-              </p>
+              <div className="space-y-1 text-left min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-base sm:text-lg font-mono font-bold text-[#E1E6EB] truncate">
+                    {fullName}
+                  </h3>
+                  <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] font-mono font-extrabold text-[10px] uppercase shrink-0">
+                    {isSuperAdmin ? "Main Admin" : "Sub-Admin"}
+                  </span>
+                </div>
+                <p className="text-xs font-mono text-[#81D607] truncate">{user.email}</p>
+              </div>
             </div>
 
-            {/* Admin Profile Details Card (Featured Avatar Picture) */}
-            <div className="p-6 bg-[#1A1A1A] border border-[#81D607]/40 space-y-4 rounded-none">
-              <div className="flex items-center gap-4 border-b border-[#E1E6EB]/10 pb-4">
-                {avatarUrl ? (
-                  <img
-                    src={avatarUrl}
-                    alt={fullName}
-                    className="w-14 h-14 border-2 border-[#81D607] object-cover shrink-0 rounded-none shadow-md"
-                  />
-                ) : (
-                  <div className="w-14 h-14 bg-[#111111] border-2 border-[#81D607] flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
-                    <User className="w-7 h-7" />
-                  </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-xs font-mono">
+              <div className="p-3 bg-[#111111] border border-[#E1E6EB]/10">
+                <span className="text-[#9DA4B0] block text-[10px] uppercase">User Email</span>
+                <span className="text-[#81D607] font-bold truncate block">{user.email}</span>
+              </div>
+              <div className="p-3 bg-[#111111] border border-[#E1E6EB]/10">
+                <span className="text-[#9DA4B0] block text-[10px] uppercase">RBAC Role</span>
+                <span className="text-[#81D607] font-bold block">
+                  {isSuperAdmin ? "MAIN ADMIN (Env)" : "SUB-ADMIN"}
+                </span>
+              </div>
+              <div className="p-3 bg-[#111111] border border-[#E1E6EB]/10">
+                <span className="text-[#9DA4B0] block text-[10px] uppercase">Supabase Auth</span>
+                <span className="text-[#81D607] font-bold block flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Connected</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Metrics Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
+              <div className="flex items-center justify-between text-[#81D607]">
+                <span className="text-xs font-mono uppercase">Talent Applications</span>
+                <Briefcase className="w-5 h-5" />
+              </div>
+              <div className="text-xl font-extrabold text-[#E1E6EB] font-mono flex items-center gap-2">
+                <span>{totalJobApps} Total</span>
+                {pendingJobApps > 0 && (
+                  <span className="text-xs px-2 py-0.5 bg-[#81D607] text-[#111111] font-bold">
+                    {pendingJobApps} New
+                  </span>
                 )}
-
-                <div className="space-y-1 text-left">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-lg font-mono font-bold text-[#E1E6EB]">
-                      {fullName}
-                    </h3>
-                    <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] font-mono font-extrabold text-[10px] uppercase">
-                      {isSuperAdmin ? "Main Admin" : "Sub-Admin"}
-                    </span>
-                  </div>
-                  <p className="text-xs font-mono text-[#81D607]">{user.email}</p>
-                </div>
               </div>
+              <p className="text-[11px] text-[#9DA4B0]">From /talent-acquisition</p>
+            </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
-                <div className="p-3 bg-[#111111] border border-[#E1E6EB]/10">
-                  <span className="text-[#9DA4B0] block text-[10px] uppercase">User Email</span>
-                  <span className="text-[#81D607] font-bold truncate block">{user.email}</span>
-                </div>
-                <div className="p-3 bg-[#111111] border border-[#E1E6EB]/10">
-                  <span className="text-[#9DA4B0] block text-[10px] uppercase">RBAC Role</span>
-                  <span className="text-[#81D607] font-bold block">
-                    {isSuperAdmin ? "MAIN ADMIN (Env)" : "SUB-ADMIN"}
+            <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
+              <div className="flex items-center justify-between text-[#81D607]">
+                <span className="text-xs font-mono uppercase">Contact Messages</span>
+                <Mail className="w-5 h-5" />
+              </div>
+              <div className="text-xl font-extrabold text-[#E1E6EB] font-mono flex items-center gap-2">
+                <span>{totalContactMsgs} Total</span>
+                {unreadContactMsgs > 0 && (
+                  <span className="text-xs px-2 py-0.5 bg-[#81D607] text-[#111111] font-bold">
+                    {unreadContactMsgs} Unread
                   </span>
-                </div>
-                <div className="p-3 bg-[#111111] border border-[#E1E6EB]/10">
-                  <span className="text-[#9DA4B0] block text-[10px] uppercase">Supabase Auth</span>
-                  <span className="text-[#81D607] font-bold block flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>Connected</span>
-                  </span>
-                </div>
+                )}
               </div>
+              <p className="text-[11px] text-[#9DA4B0]">From /contact & Homepage</p>
             </div>
 
-            {/* Quick Metrics Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
-                <div className="flex items-center justify-between text-[#81D607]">
-                  <span className="text-xs font-mono uppercase">Talent Applications</span>
-                  <Briefcase className="w-5 h-5" />
-                </div>
-                <div className="text-xl font-extrabold text-[#E1E6EB] font-mono flex items-center gap-2">
-                  <span>{totalJobApps} Total</span>
-                  {pendingJobApps > 0 && (
-                    <span className="text-xs px-2 py-0.5 bg-[#81D607] text-[#111111] font-bold">
-                      {pendingJobApps} New
-                    </span>
-                  )}
-                </div>
-                <p className="text-[11px] text-[#9DA4B0]">From /talent-acquisition</p>
+            <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
+              <div className="flex items-center justify-between text-[#81D607]">
+                <span className="text-xs font-mono uppercase">Configured Admins</span>
+                <Users className="w-5 h-5" />
               </div>
-
-              <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
-                <div className="flex items-center justify-between text-[#81D607]">
-                  <span className="text-xs font-mono uppercase">Contact Messages</span>
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="text-xl font-extrabold text-[#E1E6EB] font-mono flex items-center gap-2">
-                  <span>{totalContactMsgs} Total</span>
-                  {unreadContactMsgs > 0 && (
-                    <span className="text-xs px-2 py-0.5 bg-[#81D607] text-[#111111] font-bold">
-                      {unreadContactMsgs} Unread
-                    </span>
-                  )}
-                </div>
-                <p className="text-[11px] text-[#9DA4B0]">From /contact & Homepage</p>
-              </div>
-
-              <div className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-none">
-                <div className="flex items-center justify-between text-[#81D607]">
-                  <span className="text-xs font-mono uppercase">Configured Admins</span>
-                  <Users className="w-5 h-5" />
-                </div>
-                <div className="text-xl font-extrabold text-[#E1E6EB] font-mono">{configuredAdmins.length} Emails</div>
-                <p className="text-[11px] text-[#9DA4B0]">From process.env.ADMIN</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Navigation Callout Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
-              <div className="space-y-1">
-                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
-                  <FolderGit2 className="w-4 h-4 text-[#81D607]" />
-                  <span>Portfolio Projects</span>
-                </h3>
-                <p className="text-xs text-[#9DA4B0]">
-                  Manage, add, edit, or reorder representative portfolio items and case studies.
-                </p>
-              </div>
-              <Link
-                href="/admin/portfolio"
-                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
-              >
-                <FolderGit2 className="w-4 h-4" />
-                <span>Manage Portfolio</span>
-              </Link>
-            </div>
-
-            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
-              <div className="space-y-1">
-                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
-                  <Package className="w-4 h-4 text-[#81D607]" />
-                  <span>Packages Management</span>
-                </h3>
-                <p className="text-xs text-[#9DA4B0]">
-                  Create, update, order, or hide Flexible Engineering Packages pricing cards.
-                </p>
-              </div>
-              <Link
-                href="/admin/packages"
-                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
-              >
-                <Package className="w-4 h-4" />
-                <span>Manage Packages</span>
-              </Link>
-            </div>
-
-            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
-              <div className="space-y-1">
-                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
-                  <Users className="w-4 h-4 text-[#81D607]" />
-                  <span>Team Management</span>
-                </h3>
-                <p className="text-xs text-[#9DA4B0]">
-                  Add, edit, or delete leadership & engineering team members shown on frontend.
-                </p>
-              </div>
-              <Link
-                href="/admin/teams"
-                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
-              >
-                <Users className="w-4 h-4" />
-                <span>Manage Team</span>
-              </Link>
-            </div>
-
-            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
-              <div className="space-y-1">
-                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
-                  <MessageSquareQuote className="w-4 h-4 text-[#81D607]" />
-                  <span>Client Reviews</span>
-                </h3>
-                <p className="text-xs text-[#9DA4B0]">
-                  Manage, add, edit, or delete client feedback and verified review credentials.
-                </p>
-              </div>
-              <Link
-                href="/admin/testimonials"
-                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
-              >
-                <MessageSquareQuote className="w-4 h-4" />
-                <span>Manage Reviews</span>
-              </Link>
-            </div>
-
-            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
-              <div className="space-y-1">
-                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
-                  <Briefcase className="w-4 h-4 text-[#81D607]" />
-                  <span>Talent Acquisition</span>
-                </h3>
-                <p className="text-xs text-[#9DA4B0]">
-                  Manage job postings CRUD and review candidate CV applications (.pdf, .docx).
-                </p>
-              </div>
-              <Link
-                href="/admin/talent-acquisition"
-                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
-              >
-                <Briefcase className="w-4 h-4" />
-                <span>Talent Acquisition</span>
-              </Link>
-            </div>
-
-            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
-              <div className="space-y-1">
-                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-[#81D607]" />
-                  <span>Contact Messages</span>
-                </h3>
-                <p className="text-xs text-[#9DA4B0]">
-                  View incoming messages, filter by All or Unread, read in modal and mark as read.
-                </p>
-              </div>
-              <Link
-                href="/admin/contact-messages"
-                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
-              >
-                <Mail className="w-4 h-4" />
-                <span>View Messages</span>
-              </Link>
-            </div>
-
-            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
-              <div className="space-y-1">
-                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-[#81D607]" />
-                  <span>Blogs Management</span>
-                </h3>
-                <p className="text-xs text-[#9DA4B0]">
-                  Create, edit, delete, and publish technical articles using live Markdown editor.
-                </p>
-              </div>
-              <Link
-                href="/admin/blogs"
-                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
-              >
-                <BookOpen className="w-4 h-4" />
-                <span>Manage Blogs</span>
-              </Link>
-            </div>
-
-            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
-              <div className="space-y-1">
-                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
-                  <Users className="w-4 h-4 text-[#81D607]" />
-                  <span>Admin Management</span>
-                </h3>
-                <p className="text-xs text-[#9DA4B0]">
-                  Search registered users by name or email, assign sub-admin privileges, or revoke.
-                </p>
-              </div>
-              <Link
-                href="/admin/adminmanagement"
-                className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
-              >
-                <Users className="w-4 h-4" />
-                <span>Admin Management</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Quick Actions Footer Bar */}
-          <div className="pt-4 border-t border-[#E1E6EB]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <span className="text-xs font-mono text-[#9DA4B0]">
-              Codzilla Administrative System v1.0
-            </span>
-
-            <div className="flex items-center gap-3">
-              <Link
-                href="/"
-                className="px-5 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none flex items-center gap-2"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Return to Website</span>
-              </Link>
+              <div className="text-xl font-extrabold text-[#E1E6EB] font-mono">{configuredAdmins.length} Emails</div>
+              <p className="text-[11px] text-[#9DA4B0]">From process.env.ADMIN</p>
             </div>
           </div>
         </div>
+
+        {/* Quick Navigation Callout Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+            <div className="space-y-1">
+              <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                <FolderGit2 className="w-4 h-4 text-[#81D607]" />
+                <span>Portfolio Projects</span>
+              </h3>
+              <p className="text-xs text-[#9DA4B0]">
+                Manage, add, edit, or reorder representative portfolio items and case studies.
+              </p>
+            </div>
+            <Link
+              href="/admin/portfolio"
+              className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+            >
+              <FolderGit2 className="w-4 h-4" />
+              <span>Manage Portfolio</span>
+            </Link>
+          </div>
+
+          <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+            <div className="space-y-1">
+              <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                <Package className="w-4 h-4 text-[#81D607]" />
+                <span>Packages Management</span>
+              </h3>
+              <p className="text-xs text-[#9DA4B0]">
+                Create, update, order, or hide Flexible Engineering Packages pricing cards.
+              </p>
+            </div>
+            <Link
+              href="/admin/packages"
+              className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+            >
+              <Package className="w-4 h-4" />
+              <span>Manage Packages</span>
+            </Link>
+          </div>
+
+          <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+            <div className="space-y-1">
+              <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                <Users className="w-4 h-4 text-[#81D607]" />
+                <span>Team Management</span>
+              </h3>
+              <p className="text-xs text-[#9DA4B0]">
+                Add, edit, or delete leadership & engineering team members shown on frontend.
+              </p>
+            </div>
+            <Link
+              href="/admin/teams"
+              className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+            >
+              <Users className="w-4 h-4" />
+              <span>Manage Team</span>
+            </Link>
+          </div>
+
+          <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+            <div className="space-y-1">
+              <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                <MessageSquareQuote className="w-4 h-4 text-[#81D607]" />
+                <span>Client Reviews</span>
+              </h3>
+              <p className="text-xs text-[#9DA4B0]">
+                Manage, add, edit, or delete client feedback and verified review credentials.
+              </p>
+            </div>
+            <Link
+              href="/admin/testimonials"
+              className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+            >
+              <MessageSquareQuote className="w-4 h-4" />
+              <span>Manage Reviews</span>
+            </Link>
+          </div>
+
+          <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+            <div className="space-y-1">
+              <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                <Briefcase className="w-4 h-4 text-[#81D607]" />
+                <span>Talent Acquisition</span>
+              </h3>
+              <p className="text-xs text-[#9DA4B0]">
+                Manage job postings CRUD and review candidate CV applications (.pdf, .docx).
+              </p>
+            </div>
+            <Link
+              href="/admin/talent-acquisition"
+              className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+            >
+              <Briefcase className="w-4 h-4" />
+              <span>Talent Acquisition</span>
+            </Link>
+          </div>
+
+          <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+            <div className="space-y-1">
+              <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                <Mail className="w-4 h-4 text-[#81D607]" />
+                <span>Contact Messages</span>
+              </h3>
+              <p className="text-xs text-[#9DA4B0]">
+                View incoming messages, filter by All or Unread, read in modal and mark as read.
+              </p>
+            </div>
+            <Link
+              href="/admin/contact-messages"
+              className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+            >
+              <Mail className="w-4 h-4" />
+              <span>View Messages</span>
+            </Link>
+          </div>
+
+          <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+            <div className="space-y-1">
+              <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-[#81D607]" />
+                <span>Blogs Management</span>
+              </h3>
+              <p className="text-xs text-[#9DA4B0]">
+                Create, edit, delete, and publish technical articles using live Markdown editor.
+              </p>
+            </div>
+            <Link
+              href="/admin/blogs"
+              className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>Manage Blogs</span>
+            </Link>
+          </div>
+
+          <div className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+            <div className="space-y-1">
+              <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                <Users className="w-4 h-4 text-[#81D607]" />
+                <span>Admin Management</span>
+              </h3>
+              <p className="text-xs text-[#9DA4B0]">
+                Search registered users by name or email, assign sub-admin privileges, or revoke.
+              </p>
+            </div>
+            <Link
+              href="/admin/adminmanagement"
+              className="px-4 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+            >
+              <Users className="w-4 h-4" />
+              <span>Admin Management</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Quick Actions Footer Bar */}
+        <div className="pt-4 border-t border-[#E1E6EB]/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="text-xs font-mono text-[#9DA4B0]">
+            Codzilla Administrative System v1.0
+          </span>
+
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="px-5 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none flex items-center gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Return to Website</span>
+            </Link>
+          </div>
+        </div>
       </div>
-    </main>
+    </AdminLayoutClient>
   );
 }

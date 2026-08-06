@@ -4,8 +4,7 @@ import { ShieldAlert, LogOut, ArrowLeft } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { isMainAdmin } from "@/utils/admin";
-import AdminSidebar from "@/components/admin/AdminSidebar";
-import AdminHeader from "@/components/admin/AdminHeader";
+import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 import AdminContactMessages, { ContactMessage } from "@/components/admin/AdminContactMessages";
 
 export const metadata = {
@@ -81,7 +80,7 @@ export default async function AdminContactMessagesPage() {
             <form action="/auth/signout" method="post">
               <button
                 type="submit"
-                className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs transition-colors rounded-none flex items-center justify-center gap-2"
+                className="w-full py-3 bg-red-600 hover:bg-red-700 text-[#E1E6EB] font-mono font-bold text-xs transition-colors rounded-none flex items-center justify-center gap-2"
               >
                 <LogOut className="w-4 h-4" />
                 <span>Sign Out</span>
@@ -115,27 +114,13 @@ export default async function AdminContactMessagesPage() {
   }
 
   return (
-    <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex font-sans select-none">
-      {/* Sidebar Navigation */}
-      <AdminSidebar
-        userEmail={user.email!}
-        fullName={fullName}
-        avatarUrl={avatarUrl}
-        isSuperAdmin={isSuperAdmin}
-      />
-
-      {/* Main Panel Canvas */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-[#111111]">
-        <AdminHeader
-          userEmail={user.email!}
-          fullName={fullName}
-          avatarUrl={avatarUrl}
-          isSuperAdmin={isSuperAdmin}
-        />
-
-        {/* Contact Messages Workspace */}
-        <AdminContactMessages initialMessages={(messages as ContactMessage[]) || []} />
-      </div>
-    </main>
+    <AdminLayoutClient
+      userEmail={user.email!}
+      fullName={fullName}
+      avatarUrl={avatarUrl}
+      isSuperAdmin={isSuperAdmin}
+    >
+      <AdminContactMessages initialMessages={(messages as ContactMessage[]) || []} />
+    </AdminLayoutClient>
   );
 }
