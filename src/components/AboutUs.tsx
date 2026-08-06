@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { CheckCircle2, ShieldCheck, Target, Award, Users, Globe2, Briefcase } from "lucide-react";
 
 export default function AboutUs() {
@@ -10,12 +11,25 @@ export default function AboutUs() {
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-[#1A1A1A] border border-[#E1E6EB]/15 p-5 sm:p-8 rounded-none space-y-6 sm:space-y-8">
             <div className="space-y-2 text-left">
-              <span className="text-xs font-mono text-[#81D607] uppercase tracking-wider">
-                Who We Are
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#E1E6EB]">
-                Codzilla Technologies
-              </h3>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 bg-[#111111] border border-[#81D607] flex items-center justify-center rounded-none overflow-hidden relative shrink-0">
+                  <Image
+                    src="/logo.jpg"
+                    alt="Codzilla Technologies Logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <span className="text-xs font-mono text-[#81D607] uppercase tracking-wider block">
+                    Who We Are
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#E1E6EB] leading-tight">
+                    Codzilla Technologies
+                  </h3>
+                </div>
+              </div>
               <p className="text-xs text-[#9DA4B0] leading-relaxed">
                 Founded with a vision to merge multi-domain expertise in AI, software engineering, and hardware PCB prototyping.
               </p>

@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Lock, User, ArrowLeft, BookOpen, Mail, Briefcase, UserCheck, Package, MessageSquareQuote, FolderGit2 } from "lucide-react";
+import { LayoutDashboard, Users, User, ArrowLeft, BookOpen, Mail, Briefcase, UserCheck, Package, MessageSquareQuote, FolderGit2 } from "lucide-react";
 
 interface AdminSidebarProps {
   userEmail: string;
@@ -86,8 +87,14 @@ export default function AdminSidebar({
         {/* Sidebar Brand Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] rounded-none">
-              <Lock className="w-5 h-5 stroke-[2.5]" />
+            <div className="w-9 h-9 bg-[#111111] border border-[#81D607] flex items-center justify-center rounded-none overflow-hidden relative">
+              <Image
+                src="/logo.jpg"
+                alt="Codzilla Logo"
+                width={36}
+                height={36}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="flex flex-col text-left">
               <span className="font-mono font-bold text-sm text-[#E1E6EB]">

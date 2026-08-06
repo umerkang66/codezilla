@@ -2,8 +2,9 @@
 
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ShieldCheck, ArrowLeft, AlertTriangle, Lock } from "lucide-react";
+import { ShieldCheck, ArrowLeft, AlertTriangle } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 
 function AdminSignInForm() {
@@ -68,8 +69,15 @@ function AdminSignInForm() {
 
       {/* Header Card */}
       <div className="bg-[#1A1A1A] border border-[#81D607]/40 p-8 space-y-6 rounded-none text-center">
-        <div className="w-14 h-14 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] mx-auto rounded-none">
-          <Lock className="w-7 h-7 stroke-[2.5]" />
+        <div className="w-16 h-16 bg-[#111111] border border-[#81D607] flex items-center justify-center mx-auto rounded-none overflow-hidden relative">
+          <Image
+            src="/logo.jpg"
+            alt="Codzilla Technologies Logo"
+            width={64}
+            height={64}
+            className="w-full h-full object-cover"
+            priority
+          />
         </div>
 
         <div className="space-y-2">

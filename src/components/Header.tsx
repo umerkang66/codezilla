@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Phone, Menu, X, ArrowRight, Code2 } from "lucide-react";
+import Image from "next/image";
+import { Phone, Menu, X, ArrowRight } from "lucide-react";
 
 export default function Header() {
   const pathname = usePathname();
@@ -50,8 +51,15 @@ export default function Header() {
             className="flex items-center gap-2.5 group transition-transform duration-200"
             id="header-logo"
           >
-            <div className="w-10 h-10 bg-[#1A1A1A] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] transition-colors rounded-none">
-              <Code2 className="w-6 h-6 stroke-[2.5]" />
+            <div className="w-10 h-10 bg-[#1A1A1A] border border-[#81D607]/60 flex items-center justify-center group-hover:border-[#81D607] transition-colors rounded-none overflow-hidden relative">
+              <Image
+                src="/logo.jpg"
+                alt="Codzilla Technologies Logo"
+                width={40}
+                height={40}
+                className="w-full h-full object-cover"
+                priority
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-mono font-bold text-lg tracking-tight text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-none">

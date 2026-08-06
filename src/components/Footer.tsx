@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
-  Code2,
   Mail,
   Phone,
   MapPin,
@@ -27,8 +27,14 @@ export default function Footer() {
           {/* Column 1: Brand & Bio (Spans 2 cols on lg) */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-2.5 group w-fit">
-              <div className="w-10 h-10 bg-[#1A1A1A] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] transition-all rounded-none">
-                <Code2 className="w-6 h-6 stroke-[2.5]" />
+              <div className="w-10 h-10 bg-[#1A1A1A] border border-[#81D607]/60 flex items-center justify-center group-hover:border-[#81D607] transition-all rounded-none overflow-hidden relative">
+                <Image
+                  src="/logo.jpg"
+                  alt="Codzilla Technologies Logo"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-xl tracking-tight text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-none">

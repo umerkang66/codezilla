@@ -17,9 +17,15 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://codzilla.com"),
   title: "Codzilla Technologies | AI, Web & Hardware Engineering",
   description:
     "Codzilla Technologies delivers software, AI/ML models, dynamic web apps, and embedded engineering (KiCad PCB & MATLAB) for startups and enterprises.",
+  icons: {
+    icon: "/logo.jpg",
+    shortcut: "/logo.jpg",
+    apple: "/logo.jpg",
+  },
   keywords: [
     "Codzilla Technologies",
     "Software House",
@@ -37,6 +43,14 @@ export const metadata: Metadata = {
       "Enterprise software development, AI/ML models, Next.js web applications, and embedded KiCad PCB hardware design.",
     url: "https://codzilla.com",
     siteName: "Codzilla Technologies",
+    images: [
+      {
+        url: "/logo.jpg",
+        width: 800,
+        height: 800,
+        alt: "Codzilla Technologies Logo",
+      },
+    ],
     type: "website",
   },
   twitter: {
@@ -44,6 +58,7 @@ export const metadata: Metadata = {
     title: "Codzilla Technologies | AI, Web & Hardware Engineering",
     description:
       "Enterprise software development, AI/ML models, Next.js web applications, and embedded KiCad PCB hardware design.",
+    images: ["/logo.jpg"],
   },
 };
 
