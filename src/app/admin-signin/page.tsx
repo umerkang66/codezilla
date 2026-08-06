@@ -22,19 +22,31 @@ function AdminSignInForm() {
       setErrorMessage("Access Denied: Your account does not have the required 'admin' role.");
     }
 
-    // Check if user is already signed in
+    const supabase = createClient();
+
+    // Check if user is already signed in and redirect to /admin
     const checkUser = async () => {
-      const supabase = createClient();
       const {
         data: { user },
       } = await supabase.auth.getUser();
 
-      if (user?.email) {
-        setCurrentUserEmail(user.email);
+      if (user) {
+        setCurrentUserEmail(user.email ?? null);
+        router.replace("/admin");
       }
     };
     checkUser();
-  }, [searchParams]);
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        router.replace("/admin");
+      }
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, [searchParams, router]);
 
   const handleGoogleSignIn = async () => {
     setLoading(true);
