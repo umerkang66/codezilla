@@ -13,6 +13,7 @@ import {
   Mail,
   Briefcase,
   Package,
+  MessageSquareQuote,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin, getAdminEmails } from "@/utils/admin";
@@ -337,6 +338,25 @@ export default async function AdminDashboardPage() {
               >
                 <Users className="w-4 h-4" />
                 <span>Manage Team</span>
+              </Link>
+            </div>
+
+            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+              <div className="space-y-1">
+                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                  <MessageSquareQuote className="w-4 h-4 text-[#81D607]" />
+                  <span>Client Reviews</span>
+                </h3>
+                <p className="text-xs text-[#9DA4B0]">
+                  Manage, add, edit, or delete client feedback and verified review credentials.
+                </p>
+              </div>
+              <Link
+                href="/admin/testimonials"
+                className="px-4 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full transition-colors"
+              >
+                <MessageSquareQuote className="w-4 h-4" />
+                <span>Manage Reviews</span>
               </Link>
             </div>
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Lock, User, ArrowLeft, BookOpen, Mail, Briefcase, UserCheck, Package } from "lucide-react";
+import { LayoutDashboard, Users, Lock, User, ArrowLeft, BookOpen, Mail, Briefcase, UserCheck, Package, MessageSquareQuote } from "lucide-react";
 
 interface AdminSidebarProps {
   userEmail: string;
@@ -37,6 +37,12 @@ export default function AdminSidebar({
       href: "/admin/teams",
       icon: UserCheck,
       active: pathname.startsWith("/admin/teams"),
+    },
+    {
+      name: "Client Reviews",
+      href: "/admin/testimonials",
+      icon: MessageSquareQuote,
+      active: pathname.startsWith("/admin/testimonials"),
     },
     {
       name: "Talent Acquisition",

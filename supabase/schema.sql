@@ -446,6 +446,94 @@ create policy "Admins can delete packages"
   to authenticated
   using ( public.is_admin() );
 
+-- 11. Create Testimonials Table for Client Reviews Management
+create table if not exists public.testimonials (
+  id uuid primary key default gen_random_uuid(),
+  quote text not null,
+  author text not null,
+  role text default '',
+  rating integer not null default 5,
+  platform text default 'Verified Review',
+  avatar_url text default '',
+  display_order integer not null default 0,
+  status text not null default 'active',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Performance Indexes
+create index if not exists testimonials_display_order_idx on public.testimonials (display_order asc, created_at desc);
+
+-- Enable RLS on testimonials
+alter table public.testimonials enable row level security;
+
+-- Policy 1: Anyone can view testimonials
+drop policy if exists "Testimonials are viewable by everyone" on public.testimonials;
+create policy "Testimonials are viewable by everyone"
+  on public.testimonials
+  for select
+  using ( true );
+
+-- Policy 2: Admins can insert testimonials
+drop policy if exists "Admins can insert testimonials" on public.testimonials;
+create policy "Admins can insert testimonials"
+  on public.testimonials
+  for insert
+  to authenticated
+  with check ( public.is_admin() );
+
+-- Policy 3: Admins can update testimonials
+drop policy if exists "Admins can update testimonials" on public.testimonials;
+create policy "Admins can update testimonials"
+  on public.testimonials
+  for update
+  to authenticated
+  using ( public.is_admin() )
+  with check ( public.is_admin() );
+
+-- Policy 4: Admins can delete testimonials
+drop policy if exists "Admins can delete testimonials" on public.testimonials;
+create policy "Admins can delete testimonials"
+  on public.testimonials
+  for delete
+  to authenticated
+  using ( public.is_admin() );
+
+-- Seed default initial testimonials if not existing
+insert into public.testimonials (quote, author, role, rating, platform, display_order, status)
+select
+  'Codzilla Technologies delivered our complex KiCad multi-layer PCB design ahead of schedule. Their attention to detail and signal testing gave us total confidence.',
+  'Marcus Vance',
+  'Hardware Product Manager, US Tech Firm',
+  5,
+  'Verified Upwork Review',
+  1,
+  'active'
+where not exists (select 1 from public.testimonials where author = 'Marcus Vance');
+
+insert into public.testimonials (quote, author, role, rating, platform, display_order, status)
+select
+  'Extremely skilled team in AI & Machine Learning. They trained a custom computer vision model for our quality control pipeline that achieved 99%+ accuracy instantly.',
+  'Dr. Sarah Jenkins',
+  'CTO, Industrial Automation Solutions',
+  5,
+  'Verified Enterprise Client',
+  2,
+  'active'
+where not exists (select 1 from public.testimonials where author = 'Dr. Sarah Jenkins');
+
+insert into public.testimonials (quote, author, role, rating, platform, display_order, status)
+select
+  'The Next.js website they built for us is lightning-fast, responsive, and converted our leads significantly better than our old site. Incredible engineering quality!',
+  'David Miller',
+  'Founder, Apex Cloud Services',
+  5,
+  'Verified Fiverr Pro Buyer',
+  3,
+  'active'
+where not exists (select 1 from public.testimonials where author = 'David Miller');
+
+
 
 
 
