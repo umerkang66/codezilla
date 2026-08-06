@@ -18,48 +18,65 @@ Next-generation corporate agency website and content management system built for
 
 ## Technology Stack
 
-<details open>
-<summary><b>Framework & Core Engine</b></summary>
+<table width="100%">
+  <tr>
+    <td width="33%" align="center" valign="top">
+      <img src="https://raw.githubusercontent.com/github/explore/main/topics/nextjs/nextjs.png" width="48" height="48" alt="Next.js" /><br/><br/>
+      <b>Next.js 16</b><br/>
+      <sub>App Router & Server Components</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="https://raw.githubusercontent.com/github/explore/main/topics/react/react.png" width="48" height="48" alt="React" /><br/><br/>
+      <b>React 19</b><br/>
+      <sub>Server & Client UI Rendering</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="https://raw.githubusercontent.com/github/explore/main/topics/typescript/typescript.png" width="48" height="48" alt="TypeScript" /><br/><br/>
+      <b>TypeScript 5</b><br/>
+      <sub>Strict End-to-End Typing</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" align="center" valign="top">
+      <img src="https://raw.githubusercontent.com/github/explore/main/topics/tailwind/tailwind.png" width="48" height="48" alt="Tailwind CSS" /><br/><br/>
+      <b>TailwindCSS v4</b><br/>
+      <sub>Utility-First Responsive Styling</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="https://raw.githubusercontent.com/github/explore/main/topics/supabase/supabase.png" width="48" height="48" alt="Supabase" /><br/><br/>
+      <b>Supabase Postgres</b><br/>
+      <sub>Relational DB & RLS Security</sub>
+    </td>
+    <td width="33%" align="center" valign="top">
+      <img src="https://raw.githubusercontent.com/github/explore/main/topics/framer/framer.png" width="48" height="48" alt="Framer Motion" /><br/><br/>
+      <b>Framer Motion</b><br/>
+      <sub>Fluid Animations & Transitions</sub>
+    </td>
+  </tr>
+</table>
 
-| Technology | Version | Purpose |
-| :--- | :--- | :--- |
-| **Next.js** | `16.3.0` | React Framework utilizing App Router and React Compiler |
-| **React** | `19.2.8` | Server and Client component rendering engine |
-| **TypeScript** | `^5.0.0` | Type safety and autocompletion across server and client layers |
+<br/>
 
-</details>
+### Framework & Core Engine
+| Card | Technology | Version | Purpose |
+| :---: | :--- | :--- | :--- |
+| ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) | **Next.js** | `16.3.0` | App Router & Server Components |
+| ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) | **React** | `19.2.8` | Server and Client UI rendering |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) | **TypeScript** | `^5.0.0` | Strict static typing across codebase |
 
-<details>
-<summary><b>Database & Authentication</b></summary>
+### Database & Authentication
+| Card | Technology | Version | Purpose |
+| :---: | :--- | :--- | :--- |
+| ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white) | **Supabase** | `^2.112.0` | Postgres BaaS & Row Level Security |
+| ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white) | **PostgreSQL** | `v15+` | Relational data persistence |
+| ![Auth](https://img.shields.io/badge/Supabase_SSR-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white) | **Supabase SSR** | `^0.12.4` | Cookie-based session management |
 
-| Technology | Package | Purpose |
-| :--- | :--- | :--- |
-| **Supabase Postgres** | `@supabase/supabase-js` | Relational database with automated RLS policies |
-| **Supabase SSR** | `@supabase/ssr` / `@supabase/server` | Cookie-based server-side session management |
-| **Postgres Client** | `pg` | Direct PostgreSQL connection utilities |
-
-</details>
-
-<details>
-<summary><b>Styling & Motion</b></summary>
-
-| Technology | Package | Purpose |
-| :--- | :--- | :--- |
-| **TailwindCSS** | `^4.0.0` | Utility-first CSS framework with PostCSS support |
-| **Framer Motion** | `^13.0.0` | Production animation library for micro-interactions |
-| **Lucide Icons** | `lucide-react` | Clean SVG icon library |
-
-</details>
-
-<details>
-<summary><b>Content & Utilities</b></summary>
-
-| Technology | Package | Purpose |
-| :--- | :--- | :--- |
-| **Marked** | `marked` | Fast Markdown parser and compiler for blog articles |
-| **ESLint** | `eslint-config-next` | Code quality enforcement and static analysis |
-
-</details>
+### Styling & Motion
+| Card | Technology | Version | Purpose |
+| :---: | :--- | :--- | :--- |
+| ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) | **TailwindCSS** | `v4` | Utility-first responsive design |
+| ![Framer](https://img.shields.io/badge/Framer-0055FF?style=for-the-badge&logo=framer&logoColor=white) | **Framer Motion** | `^13.0.0` | Layout animations & micro-interactions |
+| ![Lucide](https://img.shields.io/badge/Lucide_Icons-F34F29?style=for-the-badge&logo=feather&logoColor=white) | **Lucide React** | `^1.28.0` | Iconography suite |
 
 ---
 
