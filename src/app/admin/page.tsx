@@ -14,6 +14,7 @@ import {
   Briefcase,
   Package,
   MessageSquareQuote,
+  FolderGit2,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin, getAdminEmails } from "@/utils/admin";
@@ -158,11 +159,11 @@ export default async function AdminDashboardPage() {
   const totalJobApps = jobApps?.length || 0;
   const pendingJobApps = jobApps?.filter((a) => a.status === "pending").length || 0;
 
-  // Fetch Packages statistics
-  const { data: packagesData } = await supabase
-    .from("packages")
+  // Fetch Portfolio Projects statistics
+  const { data: portfolioData } = await supabase
+    .from("portfolio_projects")
     .select("id, status");
-  const totalPackages = packagesData?.length || 0;
+  const totalPortfolioProjects = portfolioData?.length || 0;
 
   // 4. OVERVIEW PAGE WITH SHARED SIDEBAR & HEADER
   return (
@@ -302,7 +303,25 @@ export default async function AdminDashboardPage() {
           </div>
 
           {/* Quick Navigation Callout Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
+              <div className="space-y-1">
+                <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
+                  <FolderGit2 className="w-4 h-4 text-[#81D607]" />
+                  <span>Portfolio Projects</span>
+                </h3>
+                <p className="text-xs text-[#9DA4B0]">
+                  Manage, add, edit, or reorder representative portfolio items and case studies.
+                </p>
+              </div>
+              <Link
+                href="/admin/portfolio"
+                className="px-4 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs rounded-none flex items-center justify-center gap-2 w-full"
+              >
+                <FolderGit2 className="w-4 h-4" />
+                <span>Manage Portfolio</span>
+              </Link>
+            </div>
             <div className="p-5 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col justify-between space-y-4 rounded-none">
               <div className="space-y-1">
                 <h3 className="text-sm font-mono font-bold text-[#E1E6EB] flex items-center gap-2">

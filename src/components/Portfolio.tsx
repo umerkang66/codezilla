@@ -1,73 +1,87 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowUpRight, Cpu, Globe, Brain, Layers, Smartphone, CheckCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import {
+  ArrowUpRight,
+  Cpu,
+  Globe,
+  Brain,
+  Layers,
+  Smartphone,
+  CheckCircle,
+  Code,
+  Server,
+  Database,
+  Zap,
+  Loader2,
+  FolderGit2,
+} from "lucide-react";
+
+export interface PortfolioProjectItem {
+  id: string;
+  title: string;
+  category: string;
+  impact?: string;
+  description?: string;
+  tags?: string[];
+  icon?: string;
+  project_url?: string;
+  display_order?: number;
+  status?: string;
+}
+
+const ICON_MAP: Record<string, any> = {
+  Brain,
+  Cpu,
+  Globe,
+  Smartphone,
+  Layers,
+  Code,
+  Server,
+  Database,
+  Zap,
+};
 
 export default function Portfolio() {
-  const [activeCategory, setActiveCategory] = useState<"All" | "AI/ML" | "Web" | "PCB/Embedded" | "MATLAB" | "Mobile">("All");
+  const [projects, setProjects] = useState<PortfolioProjectItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState<string>("All");
 
-  const categories = ["All", "AI/ML", "Web", "PCB/Embedded", "MATLAB", "Mobile"] as const;
+  useEffect(() => {
+    async function fetchPortfolio() {
+      try {
+        const res = await fetch("/api/portfolio");
+        const data = await res.json();
+        if (Array.isArray(data.projects)) {
+          setProjects(data.projects);
+        }
+      } catch (err) {
+        console.error("Failed to fetch portfolio projects:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  const projects = [
-    {
-      id: 1,
-      title: "Automated Industrial Defect Inspection AI",
-      category: "AI/ML",
-      impact: "Reduced manual QA inspection time by 45%",
-      tags: ["Python", "PyTorch", "OpenCV", "FastAPI"],
-      description: "Custom deep learning computer vision model trained to detect micro-cracks in manufacturing hardware in real-time.",
-      icon: Brain,
-    },
-    {
-      id: 2,
-      title: "IoT Edge Energy Gateway 4-Layer PCB",
-      category: "PCB/Embedded",
-      impact: "Achieved 99.8% signal integrity in high-noise environments",
-      tags: ["KiCad", "STM32", "RS485", "Hardware R&D"],
-      description: "Designed compact 4-layer printed circuit board for smart grid power monitoring and wireless telemetry.",
-      icon: Cpu,
-    },
-    {
-      id: 3,
-      title: "Enterprise SaaS Analytics Platform",
-      category: "Web",
-      impact: "Handled 100k+ daily API requests with <50ms latency",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
-      description: "Full-stack web application featuring real-time data visualizers, role-based access, and subscription billing.",
-      icon: Globe,
-    },
-    {
-      id: 4,
-      title: "MATLAB Motor Control DSP Algorithm",
-      category: "MATLAB",
-      impact: "Optimized torque response speed by 30%",
-      tags: ["MATLAB", "Simulink", "Control Systems", "DSP"],
-      description: "Modeled closed-loop field-oriented control (FOC) algorithm for brushless DC motor drive systems.",
-      icon: Cpu,
-    },
-    {
-      id: 5,
-      title: "Cross-Platform Smart Field Telemetry App",
-      category: "Mobile",
-      impact: "Streamlined field engineer data sync in offline zones",
-      tags: ["React Native", "REST API", "SQLite", "Bluetooth LE"],
-      description: "Mobile application connecting via Bluetooth to hardware sensors for real-time field diagnostics.",
-      icon: Smartphone,
-    },
-    {
-      id: 6,
-      title: "LLM Document Intelligence & OCR Pipeline",
-      category: "AI/ML",
-      impact: "Automated parsing of 10,000+ legal PDFs monthly",
-      tags: ["Python", "LangChain", "OpenAI API", "Docker"],
-      description: "Automated information extraction system turning unstructured PDF documents into structured JSON databases.",
-      icon: Brain,
-    },
+    fetchPortfolio();
+  }, []);
+
+  // Dynamically extract categories from loaded projects
+  const availableCategories = [
+    "All",
+    ...Array.from(new Set(projects.map((p) => p.category).filter(Boolean))),
   ];
 
-  const filteredProjects = activeCategory === "All"
-    ? projects
-    : projects.filter((p) => p.category === activeCategory);
+  const filteredProjects =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
+
+  const getIconComponent = (iconName?: string) => {
+    if (iconName && ICON_MAP[iconName]) {
+      return ICON_MAP[iconName];
+    }
+    return Globe;
+  };
 
   return (
     <section id="portfolio" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,76 +97,124 @@ export default function Portfolio() {
         </p>
 
         {/* Filter Category Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 text-xs font-mono tracking-wide transition-colors rounded-none ${
-                activeCategory === cat
-                  ? "bg-[#81D607] text-[#111111] font-bold"
-                  : "bg-[#1A1A1A] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((project) => (
-          <div
-            key={project.id}
-            className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none text-left"
-          >
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider px-2 py-0.5 bg-[#111111] border border-[#81D607]/30">
-                  {project.category}
-                </span>
-                <project.icon className="w-5 h-5 text-[#81D607]" />
-              </div>
-
-              <h3 className="text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-snug">
-                {project.title}
-              </h3>
-
-              <p className="text-xs text-[#9DA4B0] leading-relaxed font-sans">
-                {project.description}
-              </p>
-
-              {/* Impact Callout */}
-              <div className="p-3 bg-[#111111] border-l-2 border-[#81D607] flex items-center gap-2">
-                <CheckCircle className="w-3.5 h-3.5 text-[#81D607] shrink-0" />
-                <span className="text-xs font-semibold text-[#E1E6EB]">
-                  {project.impact}
-                </span>
-              </div>
-            </div>
-
-            <div className="pt-6 mt-6 border-t border-[#E1E6EB]/10 space-y-4">
-              {/* Tech Tags */}
-              <div className="flex flex-wrap gap-1.5">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[10px] font-mono px-2 py-0.5 bg-[#111111] text-[#9DA4B0] border border-[#E1E6EB]/10"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex items-center justify-between text-xs font-bold text-[#81D607]">
-                <span>View Engineering Details</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
-            </div>
+        {!loading && availableCategories.length > 1 && (
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-4">
+            {availableCategories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 text-xs font-mono tracking-wide transition-colors rounded-none ${
+                  activeCategory === cat
+                    ? "bg-[#81D607] text-[#111111] font-bold"
+                    : "bg-[#1A1A1A] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
           </div>
-        ))}
+        )}
       </div>
+
+      {/* Loading Skeleton */}
+      {loading ? (
+        <div className="py-16 text-center flex flex-col items-center justify-center space-y-3">
+          <Loader2 className="w-8 h-8 text-[#81D607] animate-spin" />
+          <span className="text-xs font-mono text-[#9DA4B0]">
+            Loading engineering portfolio...
+          </span>
+        </div>
+      ) : filteredProjects.length === 0 ? (
+        /* Empty State */
+        <div className="p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-3 rounded-none max-w-xl mx-auto">
+          <FolderGit2 className="w-8 h-8 text-[#81D607]/40 mx-auto" />
+          <h3 className="text-sm font-mono font-bold text-[#E1E6EB]">
+            No projects available
+          </h3>
+          <p className="text-xs text-[#9DA4B0]">
+            {activeCategory !== "All"
+              ? `No projects found under the "${activeCategory}" category.`
+              : "Portfolio projects are currently being updated."}
+          </p>
+        </div>
+      ) : (
+        /* Projects Grid */
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProjects.map((project) => {
+            const IconComponent = getIconComponent(project.icon);
+
+            const CardContent = (
+              <div className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none text-left h-full">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider px-2 py-0.5 bg-[#111111] border border-[#81D607]/30">
+                      {project.category}
+                    </span>
+                    <IconComponent className="w-5 h-5 text-[#81D607]" />
+                  </div>
+
+                  <h3 className="text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-snug">
+                    {project.title}
+                  </h3>
+
+                  {project.description && (
+                    <p className="text-xs text-[#9DA4B0] leading-relaxed font-sans">
+                      {project.description}
+                    </p>
+                  )}
+
+                  {/* Impact Callout */}
+                  {project.impact && (
+                    <div className="p-3 bg-[#111111] border-l-2 border-[#81D607] flex items-center gap-2">
+                      <CheckCircle className="w-3.5 h-3.5 text-[#81D607] shrink-0" />
+                      <span className="text-xs font-semibold text-[#E1E6EB]">
+                        {project.impact}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-[#E1E6EB]/10 space-y-4">
+                  {/* Tech Tags */}
+                  {project.tags && project.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[10px] font-mono px-2 py-0.5 bg-[#111111] text-[#9DA4B0] border border-[#E1E6EB]/10"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="flex items-center justify-between text-xs font-bold text-[#81D607]">
+                    <span>View Engineering Details</span>
+                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                </div>
+              </div>
+            );
+
+            if (project.project_url) {
+              return (
+                <a
+                  key={project.id}
+                  href={project.project_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full focus:outline-none"
+                >
+                  {CardContent}
+                </a>
+              );
+            }
+
+            return <div key={project.id}>{CardContent}</div>;
+          })}
+        </div>
+      )}
     </section>
   );
 }

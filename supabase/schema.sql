@@ -314,26 +314,7 @@ create policy "Admins can delete job applications"
   to authenticated
   using ( public.is_admin() );
 
--- Seed default initial jobs if not existing
-insert into public.job_postings (title, domain, type, description, skills, status)
-select
-  'AI & Computer Vision Researcher',
-  'AI / ML Engineering',
-  'Remote / Project-Based',
-  'Train, fine-tune, and deploy computer vision models, object detection pipelines, and high-performance inference APIs.',
-  ARRAY['PyTorch', 'OpenCV', 'YOLO', 'FastAPI'],
-  'active'
-where not exists (select 1 from public.job_postings where title = 'AI & Computer Vision Researcher');
 
-insert into public.job_postings (title, domain, type, description, skills, status)
-select
-  'Full-Stack Next.js Developer',
-  'Web Development',
-  'Remote / Project-Based',
-  'Architect dynamic, responsive web applications using Next.js, TypeScript, Tailwind CSS, and REST/GraphQL APIs.',
-  ARRAY['Next.js', 'TypeScript', 'Tailwind CSS', 'REST APIs'],
-  'active'
-where not exists (select 1 from public.job_postings where title = 'Full-Stack Next.js Developer');
 
 -- 9. Create Team Members Table
 create table if not exists public.team_members (
@@ -499,39 +480,64 @@ create policy "Admins can delete testimonials"
   to authenticated
   using ( public.is_admin() );
 
--- Seed default initial testimonials if not existing
-insert into public.testimonials (quote, author, role, rating, platform, display_order, status)
-select
-  'Codzilla Technologies delivered our complex KiCad multi-layer PCB design ahead of schedule. Their attention to detail and signal testing gave us total confidence.',
-  'Marcus Vance',
-  'Hardware Product Manager, US Tech Firm',
-  5,
-  'Verified Upwork Review',
-  1,
-  'active'
-where not exists (select 1 from public.testimonials where author = 'Marcus Vance');
 
-insert into public.testimonials (quote, author, role, rating, platform, display_order, status)
-select
-  'Extremely skilled team in AI & Machine Learning. They trained a custom computer vision model for our quality control pipeline that achieved 99%+ accuracy instantly.',
-  'Dr. Sarah Jenkins',
-  'CTO, Industrial Automation Solutions',
-  5,
-  'Verified Enterprise Client',
-  2,
-  'active'
-where not exists (select 1 from public.testimonials where author = 'Dr. Sarah Jenkins');
 
-insert into public.testimonials (quote, author, role, rating, platform, display_order, status)
-select
-  'The Next.js website they built for us is lightning-fast, responsive, and converted our leads significantly better than our old site. Incredible engineering quality!',
-  'David Miller',
-  'Founder, Apex Cloud Services',
-  5,
-  'Verified Fiverr Pro Buyer',
-  3,
-  'active'
-where not exists (select 1 from public.testimonials where author = 'David Miller');
+-- 12. Create Portfolio Projects Table for Selected Portfolio & Case Studies Management
+create table if not exists public.portfolio_projects (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  category text not null default 'AI/ML',
+  impact text default '',
+  description text default '',
+  tags text[] default '{}'::text[],
+  icon text default 'Globe',
+  project_url text default '',
+  display_order integer not null default 0,
+  status text not null default 'active',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Performance Indexes
+create index if not exists portfolio_projects_display_order_idx on public.portfolio_projects (display_order asc, created_at desc);
+
+-- Enable RLS on portfolio_projects
+alter table public.portfolio_projects enable row level security;
+
+-- Policy 1: Anyone can view portfolio projects
+drop policy if exists "Portfolio projects are viewable by everyone" on public.portfolio_projects;
+create policy "Portfolio projects are viewable by everyone"
+  on public.portfolio_projects
+  for select
+  using ( true );
+
+-- Policy 2: Admins can insert portfolio projects
+drop policy if exists "Admins can insert portfolio projects" on public.portfolio_projects;
+create policy "Admins can insert portfolio projects"
+  on public.portfolio_projects
+  for insert
+  to authenticated
+  with check ( public.is_admin() );
+
+-- Policy 3: Admins can update portfolio projects
+drop policy if exists "Admins can update portfolio projects" on public.portfolio_projects;
+create policy "Admins can update portfolio projects"
+  on public.portfolio_projects
+  for update
+  to authenticated
+  using ( public.is_admin() )
+  with check ( public.is_admin() );
+
+-- Policy 4: Admins can delete portfolio projects
+drop policy if exists "Admins can delete portfolio projects" on public.portfolio_projects;
+create policy "Admins can delete portfolio projects"
+  on public.portfolio_projects
+  for delete
+  to authenticated
+  using ( public.is_admin() );
+
+
+
 
 
 
