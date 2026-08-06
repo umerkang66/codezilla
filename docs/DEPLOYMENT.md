@@ -1,10 +1,10 @@
 # Production Deployment Guide
 
-This guide outlines step-by-step instructions for deploying the **Codezilla Technologies** platform to production environments such as Vercel, Netlify, Docker, or Node.js server hosts.
+This guide outlines step-by-step instructions for deploying the Codezilla Technologies platform to production environments such as Vercel, Netlify, Docker, or Node.js server hosts.
 
 ---
 
-## 🎯 Pre-Deployment Checklist
+## Pre-Deployment Checklist
 
 Before deploying to production, ensure the following steps are completed:
 
@@ -16,7 +16,7 @@ Before deploying to production, ensure the following steps are completed:
 
 ---
 
-## 🚀 Deploying to Vercel (Recommended)
+## Deploying to Vercel (Recommended)
 
 Vercel provides native zero-configuration support for Next.js 16 App Router applications.
 
@@ -49,7 +49,7 @@ Click **Deploy**. Vercel will compile the application, optimize static assets, a
 
 ---
 
-## 🐋 Deploying with Docker
+## Deploying with Docker
 
 To run the application inside a containerized production environment:
 
@@ -101,7 +101,7 @@ docker run -p 3000:3000 --env-file .env.production codezilla-website
 
 ---
 
-## 🗄️ Supabase Production Setup
+## Supabase Production Setup
 
 1. **Database Migration**:
    Execute [`supabase/schema.sql`](../supabase/schema.sql) in your production database SQL editor.
@@ -114,7 +114,7 @@ docker run -p 3000:3000 --env-file .env.production codezilla-website
 
 ---
 
-## 🔍 Post-Deployment Verification
+## Post-Deployment Verification
 
 1. Verify site loads over HTTPS at your production URL.
 2. Test sign in at `/admin-signin` and verify Admin Dashboard access.
@@ -123,10 +123,10 @@ docker run -p 3000:3000 --env-file .env.production codezilla-website
 
 ---
 
-## 📁 Related Documentation
+## Related Documentation
 
-- 🚀 [Getting Started Guide](./GETTING_STARTED.md)
-- 📐 [Architecture Documentation](./ARCHITECTURE.md)
-- 🗄️ [Database Schema Reference](./DATABASE_SCHEMA.md)
-- 🔌 [API Endpoint Reference](./API_REFERENCE.md)
-- 🛡️ [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)
+- [Getting Started Guide](./GETTING_STARTED.md)
+- [Architecture Documentation](./ARCHITECTURE.md)
+- [Database Schema Reference](./DATABASE_SCHEMA.md)
+- [API Reference](./API_REFERENCE.md)
+- [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)

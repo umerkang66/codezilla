@@ -1,21 +1,21 @@
 # Getting Started Guide
 
-This guide provides comprehensive instructions for setting up, configuring, running, and testing the **Codezilla Technologies** web application on your local development environment.
+This guide provides comprehensive instructions for setting up, configuring, running, and testing the Codezilla Technologies web application on your local development environment.
 
 ---
 
-## 📋 Prerequisites
+## Prerequisites
 
 Ensure you have the following software installed on your machine before getting started:
 
 - **Node.js**: `v20.x` or `v22.x` (LTS recommended)
 - **Package Manager**: `npm` v10+ (bundled with Node.js)
 - **Git**: Latest version
-- **Database**: A [Supabase](https://supabase.com) project (Cloud or local Supabase CLI instance)
+- **Database**: A Supabase project (Cloud or local Supabase CLI instance)
 
 ---
 
-## 🚀 Quick Installation
+## Quick Installation
 
 ### 1. Clone the Repository
 
@@ -34,7 +34,7 @@ npm install
 
 ---
 
-## ⚙️ Environment Configuration
+## Environment Configuration
 
 The application requires specific environment variables for database connectivity, authentication, and role assignment.
 
@@ -68,12 +68,11 @@ SUPABASE_SECRET_KEY="your_supabase_secret_key"
 SUPABASE_JWKS_URL="https://your-project-id.supabase.co/auth/v1/.well-known/jwks.json"
 ```
 
-> [!IMPORTANT]
-> Never commit your `.env` or `.env.production` file to version control. Keep `SUPABASE_SECRET_KEY` secure.
+> **Important**: Never commit your `.env` or `.env.production` file to version control. Keep `SUPABASE_SECRET_KEY` secure.
 
 ---
 
-## 🗄️ Database Provisioning
+## Database Provisioning
 
 To set up the required tables, triggers, and Row Level Security (RLS) policies:
 
@@ -85,7 +84,7 @@ For a detailed breakdown of table schemas and policies, refer to the [Database S
 
 ---
 
-## 💻 Running the Application
+## Running the Application
 
 ### Development Mode
 
@@ -123,10 +122,10 @@ npm run lint
 
 ---
 
-## 📁 Related Documentation
+## Related Documentation
 
-- 📐 [Architecture Documentation](./ARCHITECTURE.md)
-- 🗄️ [Database Schema Reference](./DATABASE_SCHEMA.md)
-- 🔌 [API Endpoint Reference](./API_REFERENCE.md)
-- 🛡️ [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)
-- 🚀 [Deployment Guide](./DEPLOYMENT.md)
+- [Architecture Documentation](./ARCHITECTURE.md)
+- [Database Schema Reference](./DATABASE_SCHEMA.md)
+- [API Endpoint Reference](./API_REFERENCE.md)
+- [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)
+- [Deployment Guide](./DEPLOYMENT.md)

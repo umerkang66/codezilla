@@ -1,10 +1,10 @@
-# API Reference & Route Handler Documentation
+# API Reference and Route Handler Documentation
 
-This document provides detailed documentation for the HTTP REST API endpoints provided by the **Codezilla Technologies** backend built with Next.js 16 App Router Route Handlers.
+This document provides detailed documentation for the HTTP REST API endpoints provided by the Codezilla Technologies backend built with Next.js 16 App Router Route Handlers.
 
 ---
 
-## 🌐 Base URL & Conventions
+## Base URL and Conventions
 
 - **Base Local URL**: `http://localhost:3000/api`
 - **Content-Type**: `application/json`
@@ -14,7 +14,7 @@ This document provides detailed documentation for the HTTP REST API endpoints pr
 
 ---
 
-## 📢 Public Endpoints
+## Public Endpoints
 
 ### 1. Submit Contact Message
 Submit an inquiry form from the public contact page.
@@ -35,7 +35,7 @@ Submit an inquiry form from the public contact page.
   {
     "success": true,
     "message": "Contact message received successfully.",
-    "data": { "id": "uuid-...", "name": "Jane Doe", ... }
+    "data": { "id": "uuid-...", "name": "Jane Doe" }
   }
   ```
 
@@ -103,13 +103,12 @@ Submit candidate application and resume for active job postings.
 
 ---
 
-## 🛡️ Admin Endpoints (`/api/admin/*`)
+## Admin Endpoints (`/api/admin/*`)
 
-> [!IMPORTANT]
-> Admin endpoints require an authenticated user session (`Supabase Auth Cookie`) with `role = 'admin'` or an email listed in the `ADMIN` environment variable.
+> **Important**: Admin endpoints require an authenticated user session (`Supabase Auth Cookie`) with `role = 'admin'` or an email listed in the `ADMIN` environment variable.
 
 ### 1. Toggle User Role (Grant/Revoke Admin)
-Promote or demote a registered user profile. **Restricted to Main Admin (Super Admin)**.
+Promote or demote a registered user profile. Restricted to Main Admin (Super Admin).
 
 - **Endpoint**: `POST /api/admin/toggle-role`
 - **Auth**: Restricted to Main Admin (`ADMIN` env var match)
@@ -117,7 +116,7 @@ Promote or demote a registered user profile. **Restricted to Main Admin (Super A
   ```json
   {
     "userId": "uuid-user-id",
-    "targetRole": "admin" // 'admin' | 'user'
+    "targetRole": "admin"
   }
   ```
 - **Response (200 OK)**:
@@ -167,7 +166,7 @@ Standard CRUD routes under `/api/admin/*`:
 
 ---
 
-## 🛑 HTTP Status Codes
+## HTTP Status Codes
 
 | Status | Code | Description |
 | :--- | :--- | :--- |
@@ -181,10 +180,10 @@ Standard CRUD routes under `/api/admin/*`:
 
 ---
 
-## 📁 Related Documentation
+## Related Documentation
 
-- 🚀 [Getting Started Guide](./GETTING_STARTED.md)
-- 📐 [Architecture Documentation](./ARCHITECTURE.md)
-- 🗄️ [Database Schema Reference](./DATABASE_SCHEMA.md)
-- 🛡️ [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)
-- 🚀 [Deployment Guide](./DEPLOYMENT.md)
+- [Getting Started Guide](./GETTING_STARTED.md)
+- [Architecture Documentation](./ARCHITECTURE.md)
+- [Database Schema Reference](./DATABASE_SCHEMA.md)
+- [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)
+- [Deployment Guide](./DEPLOYMENT.md)

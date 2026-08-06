@@ -1,36 +1,36 @@
 # System Architecture Documentation
 
-This document outlines the software architecture, design patterns, folder structure, and tech stack of the **Codezilla Technologies** platform.
+This document outlines the software architecture, design patterns, folder structure, and tech stack of the Codezilla Technologies platform.
 
 ---
 
-## 🏗️ High-Level Architecture Overview
+## High-Level Architecture Overview
 
-Codezilla is built as a full-stack, server-rendered React application utilizing the **Next.js 16 App Router** pattern powered by **React 19** and **Supabase Backend-as-a-Service (BaaS)**.
+Codezilla is built as a full-stack, server-rendered React application utilizing the Next.js 16 App Router pattern powered by React 19 and Supabase Backend-as-a-Service (BaaS).
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                          Client Browser                                │
-│        (React 19 Server Components & Framer Motion UI Components)      │
-└──────────────────┬─────────────────────────────────┬───────────────────┘
-                   │ HTTP / HTTPS                    │ Supabase SDK
-                   ▼                                 ▼
-┌──────────────────────────────────────┐  ┌──────────────────────────────┐
-│       Next.js Server / API           │  │    Supabase Auth & Storage   │
-│   - App Router Route Handlers        │  │  - User Auth / JWT Tokens    │
-│   - @supabase/server SDK             │  │  - Storage Buckets (Resumes) │
-└──────────────────┬───────────────────┘  └──────────────┬───────────────┘
-                   │ Direct Postgres Connection          │ SQL / RLS
-                   ▼                                     ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                      Supabase PostgreSQL Database                      │
-│        (Profiles, Blogs, Jobs, Applications, Projects, RBAC)           │
-└────────────────────────────────────────────────────────────────────────┘
++------------------------------------------------------------------------+
+|                          Client Browser                                |
+|        (React 19 Server Components & Framer Motion UI Components)      |
++------------------+---------------------------------+-------------------+
+                   | HTTP / HTTPS                    | Supabase SDK
+                   v                                 v
++--------------------------------------+  +------------------------------+
+|       Next.js Server / API           |  |    Supabase Auth & Storage   |
+|   - App Router Route Handlers        |  |  - User Auth / JWT Tokens    |
+|   - @supabase/server SDK             |  |  - Storage Buckets (Resumes) |
++------------------+-------------------+  +--------------+---------------+
+                   | Direct Postgres Connection          | SQL / RLS
+                   v                                     v
++------------------------------------------------------------------------+
+|                      Supabase PostgreSQL Database                      |
+|        (Profiles, Blogs, Jobs, Applications, Projects, RBAC)           |
++------------------------------------------------------------------------+
 ```
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Layer | Technology | Version | Description |
 | :--- | :--- | :--- | :--- |
@@ -45,7 +45,7 @@ Codezilla is built as a full-stack, server-rendered React application utilizing 
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 codezilla-website/
@@ -102,7 +102,7 @@ codezilla-website/
 
 ---
 
-## 🔒 Security & Auth Architecture
+## Security & Auth Architecture
 
 ### 1. Authentication Engine
 Authentication relies on Supabase Auth. Sessions are stored in HTTP-only, secure cookies handled via `@supabase/ssr` (`src/utils/supabase/server.ts`).
@@ -119,7 +119,7 @@ User authorization is enforced through a dual layer:
 
 ---
 
-## 🎨 Design System & Styling
+## Design System & Styling
 
 - **Theme Palette**: Rich dark themes with vibrant accents (`#111827`, `#1F2937`, emerald, cyan, and purple highlights).
 - **Glassmorphism**: Subtle backdrops with `backdrop-blur-md` and semi-transparent borders.
@@ -127,10 +127,10 @@ User authorization is enforced through a dual layer:
 
 ---
 
-## 📁 Related Documentation
+## Related Documentation
 
-- 🚀 [Getting Started Guide](./GETTING_STARTED.md)
-- 🗄️ [Database Schema Reference](./DATABASE_SCHEMA.md)
-- 🔌 [API Endpoint Reference](./API_REFERENCE.md)
-- 🛡️ [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)
-- 🚀 [Deployment Guide](./DEPLOYMENT.md)
+- [Getting Started Guide](./GETTING_STARTED.md)
+- [Database Schema Reference](./DATABASE_SCHEMA.md)
+- [API Endpoint Reference](./API_REFERENCE.md)
+- [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)
+- [Deployment Guide](./DEPLOYMENT.md)

@@ -1,44 +1,44 @@
-# Database Schema & Security Reference
+# Database Schema and Security Reference
 
 This document provides complete technical specifications for the PostgreSQL database schema, tables, functions, triggers, and Row Level Security (RLS) policies defined in [`supabase/schema.sql`](../supabase/schema.sql).
 
 ---
 
-## 📊 Entity Relationship & Table Overview
+## Entity Relationship and Table Overview
 
 ```
-                      ┌──────────────────┐
-                      │    auth.users    │
-                      └────────┬─────────┘
-                               │ 1:1
-                               ▼
-                      ┌──────────────────┐
-                      │ public.profiles  │
-                      └──────────────────┘
+                      +------------------+
+                      |    auth.users    |
+                      +--------+---------+
+                               | 1:1
+                               v
+                      +------------------+
+                      | public.profiles  |
+                      +------------------+
 
-   ┌────────────────────────────────────────────────────────┐
-   │                  CMS & Content Tables                  │
-   ├──────────────┬───────────────────┬─────────────────────┤
-   │ public.blogs │ public.packages   │ public.testimonials │
-   ├──────────────┼───────────────────┼─────────────────────┤
-   │ public.teams │ public.portfolio  │ public.job_postings │
-   └──────────────┴───────────────────┴──────────┬──────────┘
-                                                 │ 1:N
-                                                 ▼
-                                     ┌───────────────────────┐
-                                     │public.job_applications│
-                                     └───────────────────────┘
+   +--------------------------------------------------------+
+   |                  CMS & Content Tables                  |
+   +--------------+-------------------+---------------------+
+   | public.blogs | public.packages   | public.testimonials |
+   +--------------+-------------------+---------------------+
+   | public.teams | public.portfolio  | public.job_postings |
+   +--------------+-------------------+----------+----------+
+                                                 | 1:N
+                                                 v
+                                     +-----------------------+
+                                     |public.job_applications|
+                                     +-----------------------+
 
-   ┌────────────────────────────────────────────────────────┐
-   │                   Inbound Submissions                  │
-   ├────────────────────────────────────────────────────────┤
-   │               public.contact_messages                  │
-   └────────────────────────────────────────────────────────┘
+   +--------------------------------------------------------+
+   |                   Inbound Submissions                  |
+   +--------------------------------------------------------+
+   |               public.contact_messages                  |
+   +--------------------------------------------------------+
 ```
 
 ---
 
-## 🗄️ Detailed Table Specifications
+## Detailed Table Specifications
 
 ### 1. `public.profiles`
 Stores user profile information, links to Supabase `auth.users`, and defines application roles (`user` or `admin`).
@@ -175,7 +175,7 @@ Agency project portfolio and case studies.
 
 ---
 
-## ⚙️ Stored Procedures & Triggers
+## Stored Procedures and Triggers
 
 ### `public.is_admin()`
 Helper SQL function that checks whether `auth.uid()` has `role = 'admin'` in `public.profiles` without triggering RLS recursion loops:
@@ -201,7 +201,7 @@ create trigger on_auth_user_created
 
 ---
 
-## 🛡️ Row Level Security (RLS) Summary
+## Row Level Security (RLS) Summary
 
 - **Profiles**: Authenticated users can view/edit their own profile. Admins can view/update all profiles.
 - **Blogs**: Anyone can view published blogs (`is_published = true`). Only Admins can insert, update, or delete.
@@ -212,10 +212,10 @@ create trigger on_auth_user_created
 
 ---
 
-## 📁 Related Documentation
+## Related Documentation
 
-- 🚀 [Getting Started Guide](./GETTING_STARTED.md)
-- 📐 [Architecture Documentation](./ARCHITECTURE.md)
-- 🔌 [API Endpoint Reference](./API_REFERENCE.md)
-- 🛡️ [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)
-- 🚀 [Deployment Guide](./DEPLOYMENT.md)
+- [Getting Started Guide](./GETTING_STARTED.md)
+- [Architecture Documentation](./ARCHITECTURE.md)
+- [API Endpoint Reference](./API_REFERENCE.md)
+- [Admin Dashboard Guide](./ADMIN_DASHBOARD.md)
+- [Deployment Guide](./DEPLOYMENT.md)
