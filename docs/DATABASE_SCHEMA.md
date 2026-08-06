@@ -6,35 +6,7 @@ This document provides complete technical specifications for the PostgreSQL data
 
 ## Entity Relationship and Table Overview
 
-```
-                      +------------------+
-                      |    auth.users    |
-                      +--------+---------+
-                               | 1:1
-                               v
-                      +------------------+
-                      | public.profiles  |
-                      +------------------+
-
-   +--------------------------------------------------------+
-   |                  CMS & Content Tables                  |
-   +--------------+-------------------+---------------------+
-   | public.blogs | public.packages   | public.testimonials |
-   +--------------+-------------------+---------------------+
-   | public.teams | public.portfolio  | public.job_postings |
-   +--------------+-------------------+----------+----------+
-                                                 | 1:N
-                                                 v
-                                     +-----------------------+
-                                     |public.job_applications|
-                                     +-----------------------+
-
-   +--------------------------------------------------------+
-   |                   Inbound Submissions                  |
-   +--------------------------------------------------------+
-   |               public.contact_messages                  |
-   +--------------------------------------------------------+
-```
+![Entity Relationship and Table Overview](./database_er_diagram.jpg)
 
 ---
 

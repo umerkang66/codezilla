@@ -8,25 +8,7 @@ This document outlines the software architecture, design patterns, folder struct
 
 Codezilla is built as a full-stack, server-rendered React application utilizing the Next.js 16 App Router pattern powered by React 19 and Supabase Backend-as-a-Service (BaaS).
 
-```
-+------------------------------------------------------------------------+
-|                          Client Browser                                |
-|        (React 19 Server Components & Framer Motion UI Components)      |
-+------------------+---------------------------------+-------------------+
-                   | HTTP / HTTPS                    | Supabase SDK
-                   v                                 v
-+--------------------------------------+  +------------------------------+
-|       Next.js Server / API           |  |    Supabase Auth & Storage   |
-|   - App Router Route Handlers        |  |  - User Auth / JWT Tokens    |
-|   - @supabase/server SDK             |  |  - Storage Buckets (Resumes) |
-+------------------+-------------------+  +--------------+---------------+
-                   | Direct Postgres Connection          | SQL / RLS
-                   v                                     v
-+------------------------------------------------------------------------+
-|                      Supabase PostgreSQL Database                      |
-|        (Profiles, Blogs, Jobs, Applications, Projects, RBAC)           |
-+------------------------------------------------------------------------+
-```
+![High-Level Architecture Overview](./architecture_overview.jpg)
 
 ---
 
