@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
@@ -16,36 +16,49 @@ export function middleware(request: NextRequest) {
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-  `.replace(/\s{2,}/g, " ").trim();
+  `
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 
   // 2. Security Headers Injection
-  response.headers.set("Content-Security-Policy", cspHeader);
-  response.headers.set("X-Frame-Options", "DENY");
-  response.headers.set("X-Content-Type-Options", "nosniff");
-  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-  response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
-  response.headers.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
+  response.headers.set('Content-Security-Policy', cspHeader);
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set(
+    'Permissions-Policy',
+    'camera=(), microphone=(), geolocation=()',
+  );
+  response.headers.set(
+    'Strict-Transport-Security',
+    'max-age=63072000; includeSubDomains; preload',
+  );
 
   // 3. CORS Allowlist Configuration
-  const origin = request.headers.get("origin");
+  const origin = request.headers.get('origin');
   const allowedOrigins = [
-    process.env.NEXT_PUBLIC_APP_URL || "",
-    "https://bgcfmmlrhmvoojuydhdj.supabase.co",
-    "https://bduqtsnvkrwwolscnpdu.supabase.co",
-    "https://codezillatech.vercel.app",
-    "http://localhost:3000",
-    "http://localhost:3001",
+    process.env.NEXT_PUBLIC_APP_URL || '',
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    'https://codezillatech.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:3001',
   ].filter(Boolean);
 
   if (origin && allowedOrigins.includes(origin)) {
-    response.headers.set("Access-Control-Allow-Origin", origin);
-    response.headers.set("Access-Control-Allow-Credentials", "true");
-    response.headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    response.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-CSRF-Token");
+    response.headers.set('Access-Control-Allow-Origin', origin);
+    response.headers.set('Access-Control-Allow-Credentials', 'true');
+    response.headers.set(
+      'Access-Control-Allow-Methods',
+      'GET, POST, PUT, DELETE, OPTIONS',
+    );
+    response.headers.set(
+      'Access-Control-Allow-Headers',
+      'Content-Type, Authorization, X-CSRF-Token',
+    );
   }
 
   // Respond to CORS Preflight requests directly
-  if (request.method === "OPTIONS") {
+  if (request.method === 'OPTIONS') {
     return new NextResponse(null, {
       status: 204,
       headers: response.headers,
@@ -60,6 +73,6 @@ export const config = {
     /*
      * Match all request paths except static files & images
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 };
