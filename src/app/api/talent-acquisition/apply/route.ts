@@ -1,9 +1,43 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { createAdminClient } from "@/utils/supabase/admin";
+import { checkRateLimit, getClientIp } from "@/utils/security/rate-limit";
+import { sanitizeText } from "@/utils/security/sanitize";
+import { validateCsrf } from "@/utils/security/csrf";
+
+const ALLOWED_MIME_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
 
 export async function POST(request: Request) {
   try {
+    // 1. CSRF Check
+    const csrfCheck = validateCsrf(request);
+    if (!csrfCheck.valid) {
+      return NextResponse.json(
+        { error: csrfCheck.error || "Forbidden: CSRF check failed." },
+        { status: 403 }
+      );
+    }
+
+    // 2. Rate Limiting (5 applications per 15 minutes per IP)
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(`job_apply_${clientIp}`, {
+      windowMs: 15 * 60 * 1000,
+      maxRequests: 5,
+    });
+
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        {
+          error: `Too many applications submitted. Please try again in ${rateLimit.resetSeconds} seconds.`,
+        },
+        { status: 429 }
+      );
+    }
+
     const formData = await request.formData();
 
     const jobId = formData.get("jobId") as string;
@@ -29,20 +63,46 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check file extension
-    const fileName = resumeFile.name || "resume.pdf";
-    const fileExt = fileName.split(".").pop()?.toLowerCase() || "";
+    // 3. Strict File Upload Validation (Type, Extension & Size)
+    const rawFileName = resumeFile.name || "resume.pdf";
+    const safeFileName = rawFileName.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const fileExt = safeFileName.split(".").pop()?.toLowerCase() || "";
+
     if (!["pdf", "docx", "doc"].includes(fileExt)) {
       return NextResponse.json(
-        { error: "Only PDF (.pdf) and Word (.docx, .doc) files are allowed." },
+        { error: "Invalid file extension. Only PDF (.pdf) and Word (.docx, .doc) files are allowed." },
         { status: 400 }
       );
     }
 
-    // Max file size 15MB check
-    if (resumeFile.size > 15 * 1024 * 1024) {
+    if (resumeFile.type && !ALLOWED_MIME_TYPES.includes(resumeFile.type)) {
       return NextResponse.json(
-        { error: "File size exceeds maximum limit of 15MB." },
+        { error: "Invalid file MIME type. Only PDF and Word documents are permitted." },
+        { status: 400 }
+      );
+    }
+
+    // Max file size 10MB limit
+    if (resumeFile.size > 10 * 1024 * 1024) {
+      return NextResponse.json(
+        { error: "File size exceeds maximum limit of 10MB." },
+        { status: 400 }
+      );
+    }
+
+    // 4. Sanitize Text Inputs
+    const cleanFullName = sanitizeText(fullName);
+    const cleanEmail = sanitizeText(email);
+    const cleanPhone = sanitizeText(phone);
+    const cleanPortfolioUrl = sanitizeText(portfolioUrl);
+    const cleanLinkedinUrl = sanitizeText(linkedinUrl);
+    const cleanCoverLetter = sanitizeText(coverLetter);
+    const cleanJobId = sanitizeText(jobId);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      return NextResponse.json(
+        { error: "Please provide a valid email address." },
         { status: 400 }
       );
     }
@@ -54,23 +114,21 @@ export async function POST(request: Request) {
     const fileBuffer = Buffer.from(await resumeFile.arrayBuffer());
     let resumeUrl = "";
 
-    // 1. Try uploading to Supabase Storage bucket 'resumes'
+    // 5. Storage Upload with Sanitized Path
     try {
       const bucketName = "resumes";
       
-      // Ensure bucket exists
       const { error: bucketErr } = await db.storage.getBucket(bucketName);
       if (bucketErr) {
         await db.storage.createBucket(bucketName, { public: true });
       }
 
-      const safeName = fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const storagePath = `${jobId}/${Date.now()}_${safeName}`;
+      const storagePath = `${cleanJobId}/${Date.now()}_${safeFileName}`;
 
       const { data: uploadData, error: uploadErr } = await db.storage
         .from(bucketName)
         .upload(storagePath, fileBuffer, {
-          contentType: resumeFile.type || "application/octet-stream",
+          contentType: resumeFile.type || "application/pdf",
           upsert: true,
         });
 
@@ -86,7 +144,6 @@ export async function POST(request: Request) {
       console.warn("Storage attempt failed, proceeding with fallback URI:", stgErr);
     }
 
-    // 2. Fallback to Data URI if Storage fails/unavailable
     if (!resumeUrl) {
       const base64Str = fileBuffer.toString("base64");
       const mimeType =
@@ -97,17 +154,16 @@ export async function POST(request: Request) {
       resumeUrl = `data:${mimeType};base64,${base64Str}`;
     }
 
-    // 3. Save application record in Database
     const payload = {
-      job_id: jobId,
-      full_name: fullName.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      portfolio_url: portfolioUrl.trim(),
-      linkedin_url: linkedinUrl.trim(),
-      cover_letter: coverLetter.trim(),
+      job_id: cleanJobId,
+      full_name: cleanFullName,
+      email: cleanEmail,
+      phone: cleanPhone,
+      portfolio_url: cleanPortfolioUrl,
+      linkedin_url: cleanLinkedinUrl,
+      cover_letter: cleanCoverLetter,
       resume_url: resumeUrl,
-      resume_file_name: fileName,
+      resume_file_name: safeFileName,
       resume_file_type: fileExt,
       status: "pending",
       created_at: new Date().toISOString(),
@@ -123,7 +179,7 @@ export async function POST(request: Request) {
     if (dbErr) {
       console.error("Database insert job_application error:", dbErr);
       return NextResponse.json(
-        { error: `Failed to record application: ${dbErr.message}` },
+        { error: "Failed to submit job application." },
         { status: 500 }
       );
     }
@@ -136,7 +192,7 @@ export async function POST(request: Request) {
   } catch (err: any) {
     console.error("Apply route exception:", err);
     return NextResponse.json(
-      { error: err.message || "An unexpected error occurred while processing application." },
+      { error: "An unexpected error occurred while processing application." },
       { status: 500 }
     );
   }

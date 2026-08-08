@@ -1,0 +1,25 @@
+Review this codebase and implement standard web application security 
+features that are missing, following OWASP secure coding guidelines. 
+Specifically:
+
+1. Rate limiting on all API/auth endpoints (especially login, signup, 
+   password reset) to prevent brute-force abuse
+2. Input sanitization and output encoding to prevent XSS (escape 
+   user-generated content before rendering, sanitize rich-text input)
+3. Parameterized queries / ORM usage everywhere to prevent SQL injection 
+   — flag and fix any raw string-concatenated queries
+4. CSRF protection (tokens on state-changing requests)
+5. Secure HTTP headers: Content-Security-Policy, X-Frame-Options, 
+   X-Content-Type-Options, Strict-Transport-Security, Referrer-Policy
+6. Secure session/cookie config: HttpOnly, Secure, SameSite flags, 
+   reasonable session expiry
+7. Password hashing with bcrypt/argon2 if not already in place, and 
+   password strength requirements on signup
+8. CORS configured to an explicit allowlist rather than wildcard
+9. File upload restrictions (type/size validation, safe storage path) 
+   if the app accepts uploads
+10. Move any hardcoded secrets/API keys into environment variables
+
+Go through the codebase, tell me which of these are already implemented, 
+which are missing, and implement the missing ones directly in the code. 
+Summarize what was added at the end.

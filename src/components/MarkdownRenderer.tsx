@@ -4,6 +4,8 @@ import { useEffect, useState, useMemo } from "react";
 import { marked } from "marked";
 import { Copy, Check } from "lucide-react";
 
+import { sanitizeHtmlContent } from "@/utils/security/sanitize";
+
 interface MarkdownRendererProps {
   content: string;
   className?: string;
@@ -86,7 +88,8 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
       renderer,
     });
 
-    return marked.parse(content) as string;
+    const parsedHtml = marked.parse(content) as string;
+    return sanitizeHtmlContent(parsedHtml);
   }, [content]);
 
   return (

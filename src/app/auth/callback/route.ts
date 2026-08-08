@@ -5,7 +5,11 @@ import { isMainAdmin } from "@/utils/admin";
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/admin";
+  const rawNext = searchParams.get("next") ?? "/admin";
+  // Validate redirect parameter to prevent Open Redirect attacks
+  const safeNext = (rawNext.startsWith("/") && !rawNext.startsWith("//") && !rawNext.includes("\\") && !rawNext.includes("://"))
+    ? rawNext
+    : "/admin";
 
   if (code) {
     const supabase = await createClient();
@@ -73,7 +77,7 @@ export async function GET(request: Request) {
         }
       }
 
-      return NextResponse.redirect(`${origin}${next}`);
+      return NextResponse.redirect(`${origin}${safeNext}`);
     } else {
       console.error("Auth callback exchangeCodeForSession error:", error);
     }

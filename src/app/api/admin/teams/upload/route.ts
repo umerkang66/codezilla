@@ -1,10 +1,38 @@
 import { NextResponse } from "next/server";
 import { verifyAdminAuth } from "@/utils/admin-auth";
+import { checkRateLimit, getClientIp } from "@/utils/security/rate-limit";
+import { validateCsrf } from "@/utils/security/csrf";
+
+const ALLOWED_IMAGE_TYPES = ["image/png", "image/jpeg", "image/webp", "image/svg+xml"];
 
 export async function POST(request: Request) {
+  // 1. Verify Admin Session & Role
   const auth = await verifyAdminAuth();
   if (!auth.authorized) {
     return NextResponse.json({ error: auth.error }, { status: 401 });
+  }
+
+  // 2. Validate CSRF Origin Header
+  const csrfCheck = validateCsrf(request);
+  if (!csrfCheck.valid) {
+    return NextResponse.json(
+      { error: csrfCheck.error || "Forbidden: CSRF check failed." },
+      { status: 403 }
+    );
+  }
+
+  // 3. Rate Limit Admin Uploads (15 requests per minute)
+  const clientIp = getClientIp(request);
+  const rateLimit = checkRateLimit(`admin_upload_${clientIp}`, {
+    windowMs: 60 * 1000,
+    maxRequests: 15,
+  });
+
+  if (!rateLimit.success) {
+    return NextResponse.json(
+      { error: `Upload rate limit exceeded. Please wait ${rateLimit.resetSeconds} seconds.` },
+      { status: 429 }
+    );
   }
 
   try {
@@ -15,10 +43,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No image file provided." }, { status: 400 });
     }
 
-    // Validate file type
-    if (!file.type.startsWith("image/")) {
+    // 4. Strict Image Type & Extension Validation
+    const rawFileName = file.name || "avatar.png";
+    const safeFileName = rawFileName.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const fileExt = safeFileName.split(".").pop()?.toLowerCase() || "";
+
+    if (!["png", "jpg", "jpeg", "webp", "svg"].includes(fileExt)) {
       return NextResponse.json(
-        { error: "Invalid file type. Please upload an image file (PNG, JPG, WEBP, SVG)." },
+        { error: "Invalid image extension. Allowed: .png, .jpg, .jpeg, .webp, .svg" },
+        { status: 400 }
+      );
+    }
+
+    if (file.type && !ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      return NextResponse.json(
+        { error: "Invalid image MIME type." },
         { status: 400 }
       );
     }
@@ -37,16 +76,14 @@ export async function POST(request: Request) {
     let avatarUrl = "";
     const bucketName = "team-avatars";
 
-    // 1. Try uploading to Supabase Storage bucket 'team-avatars'
+    // Storage upload
     try {
-      // Ensure bucket exists
       const { error: bucketErr } = await auth.dbClient!.storage.getBucket(bucketName);
       if (bucketErr) {
         await auth.dbClient!.storage.createBucket(bucketName, { public: true });
       }
 
-      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-      const storagePath = `members/${Date.now()}_${safeName}`;
+      const storagePath = `members/${Date.now()}_${safeFileName}`;
 
       const { data: uploadData, error: uploadErr } = await auth.dbClient!.storage
         .from(bucketName)
@@ -67,7 +104,6 @@ export async function POST(request: Request) {
       console.warn("Storage exception, using fallback data URI:", stgErr);
     }
 
-    // 2. Fallback to Data URI if Storage bucket is disabled/unavailable
     if (!avatarUrl) {
       const base64Str = fileBuffer.toString("base64");
       avatarUrl = `data:${file.type || "image/png"};base64,${base64Str}`;
@@ -77,7 +113,7 @@ export async function POST(request: Request) {
   } catch (err: any) {
     console.error("Error uploading team avatar:", err);
     return NextResponse.json(
-      { error: err.message || "Failed to upload avatar image." },
+      { error: "Failed to upload avatar image." },
       { status: 500 }
     );
   }

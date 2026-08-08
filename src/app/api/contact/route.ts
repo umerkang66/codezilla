@@ -1,9 +1,45 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { createClient } from "@/utils/supabase/server";
+import { checkRateLimit, getClientIp } from "@/utils/security/rate-limit";
+import { sanitizeText } from "@/utils/security/sanitize";
+import { validateCsrf } from "@/utils/security/csrf";
 
 export async function POST(request: Request) {
   try {
+    // 1. CSRF Origin Validation
+    const csrfCheck = validateCsrf(request);
+    if (!csrfCheck.valid) {
+      return NextResponse.json(
+        { error: csrfCheck.error || "Forbidden: CSRF check failed." },
+        { status: 403 }
+      );
+    }
+
+    // 2. Rate Limiting (Max 5 submissions per 15 minutes per IP)
+    const clientIp = getClientIp(request);
+    const rateLimit = checkRateLimit(`contact_form_${clientIp}`, {
+      windowMs: 15 * 60 * 1000,
+      maxRequests: 5,
+    });
+
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        {
+          error: `Too many submissions. Please try again in ${rateLimit.resetSeconds} seconds.`,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetSeconds),
+            "X-RateLimit-Limit": String(rateLimit.limit),
+            "X-RateLimit-Remaining": String(rateLimit.remaining),
+          },
+        }
+      );
+    }
+
+    // 3. Parse and sanitize input
     const body = await request.json();
     const { name, email, service, message } = body || {};
 
@@ -14,10 +50,19 @@ export async function POST(request: Request) {
       );
     }
 
-    const trimmedName = String(name).trim();
-    const trimmedEmail = String(email).trim();
-    const trimmedService = service ? String(service).trim() : "AI & Automation";
-    const trimmedMessage = String(message).trim();
+    const trimmedName = sanitizeText(String(name));
+    const trimmedEmail = sanitizeText(String(email));
+    const trimmedService = service ? sanitizeText(String(service)) : "AI & Automation";
+    const trimmedMessage = sanitizeText(String(message));
+
+    // Basic email format check
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      return NextResponse.json(
+        { error: "Please enter a valid email address." },
+        { status: 400 }
+      );
+    }
 
     if (!trimmedName || !trimmedEmail || !trimmedMessage) {
       return NextResponse.json(
@@ -26,7 +71,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Try admin client first, fallback to standard server client
+    // 4. Store in database
     const adminSupabase = createAdminClient();
     const serverSupabase = await createClient();
     const dbClient = adminSupabase || serverSupabase;
@@ -49,20 +94,28 @@ export async function POST(request: Request) {
     if (error) {
       console.error("Error inserting contact message:", error);
       return NextResponse.json(
-        { error: `Failed to submit contact message: ${error.message}` },
+        { error: "Failed to submit contact message." },
         { status: 500 }
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Contact message received successfully.",
-      data,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Contact message received successfully.",
+        data,
+      },
+      {
+        headers: {
+          "X-RateLimit-Limit": String(rateLimit.limit),
+          "X-RateLimit-Remaining": String(rateLimit.remaining),
+        },
+      }
+    );
   } catch (err: any) {
     console.error("Contact form error:", err);
     return NextResponse.json(
-      { error: err.message || "An unexpected error occurred." },
+      { error: "An unexpected error occurred." },
       { status: 500 }
     );
   }
