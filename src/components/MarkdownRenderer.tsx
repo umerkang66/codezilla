@@ -18,7 +18,10 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
     // Configure marked to open links in new tab and format code
     const renderer = new marked.Renderer();
 
-    renderer.link = ({ href, title, text }) => {
+    renderer.link = (token: any, legacyTitle?: string, legacyText?: string) => {
+      const href = typeof token === "string" ? token : token?.href || "#";
+      const title = typeof token === "string" ? legacyTitle : token?.title;
+      const text = typeof token === "string" ? legacyText : (token?.text || token?.raw || "");
       const titleAttr = title ? ` title="${title}"` : "";
       return `<a href="${href}"${titleAttr} target="_blank" rel="noopener noreferrer" class="text-[#81D607] hover:underline font-mono font-semibold transition-colors">${text}</a>`;
     };
@@ -54,8 +57,10 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
       return `<h${depth} class="${className}">${text}</h${depth}>`;
     };
 
-    renderer.paragraph = ({ text }) => {
-      return `<p class="text-[#9DA4B0] leading-relaxed mb-4 text-base font-sans">${text}</p>`;
+    renderer.paragraph = (token: any) => {
+      const rawText = typeof token === "string" ? token : token?.text || "";
+      const inlineContent = marked.parseInline(rawText, { async: false }) as string;
+      return `<p class="text-[#9DA4B0] leading-relaxed mb-4 text-base font-sans">${inlineContent}</p>`;
     };
 
     renderer.list = ({ items, ordered }) => {
@@ -82,13 +87,13 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
       return `<hr class="border-t border-[#E1E6EB]/10 my-8" />`;
     };
 
-    marked.setOptions({
+    marked.use({
       gfm: true,
       breaks: true,
       renderer,
     });
 
-    const parsedHtml = marked.parse(content) as string;
+    const parsedHtml = marked.parse(content, { async: false }) as string;
     return sanitizeHtmlContent(parsedHtml);
   }, [content]);
 
