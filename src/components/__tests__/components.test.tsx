@@ -53,6 +53,38 @@ describe("UI Components - Unit Tests", () => {
       expect(container.querySelector("strong")).toHaveTextContent("bold");
     });
 
+    it("should correctly render bolding and italics for angle bracket placeholders like **<something_bold>** and *<something_italic>*", () => {
+      const markdown = "This is **<something_bold>** and *<something_italic>*.";
+      const { container } = render(<MarkdownRenderer content={markdown} />);
+
+      const strongElement = container.querySelector("strong");
+      const emElement = container.querySelector("em");
+
+      expect(strongElement).not.toBeNull();
+      expect(strongElement?.textContent).toBe("<something_bold>");
+
+      expect(emElement).not.toBeNull();
+      expect(emElement?.textContent).toBe("<something_italic>");
+    });
+
+    it("should colorize code blocks using syntax highlighting classes", () => {
+      const codeMarkdown = "```javascript\nconst x = 42;\n```";
+      const { container } = render(<MarkdownRenderer content={codeMarkdown} />);
+
+      const codeElement = container.querySelector("code.hljs");
+      expect(codeElement).not.toBeNull();
+      expect(container.querySelector(".hljs-keyword")).not.toBeNull();
+    });
+
+    it("should render LaTeX math formulas with KaTeX", () => {
+      const mathMarkdown = "Inline formula: $E = mc^2$\n\nDisplay formula:\n$$\\int_0^1 x^2 dx$$";
+      const { container } = render(<MarkdownRenderer content={mathMarkdown} />);
+
+      const katexElements = container.querySelectorAll(".katex");
+      expect(katexElements.length).toBeGreaterThan(0);
+      expect(container.querySelector(".katex-display")).not.toBeNull();
+    });
+
     it("should strip malicious script tags from rendering", () => {
       const maliciousMarkdown = "Safe text <script>alert('xss')</script>";
       const { container } = render(<MarkdownRenderer content={maliciousMarkdown} />);

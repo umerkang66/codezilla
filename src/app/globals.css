@@ -74,3 +74,43 @@ h1, h2, h3, h4, h5, h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: #81D607;
 }
+
+/* Prose Codzilla Formatting Styles */
+.prose-codzilla strong,
+.prose-codzilla b {
+  font-weight: 700 !important;
+  color: #E1E6EB !important;
+}
+
+.prose-codzilla em,
+.prose-codzilla i {
+  font-style: italic !important;
+  color: #E1E6EB !important;
+}
+
+.prose-codzilla p {
+  color: #9DA4B0;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* KaTeX Dark Mode Math Styling */
+.prose-codzilla .katex-display {
+  margin: 1.5rem 0 !important;
+  padding: 1rem !important;
+  background: #0D0D0D !important;
+  border: 1px solid rgba(129, 214, 7, 0.3) !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+}
+
+.prose-codzilla .katex {
+  color: #E1E6EB !important;
+  font-size: 1.05em;
+}
+
+.prose-codzilla .katex-error {
+  color: #ff6b6b;
+  font-family: var(--font-mono), monospace;
+}
+
