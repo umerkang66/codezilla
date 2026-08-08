@@ -80,13 +80,17 @@ export default function AdminUserManagement({
 
   return (
     <div className="space-y-6 text-left font-sans">
-      {/* Header & Search Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E1E6EB]/10 pb-4">
-        <div>
-          <h3 className="text-lg font-mono font-bold text-[#E1E6EB] flex items-center gap-2">
-            <User className="w-5 h-5 text-[#81D607]" />
-            <span>User Management & Admin Role Assignment</span>
-          </h3>
+      {/* Header Banner */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+              Admin Module
+            </span>
+            <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
+              User Management & Admin Roles
+            </h1>
+          </div>
           <p className="text-xs text-[#9DA4B0]">
             Search registered users by name or email. {isSuperAdmin ? "Main Admin can promote users to Admin or demote them to normal users." : "Only Main Admin can modify roles."}
           </p>

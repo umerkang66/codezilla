@@ -200,16 +200,19 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
 
   return (
     <div className="flex-1 p-6 sm:p-8 flex flex-col h-full overflow-y-auto text-left space-y-6">
-      {/* Header Section */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E1E6EB]/10 pb-5">
+      {/* Header Banner */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
         <div className="space-y-1">
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-mono font-extrabold text-[#E1E6EB] tracking-tight">
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+              Admin Module
+            </span>
+            <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
               Contact Messages
             </h1>
             {unreadCount > 0 && (
-              <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-xs font-mono font-extrabold rounded-none flex items-center gap-1 animate-pulse">
-                <span>{unreadCount} Unread</span>
+              <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase animate-pulse">
+                {unreadCount} Unread
               </span>
             )}
           </div>
@@ -232,7 +235,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
           <button
             onClick={refreshMessages}
             disabled={isRefreshing}
-            className="px-3.5 py-2 bg-[#1A1A1A] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] text-xs font-mono transition-colors rounded-none flex items-center gap-1.5 disabled:opacity-50"
+            className="px-3.5 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] text-xs font-mono transition-colors rounded-none flex items-center gap-1.5 disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin" : ""}`} />
             <span>Refresh</span>

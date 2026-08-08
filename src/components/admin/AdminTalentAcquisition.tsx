@@ -406,16 +406,16 @@ export default function AdminTalentAcquisition({
         </div>
       )}
 
-      {/* Header & Section Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E1E6EB]/10 pb-6">
+      {/* Header Banner */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <h1 className="text-2xl font-mono font-extrabold text-[#E1E6EB]">
+            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+              Admin Module
+            </span>
+            <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
               Talent Acquisition Management
             </h1>
-            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] font-mono text-[10px] font-bold uppercase">
-              Admin Portal
-            </span>
           </div>
           <p className="text-xs text-[#9DA4B0]">
             Manage job postings, review applicant CVs (.pdf, .docx), and track candidate statuses.
@@ -425,9 +425,9 @@ export default function AdminTalentAcquisition({
         <button
           type="button"
           onClick={handleOpenCreateJob}
-          className="px-4 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs flex items-center gap-2 rounded-none transition-colors shadow-md w-full sm:w-auto justify-center"
+          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-none shrink-0"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Post New Job</span>
         </button>
       </div>

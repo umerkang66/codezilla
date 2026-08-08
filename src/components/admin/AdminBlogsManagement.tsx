@@ -104,15 +104,19 @@ export default function AdminBlogsManagement({
   return (
     <div className="flex-1 p-8 flex flex-col justify-between overflow-y-auto text-left space-y-8">
       <div className="space-y-6">
-        {/* Title Header & Main Create Blog Button */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E1E6EB]/10 pb-6">
+        {/* Header Banner */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
           <div className="space-y-1">
-            <h2 className="text-2xl font-mono font-extrabold text-[#E1E6EB] flex items-center gap-2">
-              <BookOpen className="w-6 h-6 text-[#81D607]" />
-              <span>Blogs Management</span>
-            </h2>
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+                Admin Module
+              </span>
+              <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
+                Blogs Management
+              </h1>
+            </div>
             <p className="text-xs text-[#9DA4B0]">
-              Create, edit, manage, and publish engineering articles using Markdown editor
+              Create, edit, manage, and publish engineering articles using Markdown editor.
             </p>
           </div>
 
@@ -120,9 +124,9 @@ export default function AdminBlogsManagement({
           <button
             type="button"
             onClick={handleOpenCreateModal}
-            className="px-5 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs shrink-0 transition-colors flex items-center gap-2 rounded-none"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-none shrink-0"
           >
-            <Plus className="w-4 h-4 stroke-[3]" />
+            <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Create Blog</span>
           </button>
         </div>
