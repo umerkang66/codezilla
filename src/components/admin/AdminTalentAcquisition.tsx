@@ -24,7 +24,9 @@ import {
   Share2,
   Filter,
   Check,
+  FileSpreadsheet,
 } from "lucide-react";
+import { exportApplicationsToExcel } from "@/utils/excelExport";
 
 export interface JobPosting {
   id: string;
@@ -378,6 +380,33 @@ export default function AdminTalentAcquisition({
     return matchesSearch && matchesJob && matchesStatus;
   });
 
+  // Export Candidate Applications to Excel (.xlsx)
+  const handleExportApplicationsExcel = (all: boolean = false) => {
+    const listToExport = all ? applications : filteredApps;
+    if (listToExport.length === 0) {
+      showToast("error", "No candidate applications available to export.");
+      return;
+    }
+
+    const filterInfo = appJobFilter !== "all" ? "Filtered" : "All";
+    const prefix = all ? "Candidate_Applications_All" : `Candidate_Applications_${filterInfo}`;
+    
+    const success = exportApplicationsToExcel(listToExport, prefix);
+    if (success) {
+      showToast("success", `Exported ${listToExport.length} candidate applications to Excel (.xlsx)`);
+    } else {
+      showToast("error", "Failed to export candidate applications.");
+    }
+  };
+
+  const handleExportSingleAppExcel = (app: JobApplication) => {
+    const prefix = `Candidate_${app.full_name.replace(/\s+/g, "_")}`;
+    const success = exportApplicationsToExcel([app], prefix);
+    if (success) {
+      showToast("success", `Exported ${app.full_name}'s details to Excel (.xlsx)`);
+    }
+  };
+
   const activeJobsCount = jobs.filter((j) => j.status === "active").length;
   const pendingAppsCount = applications.filter((a) => a.status === "pending").length;
 
@@ -688,6 +717,33 @@ export default function AdminTalentAcquisition({
               >
                 <Clock className={`w-4 h-4 ${appsLoading ? "animate-spin" : ""}`} />
               </button>
+
+              {/* Export to Excel Button */}
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleExportApplicationsExcel(false)}
+                  disabled={filteredApps.length === 0}
+                  className="px-3.5 py-2 bg-[#81D607] hover:bg-[#72BE06] disabled:opacity-50 disabled:cursor-not-allowed text-[#111111] font-mono font-bold text-xs flex items-center gap-2 transition-colors rounded-none shadow-sm"
+                  title="Download candidate applications & details in an Excel file (.xlsx)"
+                >
+                  <FileSpreadsheet className="w-4 h-4 stroke-[2.5]" />
+                  <span>
+                    Download Excel {filteredApps.length !== applications.length ? `(${filteredApps.length})` : `(${applications.length})`}
+                  </span>
+                </button>
+
+                {filteredApps.length !== applications.length && applications.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => handleExportApplicationsExcel(true)}
+                    className="px-2.5 py-2 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors"
+                    title={`Download all ${applications.length} applications in Excel format`}
+                  >
+                    Download All ({applications.length})
+                  </button>
+                )}
+              </div>
             </div>
           </div>
 
@@ -1125,6 +1181,15 @@ export default function AdminTalentAcquisition({
                     <Download className="w-4 h-4" />
                     <span>Download CV ({selectedApp.resume_file_name})</span>
                   </a>
+
+                  <button
+                    type="button"
+                    onClick={() => handleExportSingleAppExcel(selectedApp)}
+                    className="w-full py-2 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+                  >
+                    <FileSpreadsheet className="w-3.5 h-3.5" />
+                    <span>Download Excel Details (.xlsx)</span>
+                  </button>
 
                   <button
                     type="button"
