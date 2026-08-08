@@ -80,7 +80,7 @@ export default function AdminSignInForm({ initialUser }: AdminSignInFormProps) {
     if (loggedInUser) {
       const timer = setTimeout(() => {
         router.push("/admin");
-      }, 2000);
+      }, 1000);
 
       return () => clearTimeout(timer);
     }
@@ -184,7 +184,7 @@ export default function AdminSignInForm({ initialUser }: AdminSignInFormProps) {
                   <Loader2 className="w-3.5 h-3.5 animate-spin text-[#81D607]" />
                   Redirecting to Admin Dashboard...
                 </span>
-                <span className="text-[10px] text-[#9DA4B0]">2s</span>
+                <span className="text-[10px] text-[#9DA4B0]">1s</span>
               </div>
 
               <button
