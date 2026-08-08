@@ -203,10 +203,10 @@ export default function TalentAcquisitionClient({
         <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] font-mono text-xs font-semibold uppercase tracking-wider">
           Talent Acquisition
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight">
           Available Positions
         </h1>
-        <p className="text-sm sm:text-base text-[#9DA4B0]">
+        <p className="text-xs sm:text-sm text-[#9DA4B0]">
           Join Codzilla Technologies. Work on high-impact commercial software, AI models, and embedded engineering projects.
         </p>
       </div>
@@ -308,7 +308,7 @@ export default function TalentAcquisitionClient({
                       </div>
 
                       <div className="space-y-1 min-w-0 pr-12">
-                        <h3 className="text-xl font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors line-clamp-2">
+                        <h3 className="text-base sm:text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors line-clamp-2">
                           {job.title}
                         </h3>
                         <p className="text-xs font-mono text-[#81D607] uppercase tracking-wide truncate">
@@ -386,7 +386,7 @@ export default function TalentAcquisitionClient({
                   <span className="px-3 py-1 bg-[#81D607]/20 border border-[#81D607]/40 text-[#81D607] text-[10px] font-mono uppercase font-bold">
                     Application Received
                   </span>
-                  <h3 className="text-2xl font-mono font-bold text-[#E1E6EB]">
+                  <h3 className="text-lg sm:text-xl font-mono font-bold text-[#E1E6EB]">
                     Thank You for Applying!
                   </h3>
                   <p className="text-xs text-[#9DA4B0] max-w-md mx-auto leading-relaxed">
@@ -409,7 +409,7 @@ export default function TalentAcquisitionClient({
                   <span className="px-2.5 py-0.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] font-mono text-[10px] uppercase font-bold">
                     {selectedJob.domain}
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-mono font-extrabold text-[#E1E6EB]">
+                  <h2 className="text-lg sm:text-xl font-mono font-extrabold text-[#E1E6EB]">
                     Apply for {selectedJob.title}
                   </h2>
                   <p className="text-xs text-[#9DA4B0]">

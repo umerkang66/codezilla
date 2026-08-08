@@ -84,7 +84,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight font-mono">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight font-mono">
             {post.title}
           </h1>
 
@@ -113,7 +113,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
         {/* Article Bottom Call To Action */}
         <div className="p-8 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-none">
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-[#E1E6EB] font-mono">Need Custom Engineering Solutions?</h3>
+            <h3 className="text-base sm:text-lg font-bold text-[#E1E6EB] font-mono">Need Custom Engineering Solutions?</h3>
             <p className="text-xs text-[#9DA4B0] font-sans">
               Codzilla Technologies builds bespoke software, AI models, and KiCad PCB hardware for innovative businesses.
             </p>

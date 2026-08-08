@@ -130,7 +130,7 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
                   </div>
                   <div className="space-y-1 min-w-0 pr-12">
                     <Link href={`/blog/${post.id}`} className="block">
-                      <h3 className="text-xl font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors line-clamp-2">
+                      <h3 className="text-base sm:text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors line-clamp-2">
                         {post.title}
                       </h3>
                     </Link>

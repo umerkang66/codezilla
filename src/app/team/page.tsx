@@ -40,10 +40,10 @@ export default async function TeamPage() {
         <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] font-mono text-xs font-semibold uppercase tracking-wider">
           Our Team
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight">
           Meet the Minds Behind Codzilla
         </h1>
-        <p className="text-sm sm:text-base text-[#9DA4B0]">
+        <p className="text-xs sm:text-sm text-[#9DA4B0]">
           Our multidisciplinary team combines software architects, machine learning researchers, and embedded hardware developers.
         </p>
       </div>

@@ -38,10 +38,10 @@ export default async function BlogIndexPage() {
         <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] font-mono text-xs font-semibold uppercase tracking-wider">
           Technical Publications
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight">
           Codzilla Engineering Blog
         </h1>
-        <p className="text-sm sm:text-base text-[#9DA4B0]">
+        <p className="text-xs sm:text-sm text-[#9DA4B0]">
           Explore deep dives on artificial intelligence, Next.js web architecture, and KiCad hardware design written by our lead engineers.
         </p>
       </div>

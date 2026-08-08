@@ -171,11 +171,11 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
 
         heading({ text, depth }: { text: string; depth: number }) {
           const levels: Record<number, string> = {
-            1: "text-2xl sm:text-3xl font-mono font-extrabold text-[#E1E6EB] border-b border-[#81D607]/30 pb-3 mt-8 mb-4 tracking-tight",
-            2: "text-xl sm:text-2xl font-mono font-bold text-[#E1E6EB] mt-7 mb-3 tracking-tight",
-            3: "text-lg sm:text-xl font-mono font-bold text-[#81D607] mt-6 mb-2 tracking-tight",
-            4: "text-base font-mono font-bold text-[#E1E6EB] mt-5 mb-2",
-            5: "text-sm font-mono font-bold text-[#9DA4B0] mt-4 mb-2",
+            1: "text-xl sm:text-2xl font-mono font-extrabold text-[#E1E6EB] border-b border-[#81D607]/30 pb-3 mt-8 mb-4 tracking-tight",
+            2: "text-lg sm:text-xl font-mono font-bold text-[#E1E6EB] mt-7 mb-3 tracking-tight",
+            3: "text-base sm:text-lg font-mono font-bold text-[#81D607] mt-6 mb-2 tracking-tight",
+            4: "text-sm font-mono font-bold text-[#E1E6EB] mt-5 mb-2",
+            5: "text-xs font-mono font-bold text-[#9DA4B0] mt-4 mb-2",
             6: "text-xs font-mono font-bold text-[#9DA4B0] mt-4 mb-2 uppercase",
           };
           const headingClass = levels[depth] || levels[2];
@@ -184,7 +184,7 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
 
         paragraph(this: any, token: any) {
           const innerHtml = this.parser.parseInline(token.tokens || []);
-          return `<p class="text-[#9DA4B0] leading-relaxed mb-4 text-base font-sans">${innerHtml}</p>`;
+          return `<p class="text-[#9DA4B0] leading-relaxed mb-4 text-xs sm:text-sm font-sans">${innerHtml}</p>`;
         },
 
         table({ header, rows }: { header: any[]; rows: any[][] }) {

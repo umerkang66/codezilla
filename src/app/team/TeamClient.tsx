@@ -179,13 +179,13 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
                       />
                     </div>
                   ) : (
-                    <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] text-2xl font-bold font-mono shrink-0 group-hover:border-[#81D607] transition-colors">
+                    <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] text-lg font-bold font-mono shrink-0 group-hover:border-[#81D607] transition-colors">
                       {getInitials(member)}
                     </div>
                   )}
 
                   <div className="space-y-1 min-w-0 pr-12">
-                    <h3 className="text-xl font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors truncate">
+                    <h3 className="text-base sm:text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors truncate">
                       {member.name}
                     </h3>
                     <p className="text-xs font-mono text-[#81D607] uppercase tracking-wide truncate">
