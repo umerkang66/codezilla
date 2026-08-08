@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus, Minus, HelpCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -60,31 +61,48 @@ export default function Faq() {
           return (
             <div
               key={idx}
-              className={`border transition-colors rounded-none ${
+              className={`border transition-all duration-300 rounded-none ${
                 isOpen
-                  ? "bg-[#1A1A1A] border-[#81D607]"
+                  ? "bg-[#1A1A1A] border-[#81D607] shadow-[0_0_15px_rgba(129,214,7,0.15)]"
                   : "bg-[#1A1A1A]/80 border-[#E1E6EB]/10 hover:border-[#81D607]/60"
               }`}
             >
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : idx)}
-                className="w-full px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 text-left font-mono font-bold text-xs sm:text-base text-[#E1E6EB] focus:outline-none"
+                className="w-full px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 text-left font-mono font-bold text-xs sm:text-base text-[#E1E6EB] focus:outline-none group"
               >
-                <span className="flex items-center gap-2.5 sm:gap-3">
-                  <HelpCircle className="w-4 h-4 text-[#81D607] shrink-0" />
-                  <span>{faq.question}</span>
+                <span className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                  <HelpCircle className={`w-4 h-4 shrink-0 transition-colors duration-300 ${isOpen ? "text-[#81D607]" : "text-[#81D607]/70 group-hover:text-[#81D607]"}`} />
+                  <span className={`transition-colors duration-200 ${isOpen ? "text-[#81D607]" : "text-[#E1E6EB] group-hover:text-[#81D607]"}`}>{faq.question}</span>
                 </span>
-                <span className="w-6 h-6 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+                <span
+                  className={`w-6 h-6 bg-[#111111] border flex items-center justify-center text-[#81D607] shrink-0 rounded-none transition-all duration-300 ${
+                    isOpen
+                      ? "border-[#81D607] bg-[#81D607]/10 rotate-180"
+                      : "border-[#81D607]/40 group-hover:border-[#81D607] rotate-0"
+                  }`}
+                >
                   {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
                 </span>
               </button>
 
-              {isOpen && (
-                <div className="px-4 sm:px-6 pb-4 sm:pb-5 pt-1 text-xs sm:text-sm text-[#9DA4B0] font-sans leading-relaxed border-t border-[#E1E6EB]/5">
-                  {faq.answer}
-                </div>
-              )}
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-4 sm:px-6 pb-4 sm:pb-5 pt-1 text-xs sm:text-sm text-[#9DA4B0] font-sans leading-relaxed border-t border-[#E1E6EB]/10">
+                      {faq.answer}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           );
         })}

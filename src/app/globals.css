@@ -59,6 +59,20 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--border-bright);
 }
 
+/* Sharp Card Micro Hover Animation */
+.card-hover-effect {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              background-color 0.3s ease;
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px -5px rgba(129, 214, 7, 0.16);
+  border-color: #81D607 !important;
+}
+
 /* Custom Scrollbar - Sharp */
 ::-webkit-scrollbar {
   width: 8px;

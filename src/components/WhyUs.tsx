@@ -61,10 +61,10 @@ export default function WhyUs() {
         {usps.map((usp, idx) => (
           <div
             key={idx}
-            className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 text-left flex flex-col justify-between group rounded-none"
+            className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect text-left flex flex-col justify-between group rounded-none"
           >
             <div className="space-y-3 sm:space-y-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] transition-colors rounded-none">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] group-hover:scale-110 group-hover:bg-[#81D607]/10 transition-all duration-300 rounded-none">
                 <usp.icon className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
 

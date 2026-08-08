@@ -97,8 +97,8 @@ export default function Pricing() {
                   className={`p-6 sm:p-8 bg-[#1A1A1A] border ${
                     tier.featured
                       ? "border-[#81D607] shadow-xl"
-                      : "border-[#E1E6EB]/10 hover:border-[#81D607]/60"
-                  } transition-all duration-200 flex flex-col justify-between text-left rounded-none relative`}
+                      : "border-[#E1E6EB]/10"
+                  } card-hover-effect flex flex-col justify-between text-left rounded-none relative`}
                 >
                   {tier.featured && (
                     <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-extrabold uppercase px-3 py-1 font-mono">

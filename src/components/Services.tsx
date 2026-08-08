@@ -85,10 +85,10 @@ export default function Services() {
           {servicesList.map((service, index) => (
             <div
               key={index}
-              className="glass-card p-5 sm:p-6 border border-[#E1E6EB]/10 bg-[#1A1A1A] hover:bg-[#222222] hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none text-left"
+              className="glass-card p-5 sm:p-6 border border-[#E1E6EB]/10 bg-[#1A1A1A] hover:bg-[#222222] card-hover-effect flex flex-col justify-between group rounded-none text-left"
             >
               <div className="space-y-3 sm:space-y-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#111111] border border-[#E1E6EB]/15 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] transition-all rounded-none">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#111111] border border-[#E1E6EB]/15 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] group-hover:scale-110 group-hover:bg-[#81D607]/10 transition-all duration-300 rounded-none">
                   <service.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider">

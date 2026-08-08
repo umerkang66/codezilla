@@ -138,7 +138,7 @@ export default function Team({ initialTeams }: TeamProps) {
                 key={member.id}
                 className={`p-5 sm:p-6 bg-[#1A1A1A] border ${
                   member.is_founder ? "border-[#81D607]" : "border-[#E1E6EB]/10"
-                } hover:border-[#81D607] transition-all duration-200 text-left flex flex-col justify-between group rounded-none relative`}
+                } card-hover-effect text-left flex flex-col justify-between group rounded-none relative`}
               >
                 {member.is_founder && (
                   <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-extrabold uppercase px-2.5 py-1">

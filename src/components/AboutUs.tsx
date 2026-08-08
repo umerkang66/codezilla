@@ -86,7 +86,7 @@ export default function AboutUs() {
 
           {/* Key Value Checklist */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-2 sm:pt-4">
-            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect">
               <ShieldCheck className="w-5 h-5 text-[#81D607] shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-bold text-[#E1E6EB]">Direct Communication</h4>
@@ -94,7 +94,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect">
               <Target className="w-5 h-5 text-[#81D607] shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-bold text-[#E1E6EB]">Quality & Compliance</h4>
@@ -102,7 +102,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect">
               <Award className="w-5 h-5 text-[#81D607] shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-bold text-[#E1E6EB]">Cross-Domain Skills</h4>
@@ -110,7 +110,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect">
               <CheckCircle2 className="w-5 h-5 text-[#81D607] shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-bold text-[#E1E6EB]">Post-Launch Support</h4>

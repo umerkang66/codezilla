@@ -62,9 +62,9 @@ export default function TechStack() {
         {filteredItems.map((item, idx) => (
           <div
             key={idx}
-            className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 group text-left rounded-none"
+            className="p-4 sm:p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect group text-left rounded-none"
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#E1E6EB]/15 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] transition-colors mb-3 sm:mb-4 rounded-none">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#E1E6EB]/15 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] group-hover:scale-110 group-hover:bg-[#81D607]/10 transition-all duration-300 mb-3 sm:mb-4 rounded-none">
               <item.icon className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider block mb-1">

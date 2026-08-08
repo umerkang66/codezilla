@@ -79,7 +79,7 @@ export default function ContactUs() {
 
           {/* Contact Details Grid */}
           <div className="space-y-3 sm:space-y-4 pt-2">
-            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-3 sm:gap-4">
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4">
               <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
@@ -94,7 +94,7 @@ export default function ContactUs() {
               </div>
             </div>
 
-            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-3 sm:gap-4">
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4">
               <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
@@ -109,7 +109,7 @@ export default function ContactUs() {
               </div>
             </div>
 
-            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-3 sm:gap-4">
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4">
               <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
@@ -119,7 +119,7 @@ export default function ContactUs() {
               </div>
             </div>
 
-            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-start gap-3 sm:gap-4">
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4">
               <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
                 <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>

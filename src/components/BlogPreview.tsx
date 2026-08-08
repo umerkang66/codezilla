@@ -56,7 +56,7 @@ export default function BlogPreview() {
           {blogs.slice(0, 3).map((post) => (
             <article
               key={post.id}
-              className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none"
+              className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex flex-col justify-between group rounded-none"
             >
               <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-center justify-between">
