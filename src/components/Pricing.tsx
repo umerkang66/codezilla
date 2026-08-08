@@ -49,10 +49,10 @@ export default function Pricing() {
           <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
             Transparent Investment
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
             Flexible Engineering Packages
           </h2>
-          <p className="text-sm sm:text-base text-[#9DA4B0]">
+          <p className="text-xs sm:text-sm text-[#9DA4B0]">
             Fixed transparent pricing tailored for web development, PCB electronic layout, and custom artificial intelligence deployment.
           </p>
         </div>
@@ -115,7 +115,7 @@ export default function Pricing() {
                     </div>
 
                     <div className="flex items-baseline gap-2 pt-2 border-t border-[#E1E6EB]/10">
-                      <span className="text-3xl sm:text-4xl font-extrabold text-[#81D607] font-mono">{tier.price}</span>
+                      <span className="text-2xl sm:text-3xl font-extrabold text-[#81D607] font-mono">{tier.price}</span>
                       {tier.period && (
                         <span className="text-xs text-[#9DA4B0] font-mono">{tier.period}</span>
                       )}

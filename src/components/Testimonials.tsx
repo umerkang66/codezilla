@@ -48,10 +48,10 @@ export default function Testimonials() {
           <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
             Client Feedback
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
             What Our Clients Say
           </h2>
-          <p className="text-sm sm:text-base text-[#9DA4B0]">
+          <p className="text-xs sm:text-sm text-[#9DA4B0]">
             Direct feedback from startups and global clients who trust Codzilla for software, AI, and hardware development.
           </p>
         </div>

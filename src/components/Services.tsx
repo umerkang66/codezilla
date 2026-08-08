@@ -72,10 +72,10 @@ export default function Services() {
           <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
             Commercial Offerings
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
             End-to-End Technology Solutions Under One Roof
           </h2>
-          <p className="text-sm sm:text-lg text-[#9DA4B0]">
+          <p className="text-xs sm:text-sm text-[#9DA4B0]">
             From software architecture and AI models to physical hardware PCB engineering, we turn technical complexities into scalable commercial products.
           </p>
         </div>

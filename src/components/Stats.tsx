@@ -42,7 +42,7 @@ export default function Stats() {
               }`}
             >
               <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#81D607] mx-auto mb-2" />
-              <div className="text-3xl sm:text-5xl font-extrabold text-[#81D607] font-mono tracking-tight">
+              <div className="text-2xl sm:text-3xl font-extrabold text-[#81D607] font-mono tracking-tight">
                 {stat.number}
               </div>
               <h4 className="text-sm sm:text-base font-bold text-[#E1E6EB]">{stat.label}</h4>

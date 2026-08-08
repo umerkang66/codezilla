@@ -12,11 +12,11 @@ export default function Hero() {
             <span>Software • AI/ML • Hardware Engineering</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#E1E6EB] tracking-tight leading-[1.15] sm:leading-[1.1]">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight leading-[1.2] sm:leading-[1.15]">
             We Build <span className="text-[#81D607] underline decoration-[#81D607]/40 decoration-2 underline-offset-4">AI, Web & Hardware</span> Solutions That Scale Your Business
           </h1>
 
-          <p className="text-base sm:text-xl text-[#9DA4B0] font-normal leading-relaxed max-w-2xl">
+          <p className="text-sm sm:text-base text-[#9DA4B0] font-normal leading-relaxed max-w-2xl">
             Codzilla Technologies delivers enterprise software development, intelligent machine learning models, and embedded PCB engineering for startups and industry leaders.
           </p>
 
@@ -42,15 +42,15 @@ export default function Hero() {
           {/* Quick Value Metrics */}
           <div className="pt-5 border-t border-[#E1E6EB]/10 grid grid-cols-3 gap-2 sm:gap-4 text-left">
             <div className="p-2 sm:p-3 bg-[#1A1A1A]/40 border border-[#E1E6EB]/5">
-              <div className="text-lg sm:text-2xl font-extrabold text-[#81D607] font-mono">50+</div>
+              <div className="text-base sm:text-xl font-extrabold text-[#81D607] font-mono">50+</div>
               <div className="text-[9px] sm:text-xs text-[#9DA4B0] uppercase tracking-wider font-mono">Projects Delivered</div>
             </div>
             <div className="p-2 sm:p-3 bg-[#1A1A1A]/40 border border-[#E1E6EB]/5">
-              <div className="text-lg sm:text-2xl font-extrabold text-[#81D607] font-mono">5+</div>
+              <div className="text-base sm:text-xl font-extrabold text-[#81D607] font-mono">5+</div>
               <div className="text-[9px] sm:text-xs text-[#9DA4B0] uppercase tracking-wider font-mono">Countries Served</div>
             </div>
             <div className="p-2 sm:p-3 bg-[#1A1A1A]/40 border border-[#E1E6EB]/5">
-              <div className="text-lg sm:text-2xl font-extrabold text-[#81D607] font-mono">99%</div>
+              <div className="text-base sm:text-xl font-extrabold text-[#81D607] font-mono">99%</div>
               <div className="text-[9px] sm:text-xs text-[#9DA4B0] uppercase tracking-wider font-mono">On-Time Delivery</div>
             </div>
           </div>

@@ -89,10 +89,10 @@ export default function Portfolio() {
         <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
           Proof of Work
         </div>
-        <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
           Selected Portfolio & Case Studies
         </h2>
-        <p className="text-sm sm:text-base text-[#9DA4B0]">
+        <p className="text-xs sm:text-sm text-[#9DA4B0]">
           Explore representative engineering projects delivered across software engineering, machine learning, dynamic web apps, and KiCad PCB hardware.
         </p>
 

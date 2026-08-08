@@ -11,11 +11,11 @@ export default function CtaBanner() {
             <span>Turn Ideas Into Execution</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight max-w-3xl">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight max-w-3xl">
             Ready to Build Something Great?
           </h2>
 
-          <p className="text-base sm:text-lg text-[#9DA4B0] max-w-xl">
+          <p className="text-xs sm:text-sm text-[#9DA4B0] max-w-xl">
             Tell us about your project requirements and receive a detailed proposal & free engineering consultation within 24 hours.
           </p>
 

@@ -32,10 +32,10 @@ export default function BlogPreview() {
         <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
           Technical Insights & Articles
         </div>
-        <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
           Latest Engineering Articles
         </h2>
-        <p className="text-sm sm:text-base text-[#9DA4B0]">
+        <p className="text-xs sm:text-sm text-[#9DA4B0]">
           Engineering insights, hardware prototyping guides, and AI architecture breakdowns written by Codzilla engineers.
         </p>
       </div>

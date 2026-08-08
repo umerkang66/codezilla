@@ -34,10 +34,10 @@ export default function Careers() {
           <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
             Talent Acquisition
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
-            Join Codzilla — Learn & Earn on Real Engineering Work
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight">
+            Build the Future of Engineering With Us
           </h2>
-          <p className="text-base text-[#9DA4B0]">
+          <p className="text-xs sm:text-sm text-[#9DA4B0]">
             We recruit student developers, hardware tinkerers, and AI researchers. Get paid per project contribution while engineering commercial client software & PCB systems.
           </p>
         </div>

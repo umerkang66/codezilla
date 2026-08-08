@@ -69,7 +69,7 @@ export default function ContactUs() {
             <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
               Let&apos;s Work Together
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
               Get in Touch with Our Engineering Team
             </h2>
             <p className="text-sm text-[#9DA4B0] leading-relaxed">

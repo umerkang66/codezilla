@@ -72,7 +72,7 @@ export default function AboutUs() {
             About Our Company
           </div>
 
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
             Bridging Software, Artificial Intelligence & Hardware Engineering
           </h2>
 

@@ -48,10 +48,10 @@ export default function Process() {
           <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
             Proven Workflow
           </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
             How We Work — Step by Step
           </h2>
-          <p className="text-sm sm:text-base text-[#9DA4B0]">
+          <p className="text-xs sm:text-sm text-[#9DA4B0]">
             Our structured engineering process ensures complete transparency, on-time delivery, and zero unexpected technical surprises.
           </p>
         </div>
@@ -65,7 +65,7 @@ export default function Process() {
             >
               <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-[#81D607] font-mono">
+                  <span className="text-xl sm:text-2xl font-extrabold text-[#81D607] font-mono">
                     {step.number}
                   </span>
                   <div className="w-8 h-8 bg-[#111111] border border-[#E1E6EB]/10 flex items-center justify-center text-[#81D607] rounded-none">
