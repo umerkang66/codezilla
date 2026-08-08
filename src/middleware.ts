@@ -12,8 +12,9 @@ export function middleware(request: NextRequest) {
     img-src 'self' blob: data: https:;
     font-src 'self' https://fonts.gstatic.com;
     connect-src 'self' https://bgcfmmlrhmvoojuydhdj.supabase.co https://*.supabase.co wss://*.supabase.co;
-    frame-ancestors 'none';
-    object-src 'none';
+    frame-src 'self' blob: data: https://*.supabase.co https://*.supabase.in https://docs.google.com https://view.officeapps.live.com;
+    frame-ancestors 'self';
+    object-src 'self' blob: data: https://*.supabase.co https://*.supabase.in;
     base-uri 'self';
     form-action 'self';
   `
@@ -22,7 +23,7 @@ export function middleware(request: NextRequest) {
 
   // 2. Security Headers Injection
   response.headers.set('Content-Security-Policy', cspHeader);
-  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   response.headers.set(

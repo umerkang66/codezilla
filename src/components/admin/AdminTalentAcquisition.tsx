@@ -102,6 +102,43 @@ export default function AdminTalentAcquisition({
   const [selectedApp, setSelectedApp] = useState<JobApplication | null>(null);
   const [isUpdatingAppStatus, setIsUpdatingAppStatus] = useState(false);
   const [docxViewerMode, setDocxViewerMode] = useState<"google" | "office">("google");
+  const [pdfViewerMode, setPdfViewerMode] = useState<"native" | "google">("native");
+  const [pdfBlobUrl, setPdfBlobUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!selectedApp?.resume_url) {
+      setPdfBlobUrl(null);
+      return;
+    }
+
+    const url = selectedApp.resume_url;
+    if (url.startsWith("data:")) {
+      try {
+        const parts = url.split(",");
+        const mimeMatch = parts[0].match(/:(.*?);/);
+        const mimeType = mimeMatch ? mimeMatch[1] : "application/pdf";
+        const base64Data = parts[1] || "";
+        const binaryStr = atob(base64Data);
+        const len = binaryStr.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+          bytes[i] = binaryStr.charCodeAt(i);
+        }
+        const blob = new Blob([bytes], { type: mimeType });
+        const objectUrl = URL.createObjectURL(blob);
+        setPdfBlobUrl(objectUrl);
+
+        return () => {
+          URL.revokeObjectURL(objectUrl);
+        };
+      } catch (e) {
+        console.error("Error creating Blob URL from data URI:", e);
+        setPdfBlobUrl(null);
+      }
+    } else {
+      setPdfBlobUrl(null);
+    }
+  }, [selectedApp?.resume_url]);
 
   // Error / Toast state
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
@@ -1081,7 +1118,7 @@ export default function AdminTalentAcquisition({
                 {/* Quick Actions */}
                 <div className="pt-2 flex flex-col gap-2">
                   <a
-                    href={selectedApp.resume_url}
+                    href={pdfBlobUrl || selectedApp.resume_url}
                     download={selectedApp.resume_file_name}
                     className="w-full py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold text-xs flex items-center justify-center gap-2 transition-colors"
                   >
@@ -1115,7 +1152,39 @@ export default function AdminTalentAcquisition({
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
-                    {/* If DOCX, offer viewer switcher */}
+                    {/* PDF Viewer Mode Switcher */}
+                    {(selectedApp.resume_file_type === "pdf" ||
+                      selectedApp.resume_file_name.toLowerCase().endsWith(".pdf") ||
+                      selectedApp.resume_url.startsWith("data:application/pdf")) && (
+                      <div className="flex items-center gap-1 bg-[#111111] p-1 border border-[#E1E6EB]/10">
+                        <button
+                          type="button"
+                          onClick={() => setPdfViewerMode("native")}
+                          className={`px-2 py-1 text-[10px] font-bold ${
+                            pdfViewerMode === "native"
+                              ? "bg-[#81D607] text-[#111111]"
+                              : "text-[#9DA4B0]"
+                          }`}
+                        >
+                          Native PDF
+                        </button>
+                        {!selectedApp.resume_url.startsWith("data:") && (
+                          <button
+                            type="button"
+                            onClick={() => setPdfViewerMode("google")}
+                            className={`px-2 py-1 text-[10px] font-bold ${
+                              pdfViewerMode === "google"
+                                ? "bg-[#81D607] text-[#111111]"
+                                : "text-[#9DA4B0]"
+                            }`}
+                          >
+                            Google Viewer
+                          </button>
+                        )}
+                      </div>
+                    )}
+
+                    {/* DOCX Viewer Mode Switcher */}
                     {(selectedApp.resume_file_type === "docx" || selectedApp.resume_file_type === "doc" || selectedApp.resume_file_name.endsWith(".docx")) && (
                       <div className="flex items-center gap-1 bg-[#111111] p-1 border border-[#E1E6EB]/10">
                         <button
@@ -1144,7 +1213,7 @@ export default function AdminTalentAcquisition({
                     )}
 
                     <a
-                      href={selectedApp.resume_url}
+                      href={pdfBlobUrl || selectedApp.resume_url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-3 py-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] font-bold text-xs flex items-center gap-1.5"
@@ -1159,24 +1228,57 @@ export default function AdminTalentAcquisition({
                 {/* Viewport Frame */}
                 <div className="flex-1 w-full h-full relative overflow-hidden bg-[#0A0A0A]">
                   {(() => {
-                    const url = selectedApp.resume_url;
+                    const rawUrl = selectedApp.resume_url;
+                    const displayUrl = pdfBlobUrl || rawUrl;
                     const isPdf =
                       selectedApp.resume_file_type === "pdf" ||
                       selectedApp.resume_file_name.toLowerCase().endsWith(".pdf") ||
-                      url.startsWith("data:application/pdf");
+                      rawUrl.startsWith("data:application/pdf");
 
                     if (isPdf) {
+                      if (pdfViewerMode === "google" && !rawUrl.startsWith("data:")) {
+                        const googlePdfUrl = `https://docs.google.com/gview?url=${encodeURIComponent(rawUrl)}&embedded=true`;
+                        return (
+                          <iframe
+                            src={googlePdfUrl}
+                            title={`PDF Preview (Google) - ${selectedApp.full_name}`}
+                            className="w-full h-full border-0 block"
+                          />
+                        );
+                      }
+
                       return (
-                        <iframe
-                          src={url}
-                          title={`CV Preview - ${selectedApp.full_name}`}
+                        <object
+                          data={displayUrl}
+                          type="application/pdf"
                           className="w-full h-full border-0 block"
-                        />
+                        >
+                          <iframe
+                            src={displayUrl}
+                            title={`CV Preview - ${selectedApp.full_name}`}
+                            className="w-full h-full border-0 block"
+                          >
+                            <div className="p-8 text-center space-y-4 flex flex-col justify-center items-center h-full text-white">
+                              <FileText className="w-12 h-12 text-[#81D607]" />
+                              <p className="text-xs text-[#9DA4B0]">
+                                PDF preview cannot be embedded inline. Click below to view or download.
+                              </p>
+                              <a
+                                href={displayUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-4 py-2 bg-[#81D607] text-[#111111] font-bold text-xs"
+                              >
+                                Open PDF in New Tab
+                              </a>
+                            </div>
+                          </iframe>
+                        </object>
                       );
                     }
 
                     // DOCX / DOC Viewer
-                    if (url.startsWith("data:")) {
+                    if (rawUrl.startsWith("data:")) {
                       return (
                         <div className="p-8 text-center space-y-4 flex flex-col justify-center items-center h-full">
                           <FileText className="w-12 h-12 text-[#81D607]" />
@@ -1189,7 +1291,7 @@ export default function AdminTalentAcquisition({
                             </p>
                           </div>
                           <a
-                            href={url}
+                            href={rawUrl}
                             download={selectedApp.resume_file_name}
                             className="px-5 py-2.5 bg-[#81D607] text-[#111111] font-mono font-bold text-xs flex items-center gap-2"
                           >
@@ -1200,8 +1302,8 @@ export default function AdminTalentAcquisition({
                       );
                     }
 
-                    const googleViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
-                    const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(url)}`;
+                    const googleViewerUrl = `https://docs.google.com/gview?url=${encodeURIComponent(rawUrl)}&embedded=true`;
+                    const officeViewerUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(rawUrl)}`;
                     const embedSrc = docxViewerMode === "office" ? officeViewerUrl : googleViewerUrl;
 
                     return (

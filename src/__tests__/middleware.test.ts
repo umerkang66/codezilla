@@ -8,7 +8,7 @@ describe("Middleware Unit Tests - Security & CORS", () => {
     const res = middleware(req);
 
     expect(res.headers.get("Content-Security-Policy")).toContain("default-src 'self'");
-    expect(res.headers.get("X-Frame-Options")).toBe("DENY");
+    expect(res.headers.get("X-Frame-Options")).toBe("SAMEORIGIN");
     expect(res.headers.get("X-Content-Type-Options")).toBe("nosniff");
     expect(res.headers.get("Referrer-Policy")).toBe("strict-origin-when-cross-origin");
   });
