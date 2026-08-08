@@ -197,146 +197,162 @@ export default function TalentAcquisitionClient({
   };
 
   return (
-    <main className="min-h-screen py-16 pt-28 bg-[#111111] text-[#E1E6EB]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* Back Link */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-xs font-mono text-[#81D607] hover:underline"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Homepage</span>
-        </Link>
-
-        {/* Header Section */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-mono font-semibold uppercase tracking-wider rounded-none">
-            Talent Acquisition
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
-            Available Positions
-          </h1>
-          <p className="text-base text-[#9DA4B0]">
-            Join Codzilla Technologies. Work on high-impact commercial software & engineering projects.
-          </p>
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+      {/* Header Title */}
+      <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
+        <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] font-mono text-xs font-semibold uppercase tracking-wider">
+          Talent Acquisition
         </div>
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB] tracking-tight">
+          Available Positions
+        </h1>
+        <p className="text-sm sm:text-base text-[#9DA4B0]">
+          Join Codzilla Technologies. Work on high-impact commercial software, AI models, and embedded engineering projects.
+        </p>
+      </div>
 
-        {/* Search & Domain Filter Controls */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10">
-          <div className="relative w-full sm:w-80">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#9DA4B0]" />
+      <div className="space-y-8">
+        {/* Controls Bar: Search & Filter Tabs */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+          {/* Search Field */}
+          <div className="relative flex-1">
+            <Search className="w-4 h-4 text-[#9DA4B0] absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search positions or skills..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs text-[#E1E6EB] placeholder-[#9DA4B0] font-mono focus:outline-none focus:border-[#81D607]"
+              placeholder="Search by position title, domain, or required skills..."
+              className="w-full bg-[#111111] border border-[#E1E6EB]/15 pl-10 pr-4 py-2 text-xs font-mono text-[#E1E6EB] placeholder-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607]"
             />
           </div>
 
-          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+          {/* Filter Buttons */}
+          <div className="flex items-center gap-2 flex-wrap">
             {domains.map((dom) => (
               <button
                 key={dom}
                 type="button"
                 onClick={() => setSelectedDomain(dom)}
-                className={`px-3 py-1.5 text-xs font-mono transition-colors rounded-none ${
+                className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
                   selectedDomain === dom
-                    ? "bg-[#81D607] text-[#111111] font-bold"
-                    : "bg-[#111111] border border-[#E1E6EB]/10 text-[#9DA4B0] hover:text-[#E1E6EB]"
+                    ? "bg-[#81D607] text-[#111111]"
+                    : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
                 }`}
               >
-                {dom}
+                {dom === "All" ? `All Positions (${jobs.length})` : dom}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Dynamic Jobs Grid */}
-        {loading ? (
+        {/* Loading Spinner */}
+        {loading && (
           <div className="py-20 text-center space-y-3">
             <Loader2 className="w-8 h-8 animate-spin text-[#81D607] mx-auto" />
             <p className="text-xs font-mono text-[#9DA4B0]">Loading available job postings...</p>
           </div>
-        ) : filteredJobs.length === 0 ? (
-          <div className="p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-4 rounded-none">
-            <Briefcase className="w-12 h-12 text-[#9DA4B0] mx-auto opacity-50" />
-            <div className="space-y-1">
-              <h3 className="text-lg font-mono font-bold text-[#E1E6EB]">
-                No Job Openings Found
-              </h3>
-              <p className="text-xs text-[#9DA4B0]">
-                {searchQuery || selectedDomain !== "All"
-                  ? "Try clearing your search query or domain filter."
-                  : "We currently do not have any open positions. Please check back later!"}
-              </p>
+        )}
+
+        {/* Empty Search / No Data Results */}
+        {!loading && filteredJobs.length === 0 && (
+          <div className="p-12 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center space-y-4">
+            <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto">
+              <Briefcase className="w-6 h-6" />
             </div>
-            {(searchQuery || selectedDomain !== "All") && (
-              <button
-                type="button"
-                onClick={() => {
-                  setSearchQuery("");
-                  setSelectedDomain("All");
-                }}
-                className="px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold rounded-none"
-              >
-                Reset Filters
-              </button>
+            <h3 className="text-lg font-bold font-mono text-[#E1E6EB]">
+              {jobs.length === 0 ? "No Job Openings Listed Yet" : "No Matching Openings Found"}
+            </h3>
+            <p className="text-xs text-[#9DA4B0] max-w-md mx-auto leading-relaxed">
+              {jobs.length === 0
+                ? "We currently do not have any active position listings. Check back soon!"
+                : "Try adjusting your search criteria or domain filter options to view available positions."}
+            </p>
+            {jobs.length > 0 && (searchQuery || selectedDomain !== "All") && (
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchQuery("");
+                    setSelectedDomain("All");
+                  }}
+                  className="px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold hover:bg-[#72BE06] transition-colors"
+                >
+                  Reset Filters
+                </button>
+              </div>
             )}
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+        )}
+
+        {/* Grid of Job Cards */}
+        {!loading && filteredJobs.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredJobs.map((job) => {
               const IconComp = getJobIcon(job.domain, job.title);
               return (
                 <div
                   key={job.id}
-                  className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none"
+                  className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all flex flex-col justify-between group relative"
                 >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="w-10 h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] rounded-none">
-                        <IconComp className="w-5 h-5" />
+                  {job.type && (
+                    <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase px-2.5 py-1">
+                      {job.type}
+                    </div>
+                  )}
+
+                  <div className="space-y-5">
+                    {/* Icon Box + Basic Info Header */}
+                    <div className="flex items-start gap-4">
+                      <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 group-hover:border-[#81D607] transition-colors">
+                        <IconComp className="w-8 h-8" />
                       </div>
-                      <span className="text-[10px] font-mono px-2.5 py-1 bg-[#111111] text-[#81D607] border border-[#81D607]/30">
-                        {job.type}
-                      </span>
+
+                      <div className="space-y-1 min-w-0 pr-12">
+                        <h3 className="text-xl font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors line-clamp-2">
+                          {job.title}
+                        </h3>
+                        <p className="text-xs font-mono text-[#81D607] uppercase tracking-wide truncate">
+                          {job.domain}
+                        </p>
+                      </div>
                     </div>
 
-                    <h2 className="text-xl font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-snug">
-                      {job.title}
-                    </h2>
-
-                    <p className="text-xs font-mono text-[#9DA4B0]">
-                      Domain: <span className="text-[#E1E6EB]">{job.domain}</span>
-                    </p>
-
-                    <p className="text-xs text-[#9DA4B0] leading-relaxed line-clamp-3">
-                      {job.description}
-                    </p>
-
+                    {/* Tech Stack / Skills Box */}
                     {job.skills && job.skills.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 pt-2">
-                        {job.skills.map((skill) => (
-                          <span
-                            key={skill}
-                            className="text-[10px] font-mono px-2 py-0.5 bg-[#111111] text-[#9DA4B0] border border-[#E1E6EB]/10"
-                          >
-                            {skill}
-                          </span>
-                        ))}
+                      <div className="pt-2 border-t border-[#E1E6EB]/10">
+                        <div className="text-[10px] font-mono uppercase text-[#9DA4B0] mb-1">
+                          Required Tech Stack
+                        </div>
+                        <div className="flex flex-wrap gap-1.5 p-2.5 bg-[#111111] border border-[#E1E6EB]/10">
+                          {job.skills.map((skill) => (
+                            <span
+                              key={skill}
+                              className="text-[10px] font-mono px-2 py-0.5 bg-[#1A1A1A] text-[#E1E6EB] border border-[#E1E6EB]/10"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
                       </div>
+                    )}
+
+                    {/* Job Description */}
+                    {job.description && (
+                      <p className="text-xs text-[#9DA4B0] leading-relaxed font-sans line-clamp-3">
+                        {job.description}
+                      </p>
                     )}
                   </div>
 
-                  <div className="pt-6 mt-6 border-t border-[#E1E6EB]/10">
+                  {/* Apply Button Footer */}
+                  <div className="pt-4 mt-6 border-t border-[#E1E6EB]/10">
                     <button
                       type="button"
                       onClick={() => handleOpenApplyModal(job)}
-                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none"
+                      className="w-full px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono font-bold text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center justify-center gap-2"
                     >
-                      <span>Apply Now</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <span>Apply For Position</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-[#81D607]" />
                     </button>
                   </div>
                 </div>

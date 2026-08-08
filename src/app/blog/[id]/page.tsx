@@ -61,8 +61,8 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
     : "August 2026";
 
   return (
-    <main className="min-h-screen py-16 pt-28 bg-[#111111] text-[#E1E6EB]">
-      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-left">
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+      <article className="max-w-4xl mx-auto space-y-10 text-left">
         {/* Navigation */}
         <Link
           href="/blog"
