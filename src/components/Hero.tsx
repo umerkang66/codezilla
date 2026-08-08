@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight, Cpu, Globe, Brain, Code2, Terminal, CheckCircle2 } from "lucide-react";
+import Shuffle from "./Shuffle";
 
 export default function Hero() {
   return (
@@ -12,9 +13,24 @@ export default function Hero() {
             <span>Software • AI/ML • Hardware Engineering</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight leading-[1.3] sm:leading-[1.2]">
-            We Build <span className="bg-[#81D607] text-[#111111] px-2 py-0.5 rounded-none inline-block">AI, Web & Hardware</span> Solutions That Scale Your Business
-          </h1>
+          <Shuffle
+            text="We Build AI, Web & Hardware Solutions That Scale Your Business"
+            tag="h1"
+            textAlign="left"
+            shuffleDirection="right"
+            duration={0.35}
+            animationMode="evenodd"
+            shuffleTimes={1}
+            ease="power3.out"
+            stagger={0.03}
+            threshold={0.1}
+            triggerOnce={true}
+            triggerOnHover={true}
+            respectReducedMotion={true}
+            colorFrom="#81D607"
+            colorTo="#E1E6EB"
+            className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight leading-[1.3] sm:leading-[1.2] cursor-pointer"
+          />
 
           <p className="text-sm sm:text-base text-[#9DA4B0] font-normal leading-relaxed max-w-2xl">
             Codzilla Technologies delivers enterprise software development, intelligent machine learning models, and embedded PCB engineering for startups and industry leaders.
