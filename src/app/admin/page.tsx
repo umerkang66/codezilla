@@ -21,6 +21,7 @@ import { createClient } from "@/utils/supabase/server";
 import { createAdminClient } from "@/utils/supabase/admin";
 import { isMainAdmin, getAdminEmails } from "@/utils/admin";
 import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
+import { AdminLink } from "@/components/admin/AdminNavigationContext";
 
 export const metadata = {
   title: "Admin Panel | Codzilla Technologies",
@@ -249,21 +250,21 @@ export default async function AdminDashboardPage() {
 
           {/* Quick Header Actions */}
           <div className="flex items-center gap-2.5 flex-wrap">
-            <Link
+            <AdminLink
               href="/admin/blogs"
               className="px-3 py-2 bg-[#1A1A1A] hover:bg-[#222222] border border-[#E1E6EB]/15 hover:border-[#81D607]/50 text-[#E1E6EB] font-mono font-semibold text-xs transition-colors rounded-none flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5 text-[#81D607]" />
               <span>New Blog</span>
-            </Link>
+            </AdminLink>
 
-            <Link
+            <AdminLink
               href="/admin/portfolio"
               className="px-3 py-2 bg-[#1A1A1A] hover:bg-[#222222] border border-[#E1E6EB]/15 hover:border-[#81D607]/50 text-[#E1E6EB] font-mono font-semibold text-xs transition-colors rounded-none flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5 text-[#81D607]" />
               <span>New Project</span>
-            </Link>
+            </AdminLink>
 
             <Link
               href="/"
@@ -280,7 +281,7 @@ export default async function AdminDashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
           {/* Card 1: Contact Inbox */}
-          <Link
+          <AdminLink
             href="/admin/contact-messages"
             className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-none space-y-3 flex flex-col justify-between"
           >
@@ -307,10 +308,10 @@ export default async function AdminDashboardPage() {
                 )}
               </p>
             </div>
-          </Link>
+          </AdminLink>
 
           {/* Card 2: Applications */}
-          <Link
+          <AdminLink
             href="/admin/talent-acquisition"
             className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-none space-y-3 flex flex-col justify-between"
           >
@@ -337,10 +338,10 @@ export default async function AdminDashboardPage() {
                 )}
               </p>
             </div>
-          </Link>
+          </AdminLink>
 
           {/* Card 3: Articles & Showcase */}
-          <Link
+          <AdminLink
             href="/admin/blogs"
             className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-none space-y-3 flex flex-col justify-between"
           >
@@ -363,10 +364,10 @@ export default async function AdminDashboardPage() {
                 {totalPortfolioProjects} portfolio case studies
               </p>
             </div>
-          </Link>
+          </AdminLink>
 
           {/* Card 4: Team & Reviews */}
-          <Link
+          <AdminLink
             href="/admin/teams"
             className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-none space-y-3 flex flex-col justify-between"
           >
@@ -389,7 +390,7 @@ export default async function AdminDashboardPage() {
                 {totalTestimonials} client testimonials
               </p>
             </div>
-          </Link>
+          </AdminLink>
 
         </div>
 
@@ -413,13 +414,13 @@ export default async function AdminDashboardPage() {
                     </span>
                   )}
                 </div>
-                <Link
+                <AdminLink
                   href="/admin/contact-messages"
                   className="text-xs font-mono text-[#81D607] hover:underline flex items-center gap-1"
                 >
                   <span>View All</span>
                   <ChevronRight className="w-3 h-3" />
-                </Link>
+                </AdminLink>
               </div>
 
               {recentUnreadMsgs.length > 0 ? (
@@ -442,12 +443,12 @@ export default async function AdminDashboardPage() {
                           {msg.service || msg.message || "Contact Message"}
                         </p>
                       </div>
-                      <Link
+                      <AdminLink
                         href="/admin/contact-messages"
                         className="px-2.5 py-1 bg-[#1A1A1A] hover:bg-[#81D607] hover:text-[#111111] text-[#E1E6EB] font-mono text-[11px] font-semibold border border-[#E1E6EB]/10 transition-colors shrink-0"
                       >
                         Read
-                      </Link>
+                      </AdminLink>
                     </div>
                   ))}
                 </div>
@@ -474,13 +475,13 @@ export default async function AdminDashboardPage() {
                     </span>
                   )}
                 </div>
-                <Link
+                <AdminLink
                   href="/admin/talent-acquisition"
                   className="text-xs font-mono text-[#81D607] hover:underline flex items-center gap-1"
                 >
                   <span>View All</span>
                   <ChevronRight className="w-3 h-3" />
-                </Link>
+                </AdminLink>
               </div>
 
               {recentPendingApps.length > 0 ? (
@@ -503,12 +504,12 @@ export default async function AdminDashboardPage() {
                           Applied for: <span className="text-[#E1E6EB]">{app.job_title || "General Application"}</span>
                         </p>
                       </div>
-                      <Link
+                      <AdminLink
                         href="/admin/talent-acquisition"
                         className="px-2.5 py-1 bg-[#1A1A1A] hover:bg-[#81D607] hover:text-[#111111] text-[#E1E6EB] font-mono text-[11px] font-semibold border border-[#E1E6EB]/10 transition-colors shrink-0"
                       >
                         Review
-                      </Link>
+                      </AdminLink>
                     </div>
                   ))}
                 </div>
@@ -538,7 +539,7 @@ export default async function AdminDashboardPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-2.5">
-                <Link
+                <AdminLink
                   href="/admin/portfolio"
                   className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
                 >
@@ -547,9 +548,9 @@ export default async function AdminDashboardPage() {
                     Portfolio
                   </div>
                   <div className="text-[10px] text-[#9DA4B0]">{totalPortfolioProjects} Items</div>
-                </Link>
+                </AdminLink>
 
-                <Link
+                <AdminLink
                   href="/admin/packages"
                   className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
                 >
@@ -558,9 +559,9 @@ export default async function AdminDashboardPage() {
                     Packages
                   </div>
                   <div className="text-[10px] text-[#9DA4B0]">{totalPackages} Plans</div>
-                </Link>
+                </AdminLink>
 
-                <Link
+                <AdminLink
                   href="/admin/teams"
                   className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
                 >
@@ -569,9 +570,9 @@ export default async function AdminDashboardPage() {
                     Team Members
                   </div>
                   <div className="text-[10px] text-[#9DA4B0]">{totalTeam} Members</div>
-                </Link>
+                </AdminLink>
 
-                <Link
+                <AdminLink
                   href="/admin/testimonials"
                   className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
                 >
@@ -580,9 +581,9 @@ export default async function AdminDashboardPage() {
                     Client Reviews
                   </div>
                   <div className="text-[10px] text-[#9DA4B0]">{totalTestimonials} Reviews</div>
-                </Link>
+                </AdminLink>
 
-                <Link
+                <AdminLink
                   href="/admin/talent-acquisition"
                   className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
                 >
@@ -591,9 +592,9 @@ export default async function AdminDashboardPage() {
                     Talent & Jobs
                   </div>
                   <div className="text-[10px] text-[#9DA4B0]">{totalJobApps} Applicants</div>
-                </Link>
+                </AdminLink>
 
-                <Link
+                <AdminLink
                   href="/admin/blogs"
                   className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
                 >
@@ -602,10 +603,10 @@ export default async function AdminDashboardPage() {
                     Blogs Editor
                   </div>
                   <div className="text-[10px] text-[#9DA4B0]">{totalBlogs} Articles</div>
-                </Link>
+                </AdminLink>
               </div>
 
-              <Link
+              <AdminLink
                 href="/admin/adminmanagement"
                 className="w-full p-2.5 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 font-mono text-xs text-[#E1E6EB] flex items-center justify-between transition-colors"
               >
@@ -614,7 +615,7 @@ export default async function AdminDashboardPage() {
                   <span>Admin Users & Access Control</span>
                 </div>
                 <ChevronRight className="w-3.5 h-3.5 text-[#9DA4B0]" />
-              </Link>
+              </AdminLink>
             </div>
 
             {/* Session & System Profile Info Card (Minimal Footer Card) */}

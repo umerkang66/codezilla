@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ShieldCheck, ArrowLeft, LogOut, User, Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ShieldCheck, ArrowLeft, LogOut, User, Menu, Loader2 } from "lucide-react";
+import { useAdminNavigation } from "./AdminNavigationContext";
 
 interface AdminHeaderProps {
   userEmail: string;
@@ -18,6 +20,15 @@ export default function AdminHeader({
   isSuperAdmin,
   onToggleMobileMenu,
 }: AdminHeaderProps) {
+  const pathname = usePathname();
+  const { isNavigating, navigatingTo, startNavigation } = useAdminNavigation();
+
+  const handleReturnClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if ("/" !== pathname) {
+      startNavigation("/");
+    }
+  };
+
   return (
     <header className="h-16 bg-[#1A1A1A] border-b border-[#81D607]/20 px-4 sm:px-8 flex items-center justify-between shrink-0 select-none">
       <div className="flex items-center gap-3">
@@ -59,9 +70,18 @@ export default function AdminHeader({
       <div className="flex items-center gap-2 sm:gap-4">
         <Link
           href="/"
-          className="px-3 sm:px-4 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors rounded-none flex items-center gap-1.5"
+          onClick={handleReturnClick}
+          className={`px-3 sm:px-4 py-2 bg-[#111111] border text-xs font-mono transition-colors rounded-none flex items-center gap-1.5 ${
+            isNavigating && navigatingTo === "/"
+              ? "border-[#81D607] text-[#81D607] bg-[#81D607]/10"
+              : "border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607]"
+          }`}
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
+          {isNavigating && navigatingTo === "/" ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-[#81D607]" />
+          ) : (
+            <ArrowLeft className="w-3.5 h-3.5" />
+          )}
           <span className="hidden sm:inline">Return to Website</span>
           <span className="sm:hidden">Site</span>
         </Link>
@@ -79,3 +99,4 @@ export default function AdminHeader({
     </header>
   );
 }
+

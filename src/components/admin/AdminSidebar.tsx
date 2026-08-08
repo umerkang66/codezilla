@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, User, ArrowLeft, BookOpen, Mail, Briefcase, UserCheck, Package, MessageSquareQuote, FolderGit2 } from "lucide-react";
+import { LayoutDashboard, Users, User, ArrowLeft, BookOpen, Mail, Briefcase, UserCheck, Package, MessageSquareQuote, FolderGit2, Loader2 } from "lucide-react";
+import { useAdminNavigation } from "./AdminNavigationContext";
 
 interface AdminSidebarProps {
   userEmail: string;
@@ -23,6 +24,7 @@ export default function AdminSidebar({
   onCloseMobile,
 }: AdminSidebarProps) {
   const pathname = usePathname();
+  const { isNavigating, navigatingTo, startNavigation } = useAdminNavigation();
 
   const navItems = [
     {
@@ -81,6 +83,13 @@ export default function AdminSidebar({
     },
   ];
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (onCloseMobile) onCloseMobile();
+    if (href !== pathname) {
+      startNavigation(href);
+    }
+  };
+
   const SidebarContent = (
     <div className="flex flex-col justify-between h-full p-5 text-left select-none">
       <div className="space-y-6">
@@ -112,21 +121,35 @@ export default function AdminSidebar({
           <div className="text-[10px] font-mono text-[#9DA4B0] uppercase tracking-widest px-3 mb-2">
             Navigation
           </div>
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              onClick={onCloseMobile}
-              className={`flex items-center gap-3 px-3 py-2.5 font-mono font-bold text-xs transition-colors rounded-none ${
-                item.active
-                  ? "bg-[#81D607] text-[#111111]"
-                  : "text-[#E1E6EB] hover:text-[#81D607] hover:bg-[#111111]"
-              }`}
-            >
-              <item.icon className="w-4 h-4" />
-              <span>{item.name}</span>
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isItemLoading =
+              isNavigating &&
+              navigatingTo !== null &&
+              (navigatingTo === item.href ||
+                (item.href !== "/admin" && navigatingTo.startsWith(item.href)));
+
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={(e) => handleLinkClick(e, item.href)}
+                className={`flex items-center gap-3 px-3 py-2.5 font-mono font-bold text-xs transition-all rounded-none ${
+                  isItemLoading
+                    ? "bg-[#81D607]/15 text-[#81D607] border border-[#81D607]/40"
+                    : item.active
+                    ? "bg-[#81D607] text-[#111111]"
+                    : "text-[#E1E6EB] hover:text-[#81D607] hover:bg-[#111111]"
+                }`}
+              >
+                {isItemLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin text-[#81D607] shrink-0" />
+                ) : (
+                  <item.icon className="w-4 h-4 shrink-0" />
+                )}
+                <span>{item.name}</span>
+              </Link>
+            );
+          })}
         </nav>
       </div>
 
@@ -156,10 +179,14 @@ export default function AdminSidebar({
 
         <Link
           href="/"
-          onClick={onCloseMobile}
+          onClick={(e) => handleLinkClick(e, "/")}
           className="w-full inline-flex items-center justify-center gap-2 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
+          {isNavigating && navigatingTo === "/" ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+          ) : (
+            <ArrowLeft className="w-3.5 h-3.5" />
+          )}
           <span>Return to Website</span>
         </Link>
       </div>
