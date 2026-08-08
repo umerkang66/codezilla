@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ShieldAlert, LogOut, ArrowLeft } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin } from "@/utils/admin";
+import { createAdminClient } from "@/utils/supabase/admin";
 import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 import AdminPortfolioManagement from "@/components/admin/AdminPortfolioManagement";
 
@@ -99,8 +100,11 @@ export default async function AdminPortfolioPage() {
     );
   }
 
-  // 4. Fetch initial portfolio projects from Supabase
-  const { data: projects } = await supabase
+  // 4. Fetch initial portfolio projects from Supabase using admin client
+  const adminDb = createAdminClient();
+  const db = adminDb || supabase;
+
+  const { data: projects } = await db
     .from("portfolio_projects")
     .select("*")
     .order("display_order", { ascending: true })

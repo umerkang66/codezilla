@@ -301,8 +301,8 @@ async function seedDatabase() {
   for (const [table, records] of Object.entries(mockData)) {
     console.log(`➡️  Seeding table: '${table}' (${records.length} items)...`);
     const { data, error } = await supabase
-      .from(table)
-      .upsert(records, { onConflict: "id" });
+      .from(table as any)
+      .upsert(records as any, { onConflict: "id" });
 
     if (error) {
       console.error(`❌ Error seeding table '${table}':`, error.message);

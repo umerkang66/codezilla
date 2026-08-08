@@ -3,12 +3,13 @@ import Link from "next/link";
 import { ShieldAlert, LogOut, ArrowLeft } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin } from "@/utils/admin";
+import { createAdminClient } from "@/utils/supabase/admin";
 import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 import AdminPackagesManagement from "@/components/admin/AdminPackagesManagement";
 
 export const metadata = {
   title: "Packages Management | Codzilla Admin Panel",
-  description: "Manage, add, edit, and delete flexible engineering packages.",
+  description: "Manage, create, update, and order Flexible Engineering Packages pricing cards.",
 };
 
 export default async function AdminPackagesPage() {
@@ -99,8 +100,11 @@ export default async function AdminPackagesPage() {
     );
   }
 
-  // 4. Fetch initial packages list from Supabase
-  const { data: packages } = await supabase
+  // 4. Fetch initial packages list from Supabase using admin client
+  const adminDb = createAdminClient();
+  const db = adminDb || supabase;
+
+  const { data: packages } = await db
     .from("packages")
     .select("*")
     .order("display_order", { ascending: true })

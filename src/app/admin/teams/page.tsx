@@ -3,15 +3,16 @@ import Link from "next/link";
 import { ShieldAlert, LogOut, ArrowLeft } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin } from "@/utils/admin";
+import { createAdminClient } from "@/utils/supabase/admin";
 import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 import AdminTeamManagement from "@/components/admin/AdminTeamManagement";
 
 export const metadata = {
   title: "Team Management | Codzilla Admin Panel",
-  description: "Manage, add, and edit team members displayed on the Codzilla website.",
+  description: "Manage, add, edit, and delete leadership & engineering team members.",
 };
 
-export default async function AdminTeamsPage() {
+export default async function AdminTeamPage() {
   const supabase = await createClient();
 
   // 1. Authenticate User Session
@@ -99,8 +100,11 @@ export default async function AdminTeamsPage() {
     );
   }
 
-  // 4. Fetch initial team members list from Supabase
-  const { data: teams } = await supabase
+  // 4. Fetch initial team members list from Supabase using admin client
+  const adminDb = createAdminClient();
+  const db = adminDb || supabase;
+
+  const { data: teams } = await db
     .from("team_members")
     .select("*")
     .order("display_order", { ascending: true })

@@ -3,12 +3,13 @@ import Link from "next/link";
 import { ShieldAlert, LogOut, ArrowLeft } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin } from "@/utils/admin";
+import { createAdminClient } from "@/utils/supabase/admin";
 import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 import AdminTestimonialsManagement from "@/components/admin/AdminTestimonialsManagement";
 
 export const metadata = {
-  title: "Testimonials Management | Codzilla Admin Panel",
-  description: "Manage, add, edit, and delete client reviews & testimonials.",
+  title: "Client Reviews | Codzilla Admin Panel",
+  description: "Manage, add, edit, and delete client feedback and verified review credentials.",
 };
 
 export default async function AdminTestimonialsPage() {
@@ -99,8 +100,11 @@ export default async function AdminTestimonialsPage() {
     );
   }
 
-  // 4. Fetch initial testimonials list from Supabase
-  const { data: testimonials } = await supabase
+  // 4. Fetch initial testimonials list from Supabase using admin client
+  const adminDb = createAdminClient();
+  const db = adminDb || supabase;
+
+  const { data: testimonials } = await db
     .from("testimonials")
     .select("*")
     .order("display_order", { ascending: true })

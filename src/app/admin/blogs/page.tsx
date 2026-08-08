@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ShieldAlert, LogOut, ArrowLeft } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { isMainAdmin } from "@/utils/admin";
+import { createAdminClient } from "@/utils/supabase/admin";
 import AdminLayoutClient from "@/components/admin/AdminLayoutClient";
 import AdminBlogsManagement from "@/components/admin/AdminBlogsManagement";
 
@@ -99,8 +100,11 @@ export default async function AdminBlogsPage() {
     );
   }
 
-  // 4. Fetch initial blogs list from Supabase
-  const { data: blogs } = await supabase
+  // 4. Fetch initial blogs list from Supabase using admin client
+  const adminDb = createAdminClient();
+  const db = adminDb || supabase;
+
+  const { data: blogs } = await db
     .from("blogs")
     .select("*")
     .order("created_at", { ascending: false });
