@@ -19,7 +19,8 @@ const VALID_HTML_TAGS = new Set([
   "a", "b", "i", "strong", "em", "code", "pre", "span", "div", "p",
   "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li", "blockquote",
   "table", "thead", "tbody", "tr", "th", "td", "img", "br", "hr",
-  "sub", "sup", "del", "mark", "ins", "details", "summary", "section", "article"
+  "sub", "sup", "del", "mark", "ins", "details", "summary", "section", "article",
+  "script", "style", "iframe", "object", "embed", "applet", "form", "input", "button"
 ]);
 
 /**
@@ -49,7 +50,7 @@ function preprocessAndRenderMath(rawText: string): { text: string; mathMap: Reco
   // Replace block math $$ ... $$ or \[ ... \]
   let text = rawText
     .replace(/\$\$\s*([\s\S]+?)\s*\$\$/g, (_, mathExpr) => {
-      const key = `___KATEX_BLOCK_MATH_${mathCounter++}___`;
+      const key = `KATEXBLOCKMATH${mathCounter++}KATEX`;
       try {
         mathMap[key] = katex.renderToString(mathExpr.trim(), { displayMode: true, throwOnError: false });
       } catch {
@@ -58,7 +59,7 @@ function preprocessAndRenderMath(rawText: string): { text: string; mathMap: Reco
       return key;
     })
     .replace(/\\\[\s*([\s\S]+?)\s*\\\]/g, (_, mathExpr) => {
-      const key = `___KATEX_BLOCK_MATH_${mathCounter++}___`;
+      const key = `KATEXBLOCKMATH${mathCounter++}KATEX`;
       try {
         mathMap[key] = katex.renderToString(mathExpr.trim(), { displayMode: true, throwOnError: false });
       } catch {
@@ -70,7 +71,7 @@ function preprocessAndRenderMath(rawText: string): { text: string; mathMap: Reco
   // Replace inline math \( ... \) or $ ... $
   text = text
     .replace(/\\\(\s*([\s\S]+?)\s*\\\)/g, (_, mathExpr) => {
-      const key = `___KATEX_INLINE_MATH_${mathCounter++}___`;
+      const key = `KATEXINLINEMATH${mathCounter++}KATEX`;
       try {
         mathMap[key] = katex.renderToString(mathExpr.trim(), { displayMode: false, throwOnError: false });
       } catch {
@@ -83,7 +84,7 @@ function preprocessAndRenderMath(rawText: string): { text: string; mathMap: Reco
       if (/^\s*\d+(\.\d+)?\s*$/.test(mathExpr)) {
         return match;
       }
-      const key = `___KATEX_INLINE_MATH_${mathCounter++}___`;
+      const key = `KATEXINLINEMATH${mathCounter++}KATEX`;
       try {
         mathMap[key] = katex.renderToString(mathExpr.trim(), { displayMode: false, throwOnError: false });
       } catch {
