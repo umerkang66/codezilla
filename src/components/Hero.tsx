@@ -12,8 +12,8 @@ export default function Hero() {
             <span>Software • AI/ML • Hardware Engineering</span>
           </div>
 
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight leading-[1.2] sm:leading-[1.15]">
-            We Build <span className="text-[#81D607] underline decoration-[#81D607]/40 decoration-2 underline-offset-4">AI, Web & Hardware</span> Solutions That Scale Your Business
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight leading-[1.3] sm:leading-[1.2]">
+            We Build <span className="bg-[#81D607] text-[#111111] px-2 py-0.5 rounded-none inline-block">AI, Web & Hardware</span> Solutions That Scale Your Business
           </h1>
 
           <p className="text-sm sm:text-base text-[#9DA4B0] font-normal leading-relaxed max-w-2xl">
