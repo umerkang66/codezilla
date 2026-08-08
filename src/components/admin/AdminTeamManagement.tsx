@@ -611,10 +611,10 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
 
       {/* Modal: Create or Edit Team Member */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="w-full max-w-2xl bg-[#1A1A1A] border border-[#81D607] p-6 space-y-6 my-8 rounded-none shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm">
+          <div className="w-full max-w-2xl max-h-[90vh] flex flex-col bg-[#1A1A1A] border border-[#81D607] rounded-none shadow-2xl overflow-hidden">
             {/* Modal Header */}
-            <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 pb-4">
+            <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 p-5 sm:p-6 shrink-0 bg-[#1A1A1A]">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607]">
                   <UserCheck className="w-4 h-4" />
@@ -624,6 +624,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                 </h2>
               </div>
               <button
+                type="button"
                 onClick={closeModal}
                 className="p-1 bg-[#111111] border border-[#E1E6EB]/15 text-[#9DA4B0] hover:text-[#81D607] transition-colors"
               >
@@ -632,258 +633,260 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
             </div>
 
             {/* Modal Form */}
-            <form onSubmit={handleSubmit} className="space-y-4 text-left font-sans">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Full Name */}
-                <div className="space-y-1.5">
-                  <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
-                    Full Name <span className="text-[#81D607]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Muhammad Ahmed Pasha"
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                  />
-                </div>
-
-                {/* Role / Job Title */}
-                <div className="space-y-1.5">
-                  <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
-                    Role / Title <span className="text-[#81D607]">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    placeholder="e.g. Founder & CEO / Lead Full-Stack Architect"
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                  />
-                </div>
-              </div>
-
-              {/* Technical Specialty */}
-              <div className="space-y-1.5">
-                <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
-                  Specialty / Technical Focus
-                </label>
-                <input
-                  type="text"
-                  value={specialty}
-                  onChange={(e) => setSpecialty(e.target.value)}
-                  placeholder="e.g. PCB Layout, Next.js & PyTorch Systems"
-                  className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                />
-              </div>
-
-              {/* Computer Picture Selection Area */}
-              <div className="space-y-2 p-4 bg-[#111111] border border-[#81D607]/40">
-                <div className="flex items-center justify-between">
-                  <label className="block text-xs font-mono font-bold text-[#81D607]">
-                    Team Member Picture
-                  </label>
-                  <div className="flex items-center gap-1 font-mono text-[10px]">
-                    <button
-                      type="button"
-                      onClick={() => setImageInputMode("file")}
-                      className={`px-2 py-0.5 transition-colors ${
-                        imageInputMode === "file"
-                          ? "bg-[#81D607] text-[#111111] font-bold"
-                          : "text-[#9DA4B0] hover:text-[#E1E6EB]"
-                      }`}
-                    >
-                      Pick from Computer
-                    </button>
-                    <span className="text-[#9DA4B0]">|</span>
-                    <button
-                      type="button"
-                      onClick={() => setImageInputMode("url")}
-                      className={`px-2 py-0.5 transition-colors ${
-                        imageInputMode === "url"
-                          ? "bg-[#81D607] text-[#111111] font-bold"
-                          : "text-[#9DA4B0] hover:text-[#E1E6EB]"
-                      }`}
-                    >
-                      Image URL
-                    </button>
-                  </div>
-                </div>
-
-                {imageInputMode === "file" ? (
-                  <div className="flex flex-col sm:flex-row items-center gap-4 pt-1">
-                    {/* Picture Preview Box */}
-                    <div className="w-16 h-16 bg-[#1A1A1A] border-2 border-[#81D607] overflow-hidden shrink-0 flex items-center justify-center relative">
-                      {avatarUrl ? (
-                        <img
-                          src={avatarUrl}
-                          alt="Avatar preview"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="text-[#81D607] font-mono text-xl font-bold">
-                          {derivedInitials(name, initials)}
-                        </div>
-                      )}
-                      {uploadingImage && (
-                        <div className="absolute inset-0 bg-black/75 flex items-center justify-center">
-                          <Loader2 className="w-5 h-5 text-[#81D607] animate-spin" />
-                        </div>
-                      )}
-                    </div>
-
-                    {/* File Picker Control */}
-                    <div className="flex-1 space-y-2 text-left w-full">
-                      <input
-                        type="file"
-                        id="computer-picture-input"
-                        accept="image/png, image/jpeg, image/jpg, image/webp, image/svg+xml"
-                        onChange={handleFileChange}
-                        className="hidden"
-                      />
-                      <div className="flex flex-wrap items-center gap-2">
-                        <label
-                          htmlFor="computer-picture-input"
-                          className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs cursor-pointer transition-colors"
-                        >
-                          <Upload className="w-3.5 h-3.5" />
-                          <span>{avatarUrl ? "Change Picture" : "Choose Picture from Computer"}</span>
-                        </label>
-
-                        {avatarUrl && (
-                          <button
-                            type="button"
-                            onClick={() => setAvatarUrl("")}
-                            className="px-3 py-2 bg-[#1A1A1A] border border-red-500/50 text-red-400 hover:bg-red-600 hover:text-white font-mono text-xs transition-colors"
-                          >
-                            Remove
-                          </button>
-                        )}
-                      </div>
-                      <p className="text-[11px] text-[#9DA4B0]">
-                        Supports PNG, JPG, WEBP, or SVG (Max 5MB). File will be saved for this team member.
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-1.5 pt-1">
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0 text-left font-sans overflow-hidden">
+              <div className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Full Name */}
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
+                      Full Name <span className="text-[#81D607]">*</span>
+                    </label>
                     <input
-                      type="url"
-                      value={avatarUrl}
-                      onChange={(e) => setAvatarUrl(e.target.value)}
-                      placeholder="https://images.unsplash.com/... or web image link"
-                      className="w-full bg-[#1A1A1A] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="e.g. Muhammad Ahmed Pasha"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
                     />
                   </div>
-                )}
-              </div>
 
-              {/* Bio / Description */}
-              <div className="space-y-1.5">
-                <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
-                  Short Bio / Overview
-                </label>
-                <textarea
-                  rows={3}
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
-                  placeholder="Describe background, domain experience, and key engineering contributions..."
-                  className="w-full bg-[#111111] border border-[#E1E6EB]/15 p-3 text-xs font-sans text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                />
-              </div>
+                  {/* Role / Job Title */}
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
+                      Role / Title <span className="text-[#81D607]">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                      placeholder="e.g. Founder & CEO / Lead Full-Stack Architect"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    />
+                  </div>
+                </div>
 
-              {/* Initials & Display Order */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {/* Technical Specialty */}
                 <div className="space-y-1.5">
                   <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
-                    Initials (Default: Auto)
+                    Specialty / Technical Focus
                   </label>
                   <input
                     type="text"
-                    maxLength={3}
-                    value={initials}
-                    onChange={(e) => setInitials(e.target.value.toUpperCase())}
-                    placeholder={derivedInitials(name)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] uppercase focus:outline-none focus:border-[#81D607]"
+                    value={specialty}
+                    onChange={(e) => setSpecialty(e.target.value)}
+                    placeholder="e.g. PCB Layout, Next.js & PyTorch Systems"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
                   />
                 </div>
 
+                {/* Computer Picture Selection Area */}
+                <div className="space-y-2 p-4 bg-[#111111] border border-[#81D607]/40">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-xs font-mono font-bold text-[#81D607]">
+                      Team Member Picture
+                    </label>
+                    <div className="flex items-center gap-1 font-mono text-[10px]">
+                      <button
+                        type="button"
+                        onClick={() => setImageInputMode("file")}
+                        className={`px-2 py-0.5 transition-colors ${
+                          imageInputMode === "file"
+                            ? "bg-[#81D607] text-[#111111] font-bold"
+                            : "text-[#9DA4B0] hover:text-[#E1E6EB]"
+                        }`}
+                      >
+                        Pick from Computer
+                      </button>
+                      <span className="text-[#9DA4B0]">|</span>
+                      <button
+                        type="button"
+                        onClick={() => setImageInputMode("url")}
+                        className={`px-2 py-0.5 transition-colors ${
+                          imageInputMode === "url"
+                            ? "bg-[#81D607] text-[#111111] font-bold"
+                            : "text-[#9DA4B0] hover:text-[#E1E6EB]"
+                        }`}
+                      >
+                        Image URL
+                      </button>
+                    </div>
+                  </div>
+
+                  {imageInputMode === "file" ? (
+                    <div className="flex flex-col sm:flex-row items-center gap-4 pt-1">
+                      {/* Picture Preview Box */}
+                      <div className="w-16 h-16 bg-[#1A1A1A] border-2 border-[#81D607] overflow-hidden shrink-0 flex items-center justify-center relative">
+                        {avatarUrl ? (
+                          <img
+                            src={avatarUrl}
+                            alt="Avatar preview"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="text-[#81D607] font-mono text-xl font-bold">
+                            {derivedInitials(name, initials)}
+                          </div>
+                        )}
+                        {uploadingImage && (
+                          <div className="absolute inset-0 bg-black/75 flex items-center justify-center">
+                            <Loader2 className="w-5 h-5 text-[#81D607] animate-spin" />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* File Picker Control */}
+                      <div className="flex-1 space-y-2 text-left w-full">
+                        <input
+                          type="file"
+                          id="computer-picture-input"
+                          accept="image/png, image/jpeg, image/jpg, image/webp, image/svg+xml"
+                          onChange={handleFileChange}
+                          className="hidden"
+                        />
+                        <div className="flex flex-wrap items-center gap-2">
+                          <label
+                            htmlFor="computer-picture-input"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs cursor-pointer transition-colors"
+                          >
+                            <Upload className="w-3.5 h-3.5" />
+                            <span>{avatarUrl ? "Change Picture" : "Choose Picture from Computer"}</span>
+                          </label>
+
+                          {avatarUrl && (
+                            <button
+                              type="button"
+                              onClick={() => setAvatarUrl("")}
+                              className="px-3 py-2 bg-[#1A1A1A] border border-red-500/50 text-red-400 hover:bg-red-600 hover:text-white font-mono text-xs transition-colors"
+                            >
+                              Remove
+                            </button>
+                          )}
+                        </div>
+                        <p className="text-[11px] text-[#9DA4B0]">
+                          Supports PNG, JPG, WEBP, or SVG (Max 5MB). File will be saved for this team member.
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-1.5 pt-1">
+                      <input
+                        type="url"
+                        value={avatarUrl}
+                        onChange={(e) => setAvatarUrl(e.target.value)}
+                        placeholder="https://images.unsplash.com/... or web image link"
+                        className="w-full bg-[#1A1A1A] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Bio / Description */}
                 <div className="space-y-1.5">
                   <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
-                    Display Order (#)
+                    Short Bio / Overview
                   </label>
-                  <input
-                    type="number"
-                    value={displayOrder}
-                    onChange={(e) => setDisplayOrder(parseInt(e.target.value) || 0)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                  <textarea
+                    rows={3}
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    placeholder="Describe background, domain experience, and key engineering contributions..."
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 p-3 text-xs font-sans text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
                   />
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
-                    Status
-                  </label>
-                  <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value as "active" | "inactive")}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                  >
-                    <option value="active">Active (Visible)</option>
-                    <option value="inactive">Inactive (Hidden)</option>
-                  </select>
-                </div>
-              </div>
+                {/* Initials & Display Order */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
+                      Initials (Default: Auto)
+                    </label>
+                    <input
+                      type="text"
+                      maxLength={3}
+                      value={initials}
+                      onChange={(e) => setInitials(e.target.value.toUpperCase())}
+                      placeholder={derivedInitials(name)}
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] uppercase focus:outline-none focus:border-[#81D607]"
+                    />
+                  </div>
 
-              {/* Social Profiles */}
-              <div className="space-y-2 pt-2 border-t border-[#E1E6EB]/10">
-                <span className="block text-xs font-mono font-bold text-[#81D607]">
-                  Social Media Links
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <input
-                    type="url"
-                    value={linkedinUrl}
-                    onChange={(e) => setLinkedinUrl(e.target.value)}
-                    placeholder="LinkedIn URL"
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                  />
-                  <input
-                    type="url"
-                    value={githubUrl}
-                    onChange={(e) => setGithubUrl(e.target.value)}
-                    placeholder="GitHub URL"
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                  />
-                  <input
-                    type="url"
-                    value={xUrl}
-                    onChange={(e) => setXUrl(e.target.value)}
-                    placeholder="X / Twitter URL"
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                  />
-                </div>
-              </div>
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
+                      Display Order (#)
+                    </label>
+                    <input
+                      type="number"
+                      value={displayOrder}
+                      onChange={(e) => setDisplayOrder(parseInt(e.target.value) || 0)}
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    />
+                  </div>
 
-              {/* Checkbox: Founder Spotlight */}
-              <div className="pt-2">
-                <label className="inline-flex items-center gap-2.5 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={isFounder}
-                    onChange={(e) => setIsFounder(e.target.checked)}
-                    className="w-4 h-4 accent-[#81D607] bg-[#111111] border border-[#E1E6EB]/20 rounded-none cursor-pointer"
-                  />
-                  <span className="text-xs font-mono text-[#E1E6EB]">
-                    Highlight as Founder / Leadership Spotlight
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
+                      Status
+                    </label>
+                    <select
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value as "active" | "inactive")}
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    >
+                      <option value="active">Active (Visible)</option>
+                      <option value="inactive">Inactive (Hidden)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Social Profiles */}
+                <div className="space-y-2 pt-2 border-t border-[#E1E6EB]/10">
+                  <span className="block text-xs font-mono font-bold text-[#81D607]">
+                    Social Media Links
                   </span>
-                </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <input
+                      type="url"
+                      value={linkedinUrl}
+                      onChange={(e) => setLinkedinUrl(e.target.value)}
+                      placeholder="LinkedIn URL"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    />
+                    <input
+                      type="url"
+                      value={githubUrl}
+                      onChange={(e) => setGithubUrl(e.target.value)}
+                      placeholder="GitHub URL"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    />
+                    <input
+                      type="url"
+                      value={xUrl}
+                      onChange={(e) => setXUrl(e.target.value)}
+                      placeholder="X / Twitter URL"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    />
+                  </div>
+                </div>
+
+                {/* Checkbox: Founder Spotlight */}
+                <div className="pt-2">
+                  <label className="inline-flex items-center gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={isFounder}
+                      onChange={(e) => setIsFounder(e.target.checked)}
+                      className="w-4 h-4 accent-[#81D607] bg-[#111111] border border-[#E1E6EB]/20 rounded-none cursor-pointer"
+                    />
+                    <span className="text-xs font-mono text-[#E1E6EB]">
+                      Highlight as Founder / Leadership Spotlight
+                    </span>
+                  </label>
+                </div>
               </div>
 
               {/* Form Actions */}
-              <div className="pt-4 border-t border-[#E1E6EB]/10 flex items-center justify-end gap-3">
+              <div className="p-4 sm:p-6 border-t border-[#E1E6EB]/10 flex items-center justify-end gap-3 shrink-0 bg-[#1A1A1A]">
                 <button
                   type="button"
                   onClick={closeModal}
