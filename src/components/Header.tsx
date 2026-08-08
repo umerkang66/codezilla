@@ -1,28 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Phone, Menu, X, ArrowRight } from "lucide-react";
+import { gsap } from "gsap";
+import "./PillNav.css";
 
 export default function Header() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Hide header completely on admin pages
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
+  const circleRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const tlRefs = useRef<(gsap.core.Timeline | null)[]>([]);
+  const activeTweenRefs = useRef<(gsap.core.Tween | null)[]>([]);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -34,6 +27,91 @@ export default function Header() {
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const layout = () => {
+      circleRefs.current.forEach((box, index) => {
+        if (!box?.parentElement) return;
+
+        const pill = box.parentElement as HTMLElement;
+        const rect = pill.getBoundingClientRect();
+        const { height: h } = rect;
+
+        gsap.set(box, {
+          scaleY: 0,
+          transformOrigin: '50% 100%'
+        });
+
+        const label = pill.querySelector('.pill-label');
+        const white = pill.querySelector('.pill-label-hover');
+
+        if (label) gsap.set(label, { y: 0 });
+        if (white) gsap.set(white, { y: h + 12, opacity: 0 });
+
+        tlRefs.current[index]?.kill();
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to(box, { scaleY: 1, duration: 2, ease: 'power3.easeOut', overwrite: 'auto' }, 0);
+
+        if (label) {
+          tl.to(label, { y: -(h + 8), duration: 2, ease: 'power3.easeOut', overwrite: 'auto' }, 0);
+        }
+
+        if (white) {
+          gsap.set(white, { y: Math.ceil(h + 100), opacity: 0 });
+          tl.to(white, { y: 0, opacity: 1, duration: 2, ease: 'power3.easeOut', overwrite: 'auto' }, 0);
+        }
+
+        tlRefs.current[index] = tl;
+      });
+    };
+
+    layout();
+
+    const onResize = () => layout();
+    window.addEventListener('resize', onResize);
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(layout).catch(() => {});
+    }
+
+    return () => window.removeEventListener('resize', onResize);
+  }, [navLinks.length]);
+
+  const handleEnter = (i: number) => {
+    const tl = tlRefs.current[i];
+    if (!tl) return;
+    activeTweenRefs.current[i]?.kill();
+    activeTweenRefs.current[i] = tl.tweenTo(tl.duration(), {
+      duration: 0.3,
+      ease: 'power3.easeOut',
+      overwrite: 'auto'
+    });
+  };
+
+  const handleLeave = (i: number) => {
+    const tl = tlRefs.current[i];
+    if (!tl) return;
+    activeTweenRefs.current[i]?.kill();
+    activeTweenRefs.current[i] = tl.tweenTo(0, {
+      duration: 0.2,
+      ease: 'power3.easeOut',
+      overwrite: 'auto'
+    });
+  };
+
+  // Hide header completely on admin pages
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <header
@@ -71,17 +149,37 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation (visible on lg and up) */}
+          {/* Desktop Navigation with PillNav GSAP hover animation */}
           <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-[#1A1A1A] px-2 xl:px-3 py-1.5 border border-[#81D607]/30 rounded-none">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="px-2.5 xl:px-3.5 py-1.5 text-xs font-mono tracking-wide text-[#E1E6EB] hover:text-[#111111] hover:bg-[#81D607] transition-colors rounded-none whitespace-nowrap"
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link, i) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  role="menuitem"
+                  className={`pill px-2.5 xl:px-3.5 py-1.5 text-xs font-mono tracking-wide whitespace-nowrap rounded-none relative overflow-hidden inline-flex items-center justify-center select-none ${
+                    isActive ? "is-active text-[#81D607]" : "text-[#E1E6EB]"
+                  }`}
+                  onMouseEnter={() => handleEnter(i)}
+                  onMouseLeave={() => handleLeave(i)}
+                >
+                  <span
+                    className="hover-circle"
+                    aria-hidden="true"
+                    ref={(el) => {
+                      circleRefs.current[i] = el;
+                    }}
+                  />
+                  <span className="label-stack">
+                    <span className="pill-label">{link.name}</span>
+                    <span className="pill-label-hover" aria-hidden="true">
+                      {link.name}
+                    </span>
+                  </span>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Header CTA & Quick Contact */}
@@ -162,3 +260,4 @@ export default function Header() {
     </header>
   );
 }
+
