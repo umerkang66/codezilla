@@ -117,7 +117,7 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "glass-header py-3 border-b border-[#81D607]/20"
+          ? "py-3 border-b border-[#81D607]/20 bg-[#111111]/30 backdrop-blur-xs"
           : "bg-transparent py-5"
       }`}
     >
@@ -150,7 +150,14 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation with PillNav GSAP hover animation */}
-          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-[#1A1A1A] px-2 xl:px-3 py-1.5 border border-[#81D607]/30 rounded-none">
+          <nav
+            className="hidden lg:flex items-center gap-0.5 xl:gap-1 px-2.5 xl:px-3.5 py-1.5 border border-[#81D607]/40 rounded-none shadow-lg"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.08)",
+              backdropFilter: "blur(16px) saturate(180%)",
+              WebkitBackdropFilter: "blur(16px) saturate(180%)",
+            }}
+          >
             {navLinks.map((link, i) => {
               const isActive = pathname === link.href;
               return (

@@ -34,8 +34,10 @@
   display: flex;
   align-items: center;
   height: var(--nav-h);
-  background: var(--base, #1A1A1A);
-  border: 1px solid rgba(129, 214, 7, 0.3);
+  background: var(--base, rgba(255, 255, 255, 0.08));
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(129, 214, 7, 0.4);
   border-radius: 0px !important;
 }
 
@@ -110,6 +112,8 @@
   display: block;
   pointer-events: none;
   will-change: transform;
+  transform: scaleY(0);
+  transform-origin: 50% 100%;
 }
 
 .pill .label-stack {

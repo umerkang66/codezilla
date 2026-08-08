@@ -44,7 +44,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Clean Sharp Header & Card Utilities */
 .glass-header {
-  background: rgba(17, 17, 17, 0.95);
+  background: rgba(17, 17, 17, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(129, 214, 7, 0.2);
 }
 

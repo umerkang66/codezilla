@@ -34,7 +34,7 @@ const PillNav: React.FC<PillNavProps> = ({
   activeHref,
   className = '',
   ease = 'power3.easeOut',
-  baseColor = '#1A1A1A',
+  baseColor = 'rgba(255, 255, 255, 0.08)',
   pillColor = 'transparent',
   hoveredPillTextColor = '#111111',
   pillTextColor = '#E1E6EB',
@@ -42,7 +42,7 @@ const PillNav: React.FC<PillNavProps> = ({
   onMobileMenuClick,
   initialLoadAnimation = false
 }) => {
-  const resolvedPillTextColor = pillTextColor ?? baseColor;
+  const resolvedPillTextColor = pillTextColor ?? '#E1E6EB';
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const circleRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const tlRefs = useRef<(gsap.core.Timeline | null)[]>([]);
