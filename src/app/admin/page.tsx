@@ -496,7 +496,8 @@ export default async function AdminDashboardPage() {
                           <span className="text-xs font-mono font-bold text-[#E1E6EB] truncate">
                             {app.full_name}
                           </span>
-                          <span className="px-1.5 py-0.5 bg-[#81D607]/10 text-[#81D607] font-mono text-[9px] font-bold uppercase rounded-md">
+                          <span className="px-2 py-0.5 bg-amber-500/15 border border-amber-500/40 text-amber-400 font-mono text-[9px] font-bold uppercase rounded-md flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.8)]" />
                             Pending
                           </span>
                         </div>

@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { exportApplicationsToExcel } from "@/utils/excelExport";
 import CustomSelect from "@/components/ui/CustomSelect";
+import { getApplicationStatusConfig, CANDIDATE_STATUS_OPTIONS } from "@/utils/statusConfig";
 
 export interface JobPosting {
   id: string;
@@ -701,11 +702,13 @@ export default function AdminTalentAcquisition({
                     onChange={setAppStatusFilter}
                     options={[
                       { label: "All Statuses", value: "all" },
-                      { label: "Pending", value: "pending" },
-                      { label: "Reviewing", value: "reviewing" },
-                      { label: "Shortlisted", value: "shortlisted" },
-                      { label: "Rejected", value: "rejected" },
+                      ...CANDIDATE_STATUS_OPTIONS,
                     ]}
+                    buttonClassName={
+                      appStatusFilter !== "all"
+                        ? getApplicationStatusConfig(appStatusFilter).buttonClass
+                        : ""
+                    }
                     size="sm"
                   />
                 </div>
@@ -825,17 +828,13 @@ export default function AdminTalentAcquisition({
                           {new Date(app.created_at).toLocaleDateString()}
                         </td>
 
-                        <td className="p-4.5 whitespace-nowrap min-w-[160px]">
+                        <td className="p-4.5 whitespace-nowrap min-w-[165px]">
                           <CustomSelect
                             value={app.status}
                             onChange={(val) => handleUpdateAppStatus(app.id, val)}
                             disabled={isUpdatingAppStatus}
-                            options={[
-                              { label: "Pending", value: "pending" },
-                              { label: "Reviewing", value: "reviewing" },
-                              { label: "Shortlisted", value: "shortlisted" },
-                              { label: "Rejected", value: "rejected" },
-                            ]}
+                            options={CANDIDATE_STATUS_OPTIONS}
+                            buttonClassName={getApplicationStatusConfig(app.status).buttonClass}
                             size="sm"
                           />
                         </td>
@@ -1068,12 +1067,11 @@ export default function AdminTalentAcquisition({
                   value={selectedApp.status}
                   onChange={(val) => handleUpdateAppStatus(selectedApp.id, val)}
                   disabled={isUpdatingAppStatus}
-                  options={[
-                    { label: "Status: Pending", value: "pending" },
-                    { label: "Status: Reviewing", value: "reviewing" },
-                    { label: "Status: Shortlisted", value: "shortlisted" },
-                    { label: "Status: Rejected", value: "rejected" },
-                  ]}
+                  options={CANDIDATE_STATUS_OPTIONS.map((opt) => ({
+                    ...opt,
+                    label: `Status: ${opt.label}`,
+                  }))}
+                  buttonClassName={getApplicationStatusConfig(selectedApp.status).buttonClass}
                   size="sm"
                 />
 
@@ -1095,9 +1093,15 @@ export default function AdminTalentAcquisition({
                 
                 {/* Candidate Card */}
                 <div className="p-4 bg-[#1A1A1A] border border-[#81D607]/30 space-y-3 rounded-xl">
-                  <span className="text-[10px] text-[#81D607] uppercase font-bold tracking-wider">
-                    Candidate Information
-                  </span>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] text-[#81D607] uppercase font-bold tracking-wider">
+                      Candidate Information
+                    </span>
+                    <span className={`px-2.5 py-0.5 text-[9px] font-bold uppercase rounded-full flex items-center gap-1.5 ${getApplicationStatusConfig(selectedApp.status).badgeClass}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${getApplicationStatusConfig(selectedApp.status).dotClass}`} />
+                      {getApplicationStatusConfig(selectedApp.status).label}
+                    </span>
+                  </div>
                   <div className="space-y-2">
                     <div>
                       <span className="text-[10px] text-[#9DA4B0] block">Full Name</span>

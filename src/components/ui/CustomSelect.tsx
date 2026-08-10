@@ -7,6 +7,7 @@ export interface CustomSelectOption {
   label: string;
   value: string;
   badgeClass?: string;
+  dotClass?: string;
 }
 
 interface CustomSelectProps {
@@ -66,6 +67,10 @@ export default function CustomSelect({
     lg: "px-4 py-3 text-sm font-sans",
   }[size];
 
+  const defaultButtonStyles = isOpen
+    ? "border-[#81D607] bg-[#161616] ring-1 ring-[#81D607]/50 shadow-[0_0_15px_rgba(129,214,7,0.15)] text-[#E1E6EB]"
+    : "border-[#E1E6EB]/15 hover:border-[#81D607]/60 bg-[#111111] text-[#E1E6EB]";
+
   return (
     <div className={`space-y-1.5 text-left relative ${className}`} ref={containerRef}>
       {label && <label className="text-xs font-mono text-[#E1E6EB] block">{label}</label>}
@@ -75,17 +80,18 @@ export default function CustomSelect({
         type="button"
         disabled={disabled}
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full bg-[#111111] border text-[#E1E6EB] flex items-center justify-between gap-2 transition-all rounded-xl cursor-pointer focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed ${sizeClasses} ${
-          isOpen
-            ? "border-[#81D607] bg-[#161616] ring-1 ring-[#81D607]/50 shadow-[0_0_15px_rgba(129,214,7,0.15)]"
-            : "border-[#E1E6EB]/15 hover:border-[#81D607]/60"
-        } ${buttonClassName}`}
+        className={`w-full border flex items-center justify-between gap-2 transition-all rounded-xl cursor-pointer focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed ${sizeClasses} ${
+          buttonClassName || defaultButtonStyles
+        }`}
       >
         <span className="truncate flex items-center gap-2">
+          {selectedOption?.dotClass && (
+            <span className={`w-2 h-2 rounded-full shrink-0 ${selectedOption.dotClass}`} />
+          )}
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <ChevronDown
-          className={`w-4 h-4 text-[#81D607] shrink-0 transition-transform duration-200 ${
+          className={`w-4 h-4 text-current shrink-0 transition-transform duration-200 opacity-80 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
@@ -109,12 +115,19 @@ export default function CustomSelect({
                 }}
                 className={`${optionSizeClasses} cursor-pointer flex items-center justify-between gap-3 transition-colors ${
                   isSelected
-                    ? "bg-[#81D607]/15 text-[#81D607] font-bold"
+                    ? option.badgeClass
+                      ? `${option.badgeClass}`
+                      : "bg-[#81D607]/15 text-[#81D607] font-bold"
                     : "text-[#E1E6EB] hover:bg-[#81D607] hover:text-[#111111]"
                 }`}
               >
-                <span className="truncate">{option.label}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-[#81D607] shrink-0" />}
+                <span className="truncate flex items-center gap-2">
+                  {option.dotClass && (
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${option.dotClass}`} />
+                  )}
+                  {option.label}
+                </span>
+                {isSelected && <Check className="w-3.5 h-3.5 text-current shrink-0" />}
               </div>
             );
           })}
