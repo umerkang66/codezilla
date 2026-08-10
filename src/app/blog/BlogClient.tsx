@@ -145,7 +145,7 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
                   <div className="text-[10px] font-mono uppercase text-[#9DA4B0] mb-1">
                     Author & Reading Time
                   </div>
-                  <div className="flex items-center justify-between p-2.5 bg-[#111111] border border-[#E1E6EB]/10 text-xs font-mono text-[#E1E6EB] rounded-lg">
+                  <div className="flex items-center justify-between p-2.5 bg-[#111111] border border-[#E1E6EB]/10 text-xs font-mono text-[#E1E6EB] rounded-xl">
                     <span className="truncate flex items-center gap-1.5">
                       <User className="w-3.5 h-3.5 text-[#81D607]" />
                       {post.author}

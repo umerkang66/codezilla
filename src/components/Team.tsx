@@ -187,7 +187,7 @@ export default function Team({ initialTeams }: TeamProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${member.name} LinkedIn`}
-                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-md cursor-pointer"
+                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-xl cursor-pointer"
                       >
                         <LinkedinIcon className="w-3 h-3 text-[#81D607]" />
                         <span>LinkedIn</span>
@@ -199,7 +199,7 @@ export default function Team({ initialTeams }: TeamProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${member.name} GitHub`}
-                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-md cursor-pointer"
+                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-xl cursor-pointer"
                       >
                         <GithubIcon className="w-3 h-3 text-[#81D607]" />
                         <span>GitHub</span>
@@ -211,7 +211,7 @@ export default function Team({ initialTeams }: TeamProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${member.name} X`}
-                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-md cursor-pointer"
+                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-xl cursor-pointer"
                       >
                         <XIcon className="w-3 h-3 text-[#81D607]" />
                         <span>X</span>

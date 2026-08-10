@@ -35,7 +35,7 @@ export default async function BlogIndexPage() {
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
       {/* Header Title */}
       <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-        <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] font-mono text-xs font-semibold uppercase tracking-wider">
+        <div className="inline-block px-3.5 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] font-mono text-xs font-semibold uppercase tracking-wider rounded-full">
           Technical Publications
         </div>
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight">
