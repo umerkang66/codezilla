@@ -688,11 +688,11 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                     <label className="block text-xs font-mono font-bold text-[#81D607]">
                       Team Member Picture
                     </label>
-                    <div className="flex items-center gap-1 font-mono text-[10px]">
+                    <div className="flex items-center gap-1.5 font-mono text-[10px]">
                       <button
                         type="button"
                         onClick={() => setImageInputMode("file")}
-                        className={`px-2 py-0.5 transition-colors cursor-pointer ${
+                        className={`px-2.5 py-1 transition-colors rounded-lg cursor-pointer ${
                           imageInputMode === "file"
                             ? "bg-[#81D607] text-[#111111] font-bold"
                             : "text-[#9DA4B0] hover:text-[#E1E6EB]"
@@ -704,7 +704,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       <button
                         type="button"
                         onClick={() => setImageInputMode("url")}
-                        className={`px-2 py-0.5 transition-colors ${
+                        className={`px-2.5 py-1 transition-colors rounded-lg cursor-pointer ${
                           imageInputMode === "url"
                             ? "bg-[#81D607] text-[#111111] font-bold"
                             : "text-[#9DA4B0] hover:text-[#E1E6EB]"
@@ -718,7 +718,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                   {imageInputMode === "file" ? (
                     <div className="flex flex-col sm:flex-row items-center gap-4 pt-1">
                       {/* Picture Preview Box */}
-                      <div className="w-16 h-16 bg-[#1A1A1A] border-2 border-[#81D607] overflow-hidden shrink-0 flex items-center justify-center relative">
+                      <div className="w-16 h-16 bg-[#1A1A1A] border-2 border-[#81D607] overflow-hidden shrink-0 flex items-center justify-center relative rounded-full shadow-md">
                         {avatarUrl ? (
                           <img
                             src={avatarUrl}
@@ -749,7 +749,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                         <div className="flex flex-wrap items-center gap-2">
                           <label
                             htmlFor="computer-picture-input"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs cursor-pointer transition-colors"
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs cursor-pointer transition-colors rounded-xl shadow-sm"
                           >
                             <Upload className="w-3.5 h-3.5" />
                             <span>{avatarUrl ? "Change Picture" : "Choose Picture from Computer"}</span>
@@ -759,7 +759,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                             <button
                               type="button"
                               onClick={() => setAvatarUrl("")}
-                              className="px-3 py-2 bg-[#1A1A1A] border border-red-500/50 text-red-400 hover:bg-red-600 hover:text-white font-mono text-xs transition-colors"
+                              className="px-3 py-2 bg-[#1A1A1A] border border-red-500/50 text-red-400 hover:bg-red-600 hover:text-white font-mono text-xs transition-colors rounded-xl cursor-pointer"
                             >
                               Remove
                             </button>
@@ -777,7 +777,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                         value={avatarUrl}
                         onChange={(e) => setAvatarUrl(e.target.value)}
                         placeholder="https://images.unsplash.com/... or web image link"
-                        className="w-full bg-[#1A1A1A] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                        className="w-full bg-[#1A1A1A] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                       />
                     </div>
                   )}
@@ -793,7 +793,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     placeholder="Describe background, domain experience, and key engineering contributions..."
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 p-3 text-xs font-sans text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 p-3 text-xs font-sans text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -809,7 +809,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       value={initials}
                       onChange={(e) => setInitials(e.target.value.toUpperCase())}
                       placeholder={derivedInitials(name)}
-                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] uppercase focus:outline-none focus:border-[#81D607]"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] uppercase focus:outline-none focus:border-[#81D607] rounded-xl"
                     />
                   </div>
 
@@ -821,7 +821,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       type="number"
                       value={displayOrder}
                       onChange={(e) => setDisplayOrder(parseInt(e.target.value) || 0)}
-                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                     />
                   </div>
 
@@ -848,21 +848,21 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       value={linkedinUrl}
                       onChange={(e) => setLinkedinUrl(e.target.value)}
                       placeholder="LinkedIn URL"
-                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                     />
                     <input
                       type="url"
                       value={githubUrl}
                       onChange={(e) => setGithubUrl(e.target.value)}
                       placeholder="GitHub URL"
-                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                     />
                     <input
                       type="url"
                       value={xUrl}
                       onChange={(e) => setXUrl(e.target.value)}
                       placeholder="X / Twitter URL"
-                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                     />
                   </div>
                 </div>
@@ -874,7 +874,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       type="checkbox"
                       checked={isFounder}
                       onChange={(e) => setIsFounder(e.target.checked)}
-                      className="w-4 h-4 accent-[#81D607] bg-[#111111] border border-[#E1E6EB]/20 rounded cursor-pointer"
+                      className="w-4 h-4 accent-[#81D607] bg-[#111111] border border-[#E1E6EB]/20 rounded-md cursor-pointer"
                     />
                     <span className="text-xs font-mono text-[#E1E6EB]">
                       Highlight as Founder / Leadership Spotlight
@@ -925,15 +925,17 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
 
             <div className="flex items-center justify-center gap-3 pt-2">
               <button
+                type="button"
                 onClick={() => setDeleteConfirmId(null)}
-                className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] hover:border-[#81D607] font-mono text-xs font-bold"
+                className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] hover:border-[#81D607] font-mono text-xs font-bold rounded-xl cursor-pointer transition-colors"
               >
                 Cancel
               </button>
               <button
+                type="button"
                 onClick={() => handleDelete(deleteConfirmId)}
                 disabled={deletingId === deleteConfirmId}
-                className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-mono text-xs font-bold flex items-center gap-2"
+                className="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-mono text-xs font-bold flex items-center gap-2 rounded-xl cursor-pointer transition-colors"
               >
                 {deletingId === deleteConfirmId && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                 <span>Delete Permanently</span>
