@@ -201,17 +201,17 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
   return (
     <div className="flex-1 p-6 sm:p-8 flex flex-col h-full overflow-y-auto text-left space-y-6">
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30 rounded-2xl">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase rounded-full">
               Admin Module
             </span>
             <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
               Contact Messages
             </h1>
             {unreadCount > 0 && (
-              <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase animate-pulse">
+              <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase rounded-full animate-pulse">
                 {unreadCount} Unread
               </span>
             )}
@@ -225,7 +225,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
           {unreadCount > 0 && (
             <button
               onClick={handleMarkAllAsRead}
-              className="px-3.5 py-2 bg-[#1A1A1A] border border-[#81D607]/60 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] text-xs font-mono font-bold transition-colors rounded-none flex items-center gap-1.5"
+              className="px-3.5 py-2 bg-[#1A1A1A] border border-[#81D607]/60 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] text-xs font-mono font-bold transition-colors rounded-xl cursor-pointer flex items-center gap-1.5"
             >
               <CheckCheck className="w-4 h-4" />
               <span>Mark All as Read</span>
@@ -235,7 +235,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
           <button
             onClick={refreshMessages}
             disabled={isRefreshing}
-            className="px-3.5 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] text-xs font-mono transition-colors rounded-none flex items-center gap-1.5 disabled:opacity-50"
+            className="px-3.5 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] text-xs font-mono transition-colors rounded-xl cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin" : ""}`} />
             <span>Refresh</span>
@@ -244,7 +244,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
       </div>
 
       {actionMessage && (
-        <div className="p-3 bg-[#81D607]/10 border border-[#81D607] text-[#81D607] text-xs font-mono flex items-center justify-between">
+        <div className="p-3 bg-[#81D607]/10 border border-[#81D607] text-[#81D607] text-xs font-mono flex items-center justify-between rounded-xl">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
             <span>{actionMessage}</span>
@@ -255,10 +255,10 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
       {/* Tabs and Search Navigation Bar */}
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         {/* Navigation Tabs */}
-        <div className="flex items-center border border-[#E1E6EB]/15 bg-[#1A1A1A] p-1 rounded-none">
+        <div className="flex items-center border border-[#E1E6EB]/15 bg-[#1A1A1A] p-1 rounded-2xl">
           <button
             onClick={() => setActiveTab("all")}
-            className={`px-4 py-2 font-mono text-xs font-bold transition-all flex items-center gap-2 rounded-none ${
+            className={`px-4 py-2 font-mono text-xs font-bold transition-all flex items-center gap-2 rounded-xl cursor-pointer ${
               activeTab === "all"
                 ? "bg-[#81D607] text-[#111111]"
                 : "text-[#9DA4B0] hover:text-[#E1E6EB]"
@@ -267,7 +267,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
             <Inbox className="w-3.5 h-3.5" />
             <span>All Messages</span>
             <span
-              className={`px-1.5 py-0.2 text-[10px] rounded-none ${
+              className={`px-1.5 py-0.2 text-[10px] rounded-full ${
                 activeTab === "all" ? "bg-[#111111] text-[#81D607]" : "bg-[#111111] text-[#9DA4B0]"
               }`}
             >
@@ -277,7 +277,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
 
           <button
             onClick={() => setActiveTab("unread")}
-            className={`px-4 py-2 font-mono text-xs font-bold transition-all flex items-center gap-2 rounded-none ${
+            className={`px-4 py-2 font-mono text-xs font-bold transition-all flex items-center gap-2 rounded-xl cursor-pointer ${
               activeTab === "unread"
                 ? "bg-[#81D607] text-[#111111]"
                 : "text-[#9DA4B0] hover:text-[#E1E6EB]"
@@ -286,7 +286,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
             <Mail className="w-3.5 h-3.5" />
             <span>Unread Messages</span>
             <span
-              className={`px-1.5 py-0.2 text-[10px] rounded-none ${
+              className={`px-1.5 py-0.2 text-[10px] rounded-full ${
                 activeTab === "unread" ? "bg-[#111111] text-[#81D607]" : "bg-[#81D607]/20 text-[#81D607]"
               }`}
             >
@@ -303,12 +303,12 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
             placeholder="Search by name, email, service, or keywords..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-8 py-2.5 bg-[#1A1A1A] border border-[#E1E6EB]/15 text-xs text-[#E1E6EB] focus:border-[#81D607] focus:outline-none font-mono rounded-none"
+            className="w-full pl-9 pr-8 py-2.5 bg-[#1A1A1A] border border-[#E1E6EB]/15 text-xs text-[#E1E6EB] focus:border-[#81D607] focus:outline-none font-mono rounded-xl"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9DA4B0] hover:text-[#E1E6EB]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#9DA4B0] hover:text-[#E1E6EB] cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -317,10 +317,10 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
       </div>
 
       {/* Messages List / Table */}
-      <div className="bg-[#1A1A1A] border border-[#E1E6EB]/15 rounded-none overflow-hidden">
+      <div className="bg-[#1A1A1A] border border-[#E1E6EB]/15 rounded-2xl overflow-hidden">
         {filteredMessages.length === 0 ? (
           <div className="p-12 text-center space-y-3">
-            <div className="w-12 h-12 bg-[#111111] border border-[#E1E6EB]/10 flex items-center justify-center text-[#9DA4B0] mx-auto rounded-none">
+            <div className="w-12 h-12 bg-[#111111] border border-[#E1E6EB]/10 flex items-center justify-center text-[#9DA4B0] mx-auto rounded-xl">
               <Mail className="w-6 h-6" />
             </div>
             <h3 className="text-sm font-mono font-bold text-[#E1E6EB]">
@@ -368,12 +368,12 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                   {/* Status Indicator */}
                   <div className="md:col-span-1 flex items-center gap-2">
                     {!msg.is_read ? (
-                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#81D607] text-[#111111] font-mono font-bold text-[10px] uppercase rounded-none">
+                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[#81D607] text-[#111111] font-mono font-bold text-[10px] uppercase rounded-full">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#111111] animate-ping" />
                         <span>Unread</span>
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] font-mono text-[10px] uppercase rounded-none">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] font-mono text-[10px] uppercase rounded-full">
                         <MailOpen className="w-3 h-3 text-[#9DA4B0]" />
                         <span>Read</span>
                       </span>
@@ -392,7 +392,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
 
                   {/* Service Badge */}
                   <div className="md:col-span-2 text-left">
-                    <span className="px-2 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] inline-block truncate max-w-full">
+                    <span className="px-2 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] inline-block truncate max-w-full rounded-md">
                       {msg.service}
                     </span>
                   </div>
@@ -415,7 +415,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                       <button
                         title={msg.is_read ? "Mark as Unread" : "Mark as Read"}
                         onClick={() => handleToggleRead(msg.id, msg.is_read)}
-                        className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] transition-colors rounded-none"
+                        className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] transition-colors rounded-lg cursor-pointer"
                       >
                         {msg.is_read ? (
                           <Mail className="w-4 h-4" />
@@ -431,7 +431,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                           e.stopPropagation();
                           promptDeleteMessage(msg);
                         }}
-                        className="p-1.5 text-[#9DA4B0] hover:text-red-400 hover:bg-[#111111] transition-colors rounded-none"
+                        className="p-1.5 text-[#9DA4B0] hover:text-red-400 hover:bg-[#111111] transition-colors rounded-lg cursor-pointer"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -447,11 +447,11 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
       {/* MESSAGE DETAILS MODAL */}
       {selectedMessage && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl flex flex-col max-h-[90vh] rounded-none animate-in fade-in zoom-in-95 duration-150">
+          <div className="w-full max-w-2xl bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl flex flex-col max-h-[90vh] rounded-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
             {/* Modal Header */}
             <div className="p-5 bg-[#111111] border-b border-[#E1E6EB]/15 flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 bg-[#1A1A1A] border border-[#81D607] flex items-center justify-center text-[#81D607]">
+                <div className="w-9 h-9 bg-[#1A1A1A] border border-[#81D607] flex items-center justify-center text-[#81D607] rounded-xl">
                   <MessageSquare className="w-5 h-5" />
                 </div>
                 <div>
@@ -470,7 +470,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
 
               <button
                 onClick={() => setSelectedMessage(null)}
-                className="p-2 text-[#9DA4B0] hover:text-[#E1E6EB] hover:bg-[#1A1A1A] transition-colors"
+                className="p-2 text-[#9DA4B0] hover:text-[#E1E6EB] hover:bg-[#1A1A1A] transition-colors rounded-lg cursor-pointer"
                 title="Close Modal"
               >
                 <X className="w-5 h-5" />
@@ -480,7 +480,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
             {/* Modal Content Body */}
             <div className="p-6 overflow-y-auto space-y-6 text-left font-mono">
               {/* Sender Details Box */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-[#111111] border border-[#E1E6EB]/10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-[#111111] border border-[#E1E6EB]/10 rounded-xl">
                 <div className="space-y-1">
                   <span className="text-[10px] text-[#9DA4B0] uppercase block">Sender Name</span>
                   <div className="text-sm font-bold text-[#E1E6EB] flex items-center gap-2">
@@ -493,7 +493,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                   <span className="text-[10px] text-[#9DA4B0] uppercase block">Email Address</span>
                   <a
                     href={`mailto:${selectedMessage.email}`}
-                    className="text-sm font-bold text-[#81D607] hover:underline flex items-center gap-1.5 break-all"
+                    className="text-sm font-bold text-[#81D607] hover:underline flex items-center gap-1.5 break-all cursor-pointer"
                   >
                     <span>{selectedMessage.email}</span>
                     <ExternalLink className="w-3.5 h-3.5 shrink-0" />
@@ -502,7 +502,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
 
                 <div className="space-y-1">
                   <span className="text-[10px] text-[#9DA4B0] uppercase block">Service Requested</span>
-                  <span className="inline-block px-2.5 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-xs text-[#E1E6EB] font-bold">
+                  <span className="inline-block px-2.5 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-xs text-[#E1E6EB] font-bold rounded-md">
                     {selectedMessage.service}
                   </span>
                 </div>
@@ -526,7 +526,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                 <span className="text-xs font-mono text-[#9DA4B0] uppercase tracking-wider block">
                   Full Message Content:
                 </span>
-                <div className="p-5 bg-[#111111] border border-[#E1E6EB]/15 text-sm text-[#E1E6EB] whitespace-pre-wrap font-sans leading-relaxed min-h-[120px]">
+                <div className="p-5 bg-[#111111] border border-[#E1E6EB]/15 text-sm text-[#E1E6EB] whitespace-pre-wrap font-sans leading-relaxed min-h-[120px] rounded-xl">
                   {selectedMessage.message}
                 </div>
               </div>
@@ -539,7 +539,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                   href={`mailto:${selectedMessage.email}?subject=Re:%20Inquiry%20regarding%20${encodeURIComponent(
                     selectedMessage.service
                   )}`}
-                  className="px-4 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-none flex items-center justify-center gap-2 flex-1 sm:flex-initial"
+                  className="px-4 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer flex items-center justify-center gap-2 flex-1 sm:flex-initial"
                 >
                   <Mail className="w-4 h-4" />
                   <span>Reply via Email</span>
@@ -547,7 +547,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
 
                 <button
                   onClick={() => handleToggleRead(selectedMessage.id, selectedMessage.is_read)}
-                  className="px-4 py-2.5 bg-[#1A1A1A] border border-[#E1E6EB]/20 text-[#E1E6EB] hover:text-[#81D607] font-mono text-xs transition-colors rounded-none flex items-center justify-center gap-2"
+                  className="px-4 py-2.5 bg-[#1A1A1A] border border-[#E1E6EB]/20 text-[#E1E6EB] hover:text-[#81D607] font-mono text-xs transition-colors rounded-xl cursor-pointer flex items-center justify-center gap-2"
                 >
                   {selectedMessage.is_read ? <Mail className="w-4 h-4" /> : <MailOpen className="w-4 h-4" />}
                   <span>{selectedMessage.is_read ? "Mark as Unread" : "Mark as Read"}</span>
@@ -557,7 +557,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
               <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
                 <button
                   onClick={() => promptDeleteMessage(selectedMessage)}
-                  className="px-4 py-2.5 bg-red-950/80 border border-red-500/50 text-red-400 hover:bg-red-900 font-mono text-xs transition-colors rounded-none flex items-center justify-center gap-2"
+                  className="px-4 py-2.5 bg-red-950/80 border border-red-500/50 text-red-400 hover:bg-red-900 font-mono text-xs transition-colors rounded-xl cursor-pointer flex items-center justify-center gap-2"
                 >
                   <Trash2 className="w-4 h-4" />
                   <span>Delete</span>
@@ -565,7 +565,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
 
                 <button
                   onClick={() => setSelectedMessage(null)}
-                  className="px-5 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none flex items-center justify-center gap-1.5"
+                  className="px-5 py-2.5 bg-[#1A1A1A] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer flex items-center justify-center gap-1.5"
                 >
                   <span>Close Modal</span>
                 </button>
@@ -577,9 +577,9 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
       {/* DELETE CONFIRMATION MODAL */}
       {messageToDelete && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-6 text-left shadow-2xl rounded-none animate-in fade-in zoom-in-95 duration-150">
+          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-6 text-left shadow-2xl rounded-2xl animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-center gap-3 text-red-500">
-              <div className="w-10 h-10 bg-[#111111] border border-red-500 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 bg-[#111111] border border-red-500 flex items-center justify-center shrink-0 rounded-xl">
                 <AlertTriangle className="w-5 h-5" />
               </div>
               <div>
@@ -590,7 +590,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
               </div>
             </div>
 
-            <div className="text-xs text-[#9DA4B0] bg-[#111111] p-3.5 border border-red-500/20 font-mono space-y-1">
+            <div className="text-xs text-[#9DA4B0] bg-[#111111] p-3.5 border border-red-500/20 font-mono space-y-1 rounded-xl">
               <div>
                 <span className="text-[#9DA4B0]">From: </span>
                 <strong className="text-[#E1E6EB]">{messageToDelete.name}</strong>{" "}
@@ -609,7 +609,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                 type="button"
                 onClick={() => setMessageToDelete(null)}
                 disabled={isDeleting}
-                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] font-mono text-xs rounded-none transition-colors"
+                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] font-mono text-xs rounded-xl cursor-pointer transition-colors"
               >
                 Cancel
               </button>
@@ -617,7 +617,7 @@ export default function AdminContactMessages({ initialMessages }: AdminContactMe
                 type="button"
                 onClick={confirmDeleteMessage}
                 disabled={isDeleting}
-                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2 rounded-none transition-colors disabled:opacity-50"
+                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2 rounded-xl cursor-pointer transition-colors disabled:opacity-50"
               >
                 {isDeleting ? (
                   <>

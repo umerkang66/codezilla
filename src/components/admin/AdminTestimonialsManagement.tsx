@@ -198,7 +198,7 @@ export default function AdminTestimonialsManagement({
       {/* Toast Notification Banner */}
       {notification && (
         <div
-          className={`p-4 border font-mono text-xs flex items-center justify-between transition-all rounded-none ${
+          className={`p-4 border font-mono text-xs flex items-center justify-between transition-all rounded-xl ${
             notification.type === "success"
               ? "bg-[#81D607]/10 border-[#81D607] text-[#81D607]"
               : "bg-red-950/80 border-red-500 text-red-400"
@@ -214,7 +214,7 @@ export default function AdminTestimonialsManagement({
           </div>
           <button
             onClick={() => setNotification(null)}
-            className="hover:opacity-75"
+            className="hover:opacity-75 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -222,10 +222,10 @@ export default function AdminTestimonialsManagement({
       )}
 
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30 rounded-2xl">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase rounded-full">
               Admin Module
             </span>
             <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
@@ -239,7 +239,7 @@ export default function AdminTestimonialsManagement({
 
         <button
           onClick={openCreateModal}
-          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-none shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer shrink-0"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Add Client Review</span>
@@ -247,7 +247,7 @@ export default function AdminTestimonialsManagement({
       </div>
 
       {/* Search and Filters */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#1A1A1A] p-4 border border-[#E1E6EB]/10">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#1A1A1A] p-4 border border-[#E1E6EB]/10 rounded-2xl">
         <div className="relative w-full sm:w-80">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#9DA4B0]" />
           <input
@@ -255,7 +255,7 @@ export default function AdminTestimonialsManagement({
             placeholder="Search by client name, quote, platform..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] pl-9 pr-4 py-2 font-mono text-xs placeholder:text-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607] rounded-none"
+            className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] pl-9 pr-4 py-2 font-mono text-xs placeholder:text-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607] rounded-xl"
           />
         </div>
 
@@ -265,7 +265,7 @@ export default function AdminTestimonialsManagement({
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors rounded-none border ${
+              className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors rounded-xl cursor-pointer border ${
                 statusFilter === st
                   ? "bg-[#81D607] text-[#111111] border-[#81D607] font-bold"
                   : "bg-[#111111] text-[#9DA4B0] border-[#E1E6EB]/15 hover:border-[#81D607] hover:text-[#E1E6EB]"
@@ -279,7 +279,7 @@ export default function AdminTestimonialsManagement({
 
       {/* Testimonials Grid */}
       {filteredTestimonials.length === 0 ? (
-        <div className="p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-4 rounded-none">
+        <div className="p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-4 rounded-2xl">
           <MessageSquareQuote className="w-10 h-10 text-[#81D607]/40 mx-auto" />
           <div className="space-y-1">
             <h3 className="text-base font-mono font-bold text-[#E1E6EB]">
@@ -304,7 +304,7 @@ export default function AdminTestimonialsManagement({
                 key={item.id}
                 className={`p-6 bg-[#1A1A1A] border ${
                   isHidden ? "border-[#E1E6EB]/10 opacity-60" : "border-[#E1E6EB]/10 hover:border-[#81D607]"
-                } transition-all flex flex-col justify-between space-y-6 rounded-none relative group`}
+                } transition-all flex flex-col justify-between space-y-6 rounded-2xl relative group`}
               >
                 {/* Header info bar */}
                 <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 pb-3">
@@ -316,7 +316,7 @@ export default function AdminTestimonialsManagement({
 
                   <div className="flex items-center gap-2">
                     <span
-                      className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase border ${
+                      className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase border rounded-full ${
                         isHidden
                           ? "bg-amber-950/60 border-amber-500/40 text-amber-400"
                           : "bg-emerald-950/60 border-emerald-500/40 text-emerald-400"
@@ -350,7 +350,7 @@ export default function AdminTestimonialsManagement({
                       <img
                         src={avatar}
                         alt={item.author}
-                        className="w-7 h-7 border border-[#81D607] object-cover shrink-0 rounded-none"
+                        className="w-7 h-7 border border-[#81D607] object-cover shrink-0 rounded-full"
                       />
                     ) : null}
                     <div className="min-w-0">
@@ -364,14 +364,14 @@ export default function AdminTestimonialsManagement({
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={() => openEditModal(item)}
-                      className="p-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors rounded-none"
+                      className="p-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors rounded-lg cursor-pointer"
                       title="Edit Review"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => setDeleteConfirmId(item.id)}
-                      className="p-2 bg-[#111111] border border-red-500/40 text-red-400 hover:bg-red-950/50 hover:border-red-500 transition-colors rounded-none"
+                      className="p-2 bg-[#111111] border border-red-500/40 text-red-400 hover:bg-red-950/50 hover:border-red-500 transition-colors rounded-lg cursor-pointer"
                       title="Delete Review"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -387,10 +387,10 @@ export default function AdminTestimonialsManagement({
       {/* CREATE / EDIT MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#1A1A1A] border border-[#81D607]/40 w-full max-w-2xl my-8 p-6 space-y-6 text-left rounded-none shadow-2xl relative">
+          <div className="bg-[#1A1A1A] border border-[#81D607]/40 w-full max-w-2xl my-8 p-6 space-y-6 text-left rounded-2xl shadow-2xl relative">
             <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 pb-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607]">
+                <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] rounded-lg">
                   <MessageSquareQuote className="w-4 h-4" />
                 </div>
                 <h2 className="text-lg font-mono font-bold text-[#E1E6EB]">
@@ -399,7 +399,7 @@ export default function AdminTestimonialsManagement({
               </div>
               <button
                 onClick={closeModal}
-                className="text-[#9DA4B0] hover:text-[#E1E6EB] p-1"
+                className="text-[#9DA4B0] hover:text-[#E1E6EB] p-1 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -418,7 +418,7 @@ export default function AdminTestimonialsManagement({
                     placeholder="e.g. Marcus Vance"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -432,7 +432,7 @@ export default function AdminTestimonialsManagement({
                     placeholder="e.g. Hardware Product Manager, US Tech Firm"
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
               </div>
@@ -446,7 +446,7 @@ export default function AdminTestimonialsManagement({
                   <select
                     value={rating}
                     onChange={(e) => setRating(Number(e.target.value))}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
                   >
                     <option value={5}>★★★★★ (5 Stars)</option>
                     <option value={4}>★★★★☆ (4 Stars)</option>
@@ -466,7 +466,7 @@ export default function AdminTestimonialsManagement({
                     placeholder="e.g. Verified Upwork Review, Verified Enterprise Client"
                     value={platform}
                     onChange={(e) => setPlatform(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
               </div>
@@ -482,7 +482,7 @@ export default function AdminTestimonialsManagement({
                   placeholder="Enter detailed client review quote..."
                   value={quote}
                   onChange={(e) => setQuote(e.target.value)}
-                  className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none resize-y"
+                  className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl resize-y"
                 />
               </div>
 
@@ -497,7 +497,7 @@ export default function AdminTestimonialsManagement({
                     placeholder="https://..."
                     value={avatarUrl}
                     onChange={(e) => setAvatarUrl(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -510,7 +510,7 @@ export default function AdminTestimonialsManagement({
                     type="number"
                     value={displayOrder}
                     onChange={(e) => setDisplayOrder(parseInt(e.target.value) || 0)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -522,7 +522,7 @@ export default function AdminTestimonialsManagement({
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value as "active" | "hidden")}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
                   >
                     <option value="active">Active (Visible)</option>
                     <option value="hidden">Hidden (Draft)</option>
@@ -535,14 +535,14 @@ export default function AdminTestimonialsManagement({
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#9DA4B0] hover:text-[#E1E6EB] rounded-none"
+                  className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#9DA4B0] hover:text-[#E1E6EB] rounded-xl cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold rounded-none flex items-center gap-2 transition-colors disabled:opacity-50"
+                  className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold rounded-xl cursor-pointer flex items-center gap-2 transition-colors disabled:opacity-50"
                 >
                   {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>{editingTestimonial ? "Save Changes" : "Create Review"}</span>
@@ -556,8 +556,8 @@ export default function AdminTestimonialsManagement({
       {/* DELETE CONFIRMATION MODAL */}
       {deleteConfirmId && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#1A1A1A] border border-red-500/60 w-full max-w-md p-6 space-y-4 text-center rounded-none shadow-2xl">
-            <div className="w-12 h-12 bg-red-950/50 border border-red-500 text-red-500 flex items-center justify-center mx-auto">
+          <div className="bg-[#1A1A1A] border border-red-500/60 w-full max-w-md p-6 space-y-4 text-center rounded-2xl shadow-2xl">
+            <div className="w-12 h-12 bg-red-950/50 border border-red-500 text-red-500 flex items-center justify-center mx-auto rounded-xl">
               <Trash2 className="w-6 h-6" />
             </div>
             <div className="space-y-1">
@@ -571,14 +571,14 @@ export default function AdminTestimonialsManagement({
             <div className="flex items-center justify-center gap-3 pt-2">
               <button
                 onClick={() => setDeleteConfirmId(null)}
-                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] font-mono text-xs"
+                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] font-mono text-xs rounded-xl cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDelete(deleteConfirmId)}
                 disabled={deletingId === deleteConfirmId}
-                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2"
+                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2 rounded-xl cursor-pointer"
               >
                 {deletingId === deleteConfirmId && (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />

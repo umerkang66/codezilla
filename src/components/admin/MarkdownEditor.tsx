@@ -62,7 +62,7 @@ export default function MarkdownEditor({
   const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 200));
 
   return (
-    <div className="border border-[#81D607]/40 bg-[#111111] flex flex-col rounded-none text-left">
+    <div className="border border-[#81D607]/40 bg-[#111111] flex flex-col rounded-2xl overflow-hidden text-left">
       {/* Editor Header Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-2 p-2 bg-[#1A1A1A] border-b border-[#E1E6EB]/10">
         {/* Formatting Tools */}
@@ -70,7 +70,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("**", "**")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Bold (**bold**)"
           >
             <Bold className="w-4 h-4" />
@@ -78,7 +78,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("*", "*")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Italic (*italic*)"
           >
             <Italic className="w-4 h-4" />
@@ -87,7 +87,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("# ")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Heading 1 (# Heading)"
           >
             <Heading1 className="w-4 h-4" />
@@ -95,7 +95,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("## ")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Heading 2 (## Heading)"
           >
             <Heading2 className="w-4 h-4" />
@@ -103,7 +103,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("### ")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Heading 3 (### Heading)"
           >
             <Heading3 className="w-4 h-4" />
@@ -112,7 +112,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("[", "](https://example.com)")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Insert Link [title](url)"
           >
             <Link className="w-4 h-4" />
@@ -120,7 +120,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("`", "`")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Inline Code (`code`)"
           >
             <Code className="w-4 h-4" />
@@ -128,7 +128,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("```javascript\n", "\n```")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Code Block (```js ... ```)"
           >
             <FileCode className="w-4 h-4" />
@@ -137,7 +137,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("- ")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Bullet List (- item)"
           >
             <List className="w-4 h-4" />
@@ -145,7 +145,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("1. ")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Numbered List (1. item)"
           >
             <ListOrdered className="w-4 h-4" />
@@ -153,7 +153,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("> ")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Quote (> text)"
           >
             <Quote className="w-4 h-4" />
@@ -161,7 +161,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => insertFormatting("\n---\n")}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#111111] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
             title="Horizontal Divider (---)"
           >
             <Minus className="w-4 h-4" />
@@ -169,11 +169,11 @@ export default function MarkdownEditor({
         </div>
 
         {/* View Mode Mode Toggles */}
-        <div className="flex items-center gap-1 bg-[#111111] p-1 border border-[#E1E6EB]/10 font-mono text-[11px]">
+        <div className="flex items-center gap-1 bg-[#111111] p-1 border border-[#E1E6EB]/10 font-mono text-[11px] rounded-xl">
           <button
             type="button"
             onClick={() => setMode("write")}
-            className={`flex items-center gap-1 px-2 py-1 ${
+            className={`flex items-center gap-1 px-2 py-1 rounded-lg cursor-pointer ${
               mode === "write"
                 ? "bg-[#81D607] text-[#111111] font-bold"
                 : "text-[#9DA4B0] hover:text-[#E1E6EB]"
@@ -185,7 +185,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => setMode("split")}
-            className={`flex items-center gap-1 px-2 py-1 ${
+            className={`flex items-center gap-1 px-2 py-1 rounded-lg cursor-pointer ${
               mode === "split"
                 ? "bg-[#81D607] text-[#111111] font-bold"
                 : "text-[#9DA4B0] hover:text-[#E1E6EB]"
@@ -197,7 +197,7 @@ export default function MarkdownEditor({
           <button
             type="button"
             onClick={() => setMode("preview")}
-            className={`flex items-center gap-1 px-2 py-1 ${
+            className={`flex items-center gap-1 px-2 py-1 rounded-lg cursor-pointer ${
               mode === "preview"
                 ? "bg-[#81D607] text-[#111111] font-bold"
                 : "text-[#9DA4B0] hover:text-[#E1E6EB]"

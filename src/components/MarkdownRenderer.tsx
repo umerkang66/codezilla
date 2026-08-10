@@ -153,7 +153,7 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
 
           const displayLang = lang || "code";
 
-          return `<div class="code-block-wrapper my-6 bg-[#0D0D0D] border border-[#81D607]/30 shadow-lg text-left select-text relative group rounded-none overflow-hidden">
+          return `<div class="code-block-wrapper my-6 bg-[#0D0D0D] border border-[#81D607]/30 shadow-lg text-left select-text relative group rounded-xl overflow-hidden">
             <div class="flex items-center justify-between px-4 py-2 bg-[#1A1A1A] border-b border-[#E1E6EB]/10 font-mono text-xs text-[#9DA4B0]">
               <span class="text-[#81D607] uppercase font-bold text-[11px]">${displayLang}</span>
             </div>
@@ -162,7 +162,7 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
         },
 
         codespan({ text }: { text: string }) {
-          return `<code class="bg-[#1A1A1A] text-[#81D607] border border-[#81D607]/20 px-1.5 py-0.5 font-mono text-xs rounded-none">${text}</code>`;
+          return `<code class="bg-[#1A1A1A] text-[#81D607] border border-[#81D607]/20 px-1.5 py-0.5 font-mono text-xs rounded-md">${text}</code>`;
         },
 
         blockquote({ text }: { text: string }) {

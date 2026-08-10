@@ -103,13 +103,13 @@ export default async function AdminDashboardPage() {
   if (!hasAdminAccess) {
     return (
       <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex flex-col justify-center items-center p-4">
-        <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-8 space-y-6 text-center rounded-none shadow-2xl">
-          <div className="w-14 h-14 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 mx-auto rounded-none">
+        <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-8 space-y-6 text-center rounded-2xl shadow-2xl">
+          <div className="w-14 h-14 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 mx-auto rounded-xl">
             <ShieldAlert className="w-7 h-7" />
           </div>
 
           <div className="space-y-2">
-            <div className="inline-block px-3 py-1 bg-red-950/80 border border-red-500/40 text-red-400 text-[10px] font-mono font-bold uppercase tracking-wider rounded-none">
+            <div className="inline-block px-3 py-1 bg-red-950/80 border border-red-500/40 text-red-400 text-[10px] font-mono font-bold uppercase tracking-wider rounded-full">
               Access Denied
             </div>
             <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
@@ -124,7 +124,7 @@ export default async function AdminDashboardPage() {
             <form action="/auth/signout" method="post">
               <button
                 type="submit"
-                className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs transition-colors rounded-none flex items-center justify-center gap-2"
+                className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer flex items-center justify-center gap-2"
               >
                 <LogOut className="w-4 h-4" />
                 <span>Sign Out</span>
@@ -133,7 +133,7 @@ export default async function AdminDashboardPage() {
 
             <Link
               href="/"
-              className="w-full py-3 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] font-mono text-xs text-center transition-colors rounded-none flex items-center justify-center gap-2"
+              className="w-full py-3 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] font-mono text-xs text-center transition-colors rounded-xl cursor-pointer flex items-center justify-center gap-2"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Return to Website</span>
@@ -252,7 +252,7 @@ export default async function AdminDashboardPage() {
           <div className="flex items-center gap-2.5 flex-wrap">
             <AdminLink
               href="/admin/blogs"
-              className="px-3 py-2 bg-[#1A1A1A] hover:bg-[#222222] border border-[#E1E6EB]/15 hover:border-[#81D607]/50 text-[#E1E6EB] font-mono font-semibold text-xs transition-colors rounded-none flex items-center gap-1.5"
+              className="px-3 py-2 bg-[#1A1A1A] hover:bg-[#222222] border border-[#E1E6EB]/15 hover:border-[#81D607]/50 text-[#E1E6EB] font-mono font-semibold text-xs transition-colors rounded-xl cursor-pointer flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5 text-[#81D607]" />
               <span>New Blog</span>
@@ -260,7 +260,7 @@ export default async function AdminDashboardPage() {
 
             <AdminLink
               href="/admin/portfolio"
-              className="px-3 py-2 bg-[#1A1A1A] hover:bg-[#222222] border border-[#E1E6EB]/15 hover:border-[#81D607]/50 text-[#E1E6EB] font-mono font-semibold text-xs transition-colors rounded-none flex items-center gap-1.5"
+              className="px-3 py-2 bg-[#1A1A1A] hover:bg-[#222222] border border-[#E1E6EB]/15 hover:border-[#81D607]/50 text-[#E1E6EB] font-mono font-semibold text-xs transition-colors rounded-xl cursor-pointer flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5 text-[#81D607]" />
               <span>New Project</span>
@@ -269,7 +269,7 @@ export default async function AdminDashboardPage() {
             <Link
               href="/"
               target="_blank"
-              className="px-3 py-2 bg-[#81D607] hover:bg-[#92ed08] text-[#111111] font-mono font-bold text-xs transition-colors rounded-none flex items-center gap-1.5"
+              className="px-3 py-2 bg-[#81D607] hover:bg-[#92ed08] text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer flex items-center gap-1.5"
             >
               <ExternalLink className="w-3.5 h-3.5" />
               <span>View Site</span>
@@ -283,13 +283,13 @@ export default async function AdminDashboardPage() {
           {/* Card 1: Contact Inbox */}
           <AdminLink
             href="/admin/contact-messages"
-            className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-none space-y-3 flex flex-col justify-between"
+            className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-2xl space-y-3 flex flex-col justify-between"
           >
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-semibold uppercase text-[#9DA4B0] tracking-wider">
                 Contact Inbox
               </span>
-              <div className="p-2 bg-[#111111] border border-[#E1E6EB]/10 text-[#81D607] group-hover:border-[#81D607]/40 transition-colors">
+              <div className="p-2 bg-[#111111] border border-[#E1E6EB]/10 text-[#81D607] group-hover:border-[#81D607]/40 transition-colors rounded-xl">
                 <Mail className="w-4 h-4" />
               </div>
             </div>
@@ -313,13 +313,13 @@ export default async function AdminDashboardPage() {
           {/* Card 2: Applications */}
           <AdminLink
             href="/admin/talent-acquisition"
-            className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-none space-y-3 flex flex-col justify-between"
+            className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-2xl space-y-3 flex flex-col justify-between"
           >
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-semibold uppercase text-[#9DA4B0] tracking-wider">
                 Job Candidates
               </span>
-              <div className="p-2 bg-[#111111] border border-[#E1E6EB]/10 text-[#81D607] group-hover:border-[#81D607]/40 transition-colors">
+              <div className="p-2 bg-[#111111] border border-[#E1E6EB]/10 text-[#81D607] group-hover:border-[#81D607]/40 transition-colors rounded-xl">
                 <Briefcase className="w-4 h-4" />
               </div>
             </div>
@@ -343,13 +343,13 @@ export default async function AdminDashboardPage() {
           {/* Card 3: Articles & Showcase */}
           <AdminLink
             href="/admin/blogs"
-            className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-none space-y-3 flex flex-col justify-between"
+            className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-2xl space-y-3 flex flex-col justify-between"
           >
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-semibold uppercase text-[#9DA4B0] tracking-wider">
                 Blog & Portfolio
               </span>
-              <div className="p-2 bg-[#111111] border border-[#E1E6EB]/10 text-[#81D607] group-hover:border-[#81D607]/40 transition-colors">
+              <div className="p-2 bg-[#111111] border border-[#E1E6EB]/10 text-[#81D607] group-hover:border-[#81D607]/40 transition-colors rounded-xl">
                 <BookOpen className="w-4 h-4" />
               </div>
             </div>
@@ -369,13 +369,13 @@ export default async function AdminDashboardPage() {
           {/* Card 4: Team & Reviews */}
           <AdminLink
             href="/admin/teams"
-            className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-none space-y-3 flex flex-col justify-between"
+            className="group p-5 bg-[#161616] hover:bg-[#1C1C1C] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 transition-all rounded-2xl space-y-3 flex flex-col justify-between"
           >
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-semibold uppercase text-[#9DA4B0] tracking-wider">
                 Team & Reviews
               </span>
-              <div className="p-2 bg-[#111111] border border-[#E1E6EB]/10 text-[#81D607] group-hover:border-[#81D607]/40 transition-colors">
+              <div className="p-2 bg-[#111111] border border-[#E1E6EB]/10 text-[#81D607] group-hover:border-[#81D607]/40 transition-colors rounded-xl">
                 <Users className="w-4 h-4" />
               </div>
             </div>
@@ -401,7 +401,7 @@ export default async function AdminDashboardPage() {
           <div className="lg:col-span-7 space-y-6">
 
             {/* Unread Contact Messages Box */}
-            <div className="bg-[#161616] border border-[#E1E6EB]/10 p-5 rounded-none space-y-4">
+            <div className="bg-[#161616] border border-[#E1E6EB]/10 p-5 rounded-2xl space-y-4">
               <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 pb-3">
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-[#81D607]" />
@@ -409,14 +409,14 @@ export default async function AdminDashboardPage() {
                     Recent Contact Inquiries
                   </h3>
                   {unreadContactMsgs.length > 0 && (
-                    <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-bold">
+                    <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-bold rounded-full">
                       {unreadContactMsgs.length} Unread
                     </span>
                   )}
                 </div>
                 <AdminLink
                   href="/admin/contact-messages"
-                  className="text-xs font-mono text-[#81D607] hover:underline flex items-center gap-1"
+                  className="text-xs font-mono text-[#81D607] hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <span>View All</span>
                   <ChevronRight className="w-3 h-3" />
@@ -428,7 +428,7 @@ export default async function AdminDashboardPage() {
                   {recentUnreadMsgs.map((msg: any) => (
                     <div
                       key={msg.id}
-                      className="p-3 bg-[#111111] border border-[#E1E6EB]/10 hover:border-[#81D607]/30 transition-colors flex items-center justify-between gap-3"
+                      className="p-3 bg-[#111111] border border-[#E1E6EB]/10 hover:border-[#81D607]/30 transition-colors flex items-center justify-between gap-3 rounded-xl"
                     >
                       <div className="min-w-0 space-y-0.5">
                         <div className="flex items-center gap-2">
@@ -445,7 +445,7 @@ export default async function AdminDashboardPage() {
                       </div>
                       <AdminLink
                         href="/admin/contact-messages"
-                        className="px-2.5 py-1 bg-[#1A1A1A] hover:bg-[#81D607] hover:text-[#111111] text-[#E1E6EB] font-mono text-[11px] font-semibold border border-[#E1E6EB]/10 transition-colors shrink-0"
+                        className="px-2.5 py-1 bg-[#1A1A1A] hover:bg-[#81D607] hover:text-[#111111] text-[#E1E6EB] font-mono text-[11px] font-semibold border border-[#E1E6EB]/10 transition-colors shrink-0 rounded-lg cursor-pointer"
                       >
                         Read
                       </AdminLink>
@@ -462,7 +462,7 @@ export default async function AdminDashboardPage() {
             </div>
 
             {/* Pending Job Applications Box */}
-            <div className="bg-[#161616] border border-[#E1E6EB]/10 p-5 rounded-none space-y-4">
+            <div className="bg-[#161616] border border-[#E1E6EB]/10 p-5 rounded-2xl space-y-4">
               <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 pb-3">
                 <div className="flex items-center gap-2">
                   <Briefcase className="w-4 h-4 text-[#81D607]" />
@@ -470,14 +470,14 @@ export default async function AdminDashboardPage() {
                     Pending Candidate Applications
                   </h3>
                   {pendingJobApps.length > 0 && (
-                    <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-bold">
+                    <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-bold rounded-full">
                       {pendingJobApps.length} Pending
                     </span>
                   )}
                 </div>
                 <AdminLink
                   href="/admin/talent-acquisition"
-                  className="text-xs font-mono text-[#81D607] hover:underline flex items-center gap-1"
+                  className="text-xs font-mono text-[#81D607] hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <span>View All</span>
                   <ChevronRight className="w-3 h-3" />
@@ -489,14 +489,14 @@ export default async function AdminDashboardPage() {
                   {recentPendingApps.map((app: any) => (
                     <div
                       key={app.id}
-                      className="p-3 bg-[#111111] border border-[#E1E6EB]/10 hover:border-[#81D607]/30 transition-colors flex items-center justify-between gap-3"
+                      className="p-3 bg-[#111111] border border-[#E1E6EB]/10 hover:border-[#81D607]/30 transition-colors flex items-center justify-between gap-3 rounded-xl"
                     >
                       <div className="min-w-0 space-y-0.5">
                         <div className="flex items-center gap-2">
                           <span className="text-xs font-mono font-bold text-[#E1E6EB] truncate">
                             {app.full_name}
                           </span>
-                          <span className="px-1.5 py-0.5 bg-[#81D607]/10 text-[#81D607] font-mono text-[9px] font-bold uppercase">
+                          <span className="px-1.5 py-0.5 bg-[#81D607]/10 text-[#81D607] font-mono text-[9px] font-bold uppercase rounded-md">
                             Pending
                           </span>
                         </div>
@@ -506,7 +506,7 @@ export default async function AdminDashboardPage() {
                       </div>
                       <AdminLink
                         href="/admin/talent-acquisition"
-                        className="px-2.5 py-1 bg-[#1A1A1A] hover:bg-[#81D607] hover:text-[#111111] text-[#E1E6EB] font-mono text-[11px] font-semibold border border-[#E1E6EB]/10 transition-colors shrink-0"
+                        className="px-2.5 py-1 bg-[#1A1A1A] hover:bg-[#81D607] hover:text-[#111111] text-[#E1E6EB] font-mono text-[11px] font-semibold border border-[#E1E6EB]/10 transition-colors shrink-0 rounded-lg cursor-pointer"
                       >
                         Review
                       </AdminLink>
@@ -528,7 +528,7 @@ export default async function AdminDashboardPage() {
           <div className="lg:col-span-5 space-y-6">
             
             {/* Quick Management Navigation Grid */}
-            <div className="bg-[#161616] border border-[#E1E6EB]/10 p-5 rounded-none space-y-4">
+            <div className="bg-[#161616] border border-[#E1E6EB]/10 p-5 rounded-2xl space-y-4">
               <div className="border-b border-[#E1E6EB]/10 pb-3">
                 <h3 className="text-sm font-mono font-bold text-[#E1E6EB]">
                   Quick Management Access
@@ -541,7 +541,7 @@ export default async function AdminDashboardPage() {
               <div className="grid grid-cols-2 gap-2.5">
                 <AdminLink
                   href="/admin/portfolio"
-                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
+                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group rounded-xl"
                 >
                   <FolderGit2 className="w-4 h-4 text-[#81D607] mb-1.5" />
                   <div className="text-xs font-mono font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors">
@@ -552,7 +552,7 @@ export default async function AdminDashboardPage() {
 
                 <AdminLink
                   href="/admin/packages"
-                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
+                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group rounded-xl"
                 >
                   <Package className="w-4 h-4 text-[#81D607] mb-1.5" />
                   <div className="text-xs font-mono font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors">
@@ -563,7 +563,7 @@ export default async function AdminDashboardPage() {
 
                 <AdminLink
                   href="/admin/teams"
-                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
+                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group rounded-xl"
                 >
                   <Users className="w-4 h-4 text-[#81D607] mb-1.5" />
                   <div className="text-xs font-mono font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors">
@@ -574,7 +574,7 @@ export default async function AdminDashboardPage() {
 
                 <AdminLink
                   href="/admin/testimonials"
-                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
+                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group rounded-xl"
                 >
                   <MessageSquareQuote className="w-4 h-4 text-[#81D607] mb-1.5" />
                   <div className="text-xs font-mono font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors">
@@ -585,7 +585,7 @@ export default async function AdminDashboardPage() {
 
                 <AdminLink
                   href="/admin/talent-acquisition"
-                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
+                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group rounded-xl"
                 >
                   <Briefcase className="w-4 h-4 text-[#81D607] mb-1.5" />
                   <div className="text-xs font-mono font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors">
@@ -596,7 +596,7 @@ export default async function AdminDashboardPage() {
 
                 <AdminLink
                   href="/admin/blogs"
-                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group"
+                  className="p-3 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/50 transition-all text-left group rounded-xl"
                 >
                   <BookOpen className="w-4 h-4 text-[#81D607] mb-1.5" />
                   <div className="text-xs font-mono font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors">
@@ -608,7 +608,7 @@ export default async function AdminDashboardPage() {
 
               <AdminLink
                 href="/admin/adminmanagement"
-                className="w-full p-2.5 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 font-mono text-xs text-[#E1E6EB] flex items-center justify-between transition-colors"
+                className="w-full p-2.5 bg-[#111111] hover:bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607]/40 font-mono text-xs text-[#E1E6EB] flex items-center justify-between transition-colors rounded-xl cursor-pointer"
               >
                 <div className="flex items-center gap-2">
                   <Users className="w-3.5 h-3.5 text-[#81D607]" />
@@ -619,16 +619,16 @@ export default async function AdminDashboardPage() {
             </div>
 
             {/* Session & System Profile Info Card (Minimal Footer Card) */}
-            <div className="bg-[#161616] border border-[#E1E6EB]/10 p-4 rounded-none space-y-3">
+            <div className="bg-[#161616] border border-[#E1E6EB]/10 p-4 rounded-xl space-y-3">
               <div className="flex items-center gap-3">
                 {avatarUrl ? (
                   <img
                     src={avatarUrl}
                     alt={fullName}
-                    className="w-9 h-9 border border-[#81D607] object-cover shrink-0 rounded-none"
+                    className="w-9 h-9 border border-[#81D607] object-cover shrink-0 rounded-full"
                   />
                 ) : (
-                  <div className="w-9 h-9 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+                  <div className="w-9 h-9 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] shrink-0 rounded-full">
                     <User className="w-4 h-4" />
                   </div>
                 )}
@@ -637,7 +637,7 @@ export default async function AdminDashboardPage() {
                     <span className="text-xs font-mono font-bold text-[#E1E6EB] truncate">
                       {fullName}
                     </span>
-                    <span className="px-1.5 py-0.5 bg-[#81D607] text-[#111111] font-mono font-bold text-[9px] uppercase">
+                    <span className="px-1.5 py-0.5 bg-[#81D607] text-[#111111] font-mono font-bold text-[9px] uppercase rounded-full">
                       {isSuperAdmin ? "Main Admin" : "Sub-Admin"}
                     </span>
                   </div>

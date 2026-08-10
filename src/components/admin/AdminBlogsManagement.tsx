@@ -105,10 +105,10 @@ export default function AdminBlogsManagement({
     <div className="flex-1 p-8 flex flex-col justify-between overflow-y-auto text-left space-y-8">
       <div className="space-y-6">
         {/* Header Banner */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30 rounded-2xl">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+              <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase rounded-full">
                 Admin Module
               </span>
               <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
@@ -124,7 +124,7 @@ export default function AdminBlogsManagement({
           <button
             type="button"
             onClick={handleOpenCreateModal}
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-none shrink-0"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer shrink-0"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Create Blog</span>
@@ -132,7 +132,7 @@ export default function AdminBlogsManagement({
         </div>
 
         {/* Search & Stats Control Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#1A1A1A] p-4 border border-[#E1E6EB]/10">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#1A1A1A] p-4 border border-[#E1E6EB]/10 rounded-2xl">
           <div className="relative w-full sm:w-80">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#9DA4B0]" />
             <input
@@ -140,7 +140,7 @@ export default function AdminBlogsManagement({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search blogs by title, category, author..."
-              className="w-full pl-9 pr-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607]"
+              className="w-full pl-9 pr-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607] rounded-xl"
             />
           </div>
 
@@ -158,7 +158,7 @@ export default function AdminBlogsManagement({
             <p className="text-xs font-mono text-[#9DA4B0]">Loading blog articles...</p>
           </div>
         ) : filteredBlogs.length === 0 ? (
-          <div className="py-16 bg-[#1A1A1A] border border-[#81D607]/30 text-center space-y-4 p-8">
+          <div className="py-16 bg-[#1A1A1A] border border-[#81D607]/30 text-center space-y-4 p-8 rounded-2xl">
             <BookOpen className="w-12 h-12 text-[#81D607]/40 mx-auto" />
             <p className="text-lg text-[#E1E6EB]">
               <strong className="font-bold text-[#E1E6EB]">no blogs found</strong>
@@ -169,14 +169,14 @@ export default function AdminBlogsManagement({
             <button
               type="button"
               onClick={handleOpenCreateModal}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] text-[#111111] font-mono font-bold text-xs hover:bg-[#72BE06] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] text-[#111111] font-mono font-bold text-xs hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Create First Blog</span>
             </button>
           </div>
         ) : (
-          <div className="overflow-x-auto border border-[#E1E6EB]/10 bg-[#1A1A1A]">
+          <div className="overflow-x-auto border border-[#E1E6EB]/10 bg-[#1A1A1A] rounded-2xl overflow-hidden">
             <table className="w-full text-left font-sans text-xs">
               <thead className="bg-[#111111] border-b border-[#E1E6EB]/10 font-mono text-[11px] text-[#81D607] uppercase">
                 <tr>
@@ -195,7 +195,7 @@ export default function AdminBlogsManagement({
                         <Link
                           href={`/blog/${blog.id}`}
                           target="_blank"
-                          className="font-mono font-bold text-sm text-[#E1E6EB] hover:text-[#81D607] transition-colors inline-flex items-center gap-1.5"
+                          className="font-mono font-bold text-sm text-[#E1E6EB] hover:text-[#81D607] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
                         >
                           <span>{blog.title}</span>
                           <ExternalLink className="w-3.5 h-3.5 text-[#9DA4B0]" />
@@ -209,7 +209,7 @@ export default function AdminBlogsManagement({
                     </td>
 
                     <td className="py-4 px-4 font-mono">
-                      <span className="px-2.5 py-0.5 bg-[#111111] text-[#81D607] border border-[#81D607]/30 text-[10px]">
+                      <span className="px-2.5 py-0.5 bg-[#111111] text-[#81D607] border border-[#81D607]/30 text-[10px] rounded-md">
                         {blog.category}
                       </span>
                     </td>
@@ -234,7 +234,7 @@ export default function AdminBlogsManagement({
                         <button
                           type="button"
                           onClick={() => handleOpenEditModal(blog)}
-                          className="p-2 bg-[#111111] border border-[#81D607]/30 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono text-xs transition-colors flex items-center gap-1"
+                          className="p-2 bg-[#111111] border border-[#81D607]/30 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono text-xs transition-colors flex items-center gap-1 rounded-lg cursor-pointer"
                           title="Edit Blog"
                         >
                           <Edit className="w-3.5 h-3.5" />
@@ -245,7 +245,7 @@ export default function AdminBlogsManagement({
                         <button
                           type="button"
                           onClick={() => setBlogToDelete(blog)}
-                          className="p-2 bg-[#111111] border border-red-500/40 text-red-400 hover:bg-red-600 hover:text-white font-mono text-xs transition-colors flex items-center gap-1"
+                          className="p-2 bg-[#111111] border border-red-500/40 text-red-400 hover:bg-red-600 hover:text-white font-mono text-xs transition-colors flex items-center gap-1 rounded-lg cursor-pointer"
                           title="Delete Blog"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -273,9 +273,9 @@ export default function AdminBlogsManagement({
       {/* Delete Blog Confirmation Dialog */}
       {blogToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-6 text-left shadow-2xl">
+          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-6 text-left shadow-2xl rounded-2xl">
             <div className="flex items-center gap-3 text-red-500">
-              <div className="w-10 h-10 bg-[#111111] border border-red-500 flex items-center justify-center">
+              <div className="w-10 h-10 bg-[#111111] border border-red-500 flex items-center justify-center rounded-xl">
                 <AlertTriangle className="w-5 h-5" />
               </div>
               <div>
@@ -286,8 +286,8 @@ export default function AdminBlogsManagement({
               </div>
             </div>
 
-            <p className="text-xs text-[#9DA4B0] bg-[#111111] p-3 border border-red-500/20 font-mono">
-              Are you sure you want to permanently delete <strong className="text-[#E1E6EB]">"{blogToDelete.title}"</strong>?
+            <p className="text-xs text-[#9DA4B0] bg-[#111111] p-3 border border-red-500/20 font-mono rounded-xl">
+              Are you sure you want to permanently delete <strong className="text-[#E1E6EB]">&quot;{blogToDelete.title}&quot;</strong>?
             </p>
 
             {deleteError && (
@@ -299,7 +299,7 @@ export default function AdminBlogsManagement({
                 type="button"
                 onClick={() => setBlogToDelete(null)}
                 disabled={isDeleting}
-                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] font-mono text-xs"
+                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] font-mono text-xs rounded-xl cursor-pointer"
               >
                 Cancel
               </button>
@@ -307,7 +307,7 @@ export default function AdminBlogsManagement({
                 type="button"
                 onClick={handleDeleteBlog}
                 disabled={isDeleting}
-                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2 disabled:opacity-50"
+                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2 disabled:opacity-50 rounded-xl cursor-pointer"
               >
                 {isDeleting ? (
                   <>

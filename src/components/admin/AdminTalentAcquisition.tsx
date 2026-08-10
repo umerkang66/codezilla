@@ -439,7 +439,7 @@ export default function AdminTalentAcquisition({
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase rounded-full">
               Admin Module
             </span>
             <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
@@ -454,7 +454,7 @@ export default function AdminTalentAcquisition({
         <button
           type="button"
           onClick={handleOpenCreateJob}
-          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-none shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer shrink-0"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Post New Job</span>
@@ -466,7 +466,7 @@ export default function AdminTalentAcquisition({
         <button
           type="button"
           onClick={() => setActiveTab("jobs")}
-          className={`px-5 py-3 font-mono font-bold text-xs flex items-center gap-2 border-b-2 transition-colors rounded-none ${
+          className={`px-5 py-3 font-mono font-bold text-xs flex items-center gap-2 border-b-2 transition-colors rounded-t-xl cursor-pointer ${
             activeTab === "jobs"
               ? "border-[#81D607] text-[#81D607] bg-[#1A1A1A]"
               : "border-transparent text-[#9DA4B0] hover:text-[#E1E6EB] hover:bg-[#1A1A1A]/50"
@@ -475,7 +475,7 @@ export default function AdminTalentAcquisition({
           <Briefcase className="w-4 h-4" />
           <span>Job Postings ({jobs.length})</span>
           {activeJobsCount > 0 && (
-            <span className="px-2 py-0.5 bg-[#81D607]/20 text-[#81D607] border border-[#81D607]/40 text-[10px]">
+            <span className="px-2 py-0.5 bg-[#81D607]/20 text-[#81D607] border border-[#81D607]/40 text-[10px] rounded-full">
               {activeJobsCount} Active
             </span>
           )}
@@ -484,7 +484,7 @@ export default function AdminTalentAcquisition({
         <button
           type="button"
           onClick={() => setActiveTab("applications")}
-          className={`px-5 py-3 font-mono font-bold text-xs flex items-center gap-2 border-b-2 transition-colors rounded-none ${
+          className={`px-5 py-3 font-mono font-bold text-xs flex items-center gap-2 border-b-2 transition-colors rounded-t-xl cursor-pointer ${
             activeTab === "applications"
               ? "border-[#81D607] text-[#81D607] bg-[#1A1A1A]"
               : "border-transparent text-[#9DA4B0] hover:text-[#E1E6EB] hover:bg-[#1A1A1A]/50"
@@ -493,7 +493,7 @@ export default function AdminTalentAcquisition({
           <Users className="w-4 h-4" />
           <span>Candidate Applications ({applications.length})</span>
           {pendingAppsCount > 0 && (
-            <span className="px-2 py-0.5 bg-yellow-950 text-yellow-400 border border-yellow-500/40 text-[10px] animate-pulse">
+            <span className="px-2 py-0.5 bg-yellow-950 text-yellow-400 border border-yellow-500/40 text-[10px] rounded-full animate-pulse">
               {pendingAppsCount} New
             </span>
           )}
@@ -504,7 +504,7 @@ export default function AdminTalentAcquisition({
       {activeTab === "jobs" && (
         <div className="space-y-6">
           {/* Controls Bar */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 rounded-2xl">
             <div className="relative w-full sm:w-80">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#9DA4B0]" />
               <input
@@ -512,7 +512,7 @@ export default function AdminTalentAcquisition({
                 placeholder="Search job postings..."
                 value={jobSearch}
                 onChange={(e) => setJobSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs text-[#E1E6EB] placeholder-[#9DA4B0] font-mono focus:outline-none focus:border-[#81D607]"
+                className="w-full pl-9 pr-4 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs text-[#E1E6EB] placeholder-[#9DA4B0] font-mono focus:outline-none focus:border-[#81D607] rounded-xl"
               />
             </div>
 
@@ -521,7 +521,7 @@ export default function AdminTalentAcquisition({
               <select
                 value={jobStatusFilter}
                 onChange={(e) => setJobStatusFilter(e.target.value)}
-                className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
               >
                 <option value="all">All Statuses</option>
                 <option value="active">Active Only</option>
@@ -532,7 +532,7 @@ export default function AdminTalentAcquisition({
                 type="button"
                 onClick={fetchJobs}
                 disabled={jobsLoading}
-                className="p-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#9DA4B0] hover:text-[#81D607]"
+                className="p-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#9DA4B0] hover:text-[#81D607] rounded-lg cursor-pointer"
                 title="Refresh jobs"
               >
                 <Clock className={`w-4 h-4 ${jobsLoading ? "animate-spin" : ""}`} />
@@ -547,7 +547,7 @@ export default function AdminTalentAcquisition({
               <p className="text-xs font-mono text-[#9DA4B0]">Loading job postings...</p>
             </div>
           ) : filteredJobs.length === 0 ? (
-            <div className="p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-3">
+            <div className="p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-3 rounded-2xl">
               <Briefcase className="w-10 h-10 text-[#9DA4B0] mx-auto opacity-50" />
               <h3 className="text-base font-mono font-bold text-[#E1E6EB]">No Job Postings Found</h3>
               <p className="text-xs text-[#9DA4B0]">
@@ -559,12 +559,12 @@ export default function AdminTalentAcquisition({
               {filteredJobs.map((job) => (
                 <div
                   key={job.id}
-                  className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex flex-col justify-between space-y-4 rounded-none hover:border-[#81D607]/60 transition-colors"
+                  className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex flex-col justify-between space-y-4 rounded-2xl hover:border-[#81D607]/60 transition-colors"
                 >
                   <div className="space-y-3">
                     <div className="flex items-start justify-between gap-2">
                       <div className="space-y-1">
-                        <span className="text-[10px] font-mono px-2 py-0.5 bg-[#111111] text-[#81D607] border border-[#81D607]/30">
+                        <span className="text-[10px] font-mono px-2 py-0.5 bg-[#111111] text-[#81D607] border border-[#81D607]/30 rounded-md">
                           {job.domain}
                         </span>
                         <h3 className="text-lg font-mono font-bold text-[#E1E6EB] leading-snug">
@@ -573,7 +573,7 @@ export default function AdminTalentAcquisition({
                       </div>
 
                       <span
-                        className={`text-[10px] font-mono px-2.5 py-1 font-bold uppercase rounded-none shrink-0 ${
+                        className={`text-[10px] font-mono px-2.5 py-1 font-bold uppercase rounded-full shrink-0 ${
                           job.status === "active"
                             ? "bg-[#81D607]/20 border border-[#81D607] text-[#81D607]"
                             : "bg-gray-800 border border-gray-600 text-gray-400"
@@ -724,7 +724,7 @@ export default function AdminTalentAcquisition({
                   type="button"
                   onClick={() => handleExportApplicationsExcel(false)}
                   disabled={filteredApps.length === 0}
-                  className="px-3.5 py-2 bg-[#81D607] hover:bg-[#72BE06] disabled:opacity-50 disabled:cursor-not-allowed text-[#111111] font-mono font-bold text-xs flex items-center gap-2 transition-colors rounded-none shadow-sm"
+                  className="px-3.5 py-2 bg-[#81D607] hover:bg-[#72BE06] disabled:opacity-50 disabled:cursor-not-allowed text-[#111111] font-mono font-bold text-xs flex items-center gap-2 transition-colors rounded-xl cursor-pointer shadow-sm"
                   title="Download candidate applications & details in an Excel file (.xlsx)"
                 >
                   <FileSpreadsheet className="w-4 h-4 stroke-[2.5]" />
@@ -737,7 +737,7 @@ export default function AdminTalentAcquisition({
                   <button
                     type="button"
                     onClick={() => handleExportApplicationsExcel(true)}
-                    className="px-2.5 py-2 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors"
+                    className="px-2.5 py-2 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer"
                     title={`Download all ${applications.length} applications in Excel format`}
                   >
                     Download All ({applications.length})
@@ -754,7 +754,7 @@ export default function AdminTalentAcquisition({
               <p className="text-xs font-mono text-[#9DA4B0]">Loading candidate applications...</p>
             </div>
           ) : filteredApps.length === 0 ? (
-            <div className="p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-3">
+            <div className="p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-3 rounded-2xl">
               <Users className="w-10 h-10 text-[#9DA4B0] mx-auto opacity-50" />
               <h3 className="text-base font-mono font-bold text-[#E1E6EB]">No Applications Found</h3>
               <p className="text-xs text-[#9DA4B0]">
@@ -764,7 +764,7 @@ export default function AdminTalentAcquisition({
               </p>
             </div>
           ) : (
-            <div className="overflow-x-auto border border-[#E1E6EB]/10">
+            <div className="overflow-x-auto border border-[#E1E6EB]/10 rounded-2xl overflow-hidden">
               <table className="w-full text-left font-mono text-xs">
                 <thead className="bg-[#1A1A1A] border-b border-[#E1E6EB]/10 text-[#81D607] uppercase text-[10px]">
                   <tr>
@@ -791,7 +791,7 @@ export default function AdminTalentAcquisition({
 
                         <td className="p-3.5 space-y-0.5">
                           <p className="font-bold text-[#E1E6EB]">{app.job_title}</p>
-                          <span className="text-[10px] px-1.5 py-0.5 bg-[#1A1A1A] text-[#81D607] border border-[#81D607]/20">
+                          <span className="text-[10px] px-1.5 py-0.5 bg-[#1A1A1A] text-[#81D607] border border-[#81D607]/20 rounded-md">
                             {app.job_domain || "Engineering"}
                           </span>
                         </td>
@@ -800,7 +800,7 @@ export default function AdminTalentAcquisition({
                           <button
                             type="button"
                             onClick={() => setSelectedApp(app)}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] transition-colors rounded-none"
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] transition-colors rounded-lg cursor-pointer"
                           >
                             <FileText className="w-3.5 h-3.5" />
                             <span className="uppercase text-[10px] font-bold">
@@ -818,7 +818,7 @@ export default function AdminTalentAcquisition({
                             value={app.status}
                             onChange={(e) => handleUpdateAppStatus(app.id, e.target.value)}
                             disabled={isUpdatingAppStatus}
-                            className={`px-2 py-1 text-[11px] font-mono font-bold focus:outline-none border rounded-none ${
+                            className={`px-2 py-1 text-[11px] font-mono font-bold focus:outline-none border rounded-lg cursor-pointer ${
                               app.status === "shortlisted"
                                 ? "bg-[#81D607]/20 text-[#81D607] border-[#81D607]"
                                 : app.status === "rejected"
@@ -839,7 +839,7 @@ export default function AdminTalentAcquisition({
                           <button
                             type="button"
                             onClick={() => setSelectedApp(app)}
-                            className="px-3 py-1.5 bg-[#81D607] text-[#111111] font-bold text-xs hover:bg-[#72BE06] transition-colors inline-flex items-center gap-1.5"
+                            className="px-3 py-1.5 bg-[#81D607] text-[#111111] font-bold text-xs hover:bg-[#72BE06] transition-colors inline-flex items-center gap-1.5 rounded-lg cursor-pointer"
                           >
                             <Eye className="w-3.5 h-3.5" />
                             <span>View Application</span>
@@ -848,7 +848,7 @@ export default function AdminTalentAcquisition({
                           <button
                             type="button"
                             onClick={() => setDeletingApp(app)}
-                            className="p-1.5 bg-red-950/40 border border-red-500/40 text-red-400 hover:bg-red-900/60 inline-flex items-center"
+                            className="p-1.5 bg-red-950/40 border border-red-500/40 text-red-400 hover:bg-red-900/60 inline-flex items-center rounded-lg cursor-pointer"
                             title="Delete application"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -867,11 +867,11 @@ export default function AdminTalentAcquisition({
       {/* MODAL 1: CREATE / EDIT JOB POSTING */}
       {isJobModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="relative w-full max-w-2xl bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl p-6 sm:p-8 space-y-6 my-8 rounded-none text-left">
+          <div className="relative w-full max-w-2xl bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl p-6 sm:p-8 space-y-6 my-8 rounded-2xl text-left">
             <button
               type="button"
               onClick={() => setIsJobModalOpen(false)}
-              className="absolute top-4 right-4 p-2 text-[#9DA4B0] hover:text-[#E1E6EB]"
+              className="absolute top-4 right-4 p-2 text-[#9DA4B0] hover:text-[#E1E6EB] rounded-lg cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -899,7 +899,7 @@ export default function AdminTalentAcquisition({
                     placeholder="e.g. AI & Vision Researcher"
                     value={jobTitle}
                     onChange={(e) => setJobTitle(e.target.value)}
-                    className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -910,7 +910,7 @@ export default function AdminTalentAcquisition({
                     placeholder="e.g. AI / ML Engineering, Web Dev"
                     value={jobDomain}
                     onChange={(e) => setJobDomain(e.target.value)}
-                    className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
               </div>
@@ -923,7 +923,7 @@ export default function AdminTalentAcquisition({
                     placeholder="e.g. Remote / Project-Based, Full-Time"
                     value={jobType}
                     onChange={(e) => setJobType(e.target.value)}
-                    className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -932,7 +932,7 @@ export default function AdminTalentAcquisition({
                   <select
                     value={jobStatus}
                     onChange={(e) => setJobStatus(e.target.value)}
-                    className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
                   >
                     <option value="active">Active (Visible on website)</option>
                     <option value="closed">Closed / Draft</option>
@@ -950,7 +950,7 @@ export default function AdminTalentAcquisition({
                   placeholder="Describe role responsibilities, team overview, and impact..."
                   value={jobDescription}
                   onChange={(e) => setJobDescription(e.target.value)}
-                  className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] font-sans text-xs"
+                  className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] font-sans text-xs rounded-xl"
                 ></textarea>
               </div>
 
@@ -963,7 +963,7 @@ export default function AdminTalentAcquisition({
                   placeholder="e.g. PyTorch, OpenCV, YOLO, FastAPI"
                   value={jobSkills}
                   onChange={(e) => setJobSkills(e.target.value)}
-                  className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                  className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                 />
               </div>
 
@@ -974,7 +974,7 @@ export default function AdminTalentAcquisition({
                   placeholder="List degree, experience, or prerequisite tech stack requirements..."
                   value={jobRequirements}
                   onChange={(e) => setJobRequirements(e.target.value)}
-                  className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] font-sans text-xs"
+                  className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] font-sans text-xs rounded-xl"
                 ></textarea>
               </div>
 
@@ -983,14 +983,14 @@ export default function AdminTalentAcquisition({
                   type="button"
                   onClick={() => setIsJobModalOpen(false)}
                   disabled={isSavingJob}
-                  className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB]"
+                  className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] rounded-xl cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingJob}
-                  className="px-6 py-2 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold flex items-center gap-2"
+                  className="px-6 py-2 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold flex items-center gap-2 rounded-xl cursor-pointer"
                 >
                   {isSavingJob ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
                   <span>{editingJob ? "Save Changes" : "Create Job"}</span>
@@ -1004,7 +1004,7 @@ export default function AdminTalentAcquisition({
       {/* MODAL 2: DELETE JOB CONFIRMATION */}
       {deletingJob && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-4 text-left">
+          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-4 text-left rounded-2xl shadow-2xl">
             <h3 className="text-lg font-mono font-bold text-[#E1E6EB]">Confirm Deletion</h3>
             <p className="text-xs text-[#9DA4B0] leading-relaxed">
               Are you sure you want to delete <span className="text-red-400 font-bold">{deletingJob.title}</span>? All candidate applications attached to this job will also be removed.
@@ -1014,7 +1014,7 @@ export default function AdminTalentAcquisition({
                 type="button"
                 onClick={() => setDeletingJob(null)}
                 disabled={isDeletingJob}
-                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] font-mono text-xs"
+                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] font-mono text-xs rounded-xl cursor-pointer"
               >
                 Cancel
               </button>
@@ -1022,7 +1022,7 @@ export default function AdminTalentAcquisition({
                 type="button"
                 onClick={handleDeleteJob}
                 disabled={isDeletingJob}
-                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2"
+                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2 rounded-xl cursor-pointer"
               >
                 {isDeletingJob ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
                 <span>Delete Job</span>
@@ -1035,7 +1035,7 @@ export default function AdminTalentAcquisition({
       {/* MODAL 3: APPLICATION DETAIL & CV FILE VIEWER (.PDF, .DOCX) */}
       {selectedApp && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-hidden">
-          <div className="relative w-full max-w-6xl h-[92vh] max-h-[900px] bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl flex flex-col rounded-none text-left overflow-hidden">
+          <div className="relative w-full max-w-6xl h-[92vh] max-h-[900px] bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl flex flex-col rounded-2xl text-left overflow-hidden">
             
             {/* Modal Header */}
             <div className="px-6 py-4 bg-[#141414] border-b border-[#E1E6EB]/10 flex items-center justify-between gap-4 shrink-0">
@@ -1064,7 +1064,7 @@ export default function AdminTalentAcquisition({
                   value={selectedApp.status}
                   onChange={(e) => handleUpdateAppStatus(selectedApp.id, e.target.value)}
                   disabled={isUpdatingAppStatus}
-                  className={`px-3 py-1.5 text-xs font-mono font-bold border focus:outline-none rounded-none cursor-pointer ${
+                  className={`px-3 py-1.5 text-xs font-mono font-bold border focus:outline-none rounded-xl cursor-pointer ${
                     selectedApp.status === "shortlisted"
                       ? "bg-[#81D607]/20 text-[#81D607] border-[#81D607]"
                       : selectedApp.status === "rejected"
@@ -1083,7 +1083,7 @@ export default function AdminTalentAcquisition({
                 <button
                   type="button"
                   onClick={() => setSelectedApp(null)}
-                  className="p-2 text-[#9DA4B0] hover:text-[#E1E6EB] bg-[#111111] border border-[#E1E6EB]/15 hover:border-[#81D607] transition-colors"
+                  className="p-2 text-[#9DA4B0] hover:text-[#E1E6EB] bg-[#111111] border border-[#E1E6EB]/15 hover:border-[#81D607] transition-colors rounded-lg cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -1097,7 +1097,7 @@ export default function AdminTalentAcquisition({
               <div className="lg:col-span-4 p-5 bg-[#141414] border-r border-[#E1E6EB]/10 overflow-y-auto space-y-5 font-mono text-xs">
                 
                 {/* Candidate Card */}
-                <div className="p-4 bg-[#1A1A1A] border border-[#81D607]/30 space-y-3">
+                <div className="p-4 bg-[#1A1A1A] border border-[#81D607]/30 space-y-3 rounded-xl">
                   <span className="text-[10px] text-[#81D607] uppercase font-bold tracking-wider">
                     Candidate Information
                   </span>
@@ -1108,7 +1108,7 @@ export default function AdminTalentAcquisition({
                     </div>
                     <div>
                       <span className="text-[10px] text-[#9DA4B0] block">Email</span>
-                      <a href={`mailto:${selectedApp.email}`} className="text-[#81D607] font-bold hover:underline break-all">
+                      <a href={`mailto:${selectedApp.email}`} className="text-[#81D607] font-bold hover:underline break-all cursor-pointer">
                         {selectedApp.email}
                       </a>
                     </div>
@@ -1122,7 +1122,7 @@ export default function AdminTalentAcquisition({
                 </div>
 
                 {/* Links */}
-                <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2">
+                <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-xl">
                   <span className="text-[10px] text-[#9DA4B0] uppercase font-bold">Candidate Links</span>
                   <div className="flex flex-col gap-2 pt-1">
                     {selectedApp.portfolio_url ? (
@@ -1130,7 +1130,7 @@ export default function AdminTalentAcquisition({
                         href={selectedApp.portfolio_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#81D607] hover:border-[#81D607] flex items-center justify-between"
+                        className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#81D607] hover:border-[#81D607] flex items-center justify-between rounded-lg cursor-pointer"
                       >
                         <span className="flex items-center gap-2">
                           <Globe className="w-3.5 h-3.5" />
@@ -1145,7 +1145,7 @@ export default function AdminTalentAcquisition({
                         href={selectedApp.linkedin_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#81D607] hover:border-[#81D607] flex items-center justify-between"
+                        className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#81D607] hover:border-[#81D607] flex items-center justify-between rounded-lg cursor-pointer"
                       >
                         <span className="flex items-center gap-2">
                           <Share2 className="w-3.5 h-3.5" />
@@ -1163,9 +1163,9 @@ export default function AdminTalentAcquisition({
 
                 {/* Cover Letter */}
                 {selectedApp.cover_letter && (
-                  <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2">
+                  <div className="p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-2 rounded-xl">
                     <span className="text-[10px] text-[#81D607] uppercase font-bold">Cover Letter / Note</span>
-                    <p className="text-[#E1E6EB] font-sans text-xs leading-relaxed whitespace-pre-wrap bg-[#111111] p-3 border border-[#E1E6EB]/10 max-h-48 overflow-y-auto">
+                    <p className="text-[#E1E6EB] font-sans text-xs leading-relaxed whitespace-pre-wrap bg-[#111111] p-3 border border-[#E1E6EB]/10 max-h-48 overflow-y-auto rounded-lg">
                       {selectedApp.cover_letter}
                     </p>
                   </div>
@@ -1176,7 +1176,7 @@ export default function AdminTalentAcquisition({
                   <a
                     href={pdfBlobUrl || selectedApp.resume_url}
                     download={selectedApp.resume_file_name}
-                    className="w-full py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+                    className="w-full py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold text-xs flex items-center justify-center gap-2 transition-colors rounded-xl cursor-pointer"
                   >
                     <Download className="w-4 h-4" />
                     <span>Download CV ({selectedApp.resume_file_name})</span>
@@ -1185,7 +1185,7 @@ export default function AdminTalentAcquisition({
                   <button
                     type="button"
                     onClick={() => handleExportSingleAppExcel(selectedApp)}
-                    className="w-full py-2 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+                    className="w-full py-2 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-bold text-xs flex items-center justify-center gap-2 transition-colors rounded-xl cursor-pointer"
                   >
                     <FileSpreadsheet className="w-3.5 h-3.5" />
                     <span>Download Excel Details (.xlsx)</span>
@@ -1194,7 +1194,7 @@ export default function AdminTalentAcquisition({
                   <button
                     type="button"
                     onClick={() => setDeletingApp(selectedApp)}
-                    className="w-full py-2 bg-red-950/40 border border-red-500/40 text-red-400 hover:bg-red-900/60 font-bold text-xs flex items-center justify-center gap-2"
+                    className="w-full py-2 bg-red-950/40 border border-red-500/40 text-red-400 hover:bg-red-900/60 font-bold text-xs flex items-center justify-center gap-2 rounded-xl cursor-pointer"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     <span>Delete Application</span>
@@ -1211,7 +1211,7 @@ export default function AdminTalentAcquisition({
                     <span className="font-bold text-[#E1E6EB] truncate">
                       {selectedApp.resume_file_name}
                     </span>
-                    <span className="px-2 py-0.5 bg-[#111111] text-[#81D607] border border-[#81D607]/30 text-[10px] uppercase font-bold shrink-0">
+                    <span className="px-2 py-0.5 bg-[#111111] text-[#81D607] border border-[#81D607]/30 text-[10px] uppercase font-bold shrink-0 rounded-md">
                       {selectedApp.resume_file_type?.toUpperCase() || "PDF"}
                     </span>
                   </div>
@@ -1221,11 +1221,11 @@ export default function AdminTalentAcquisition({
                     {(selectedApp.resume_file_type === "pdf" ||
                       selectedApp.resume_file_name.toLowerCase().endsWith(".pdf") ||
                       selectedApp.resume_url.startsWith("data:application/pdf")) && (
-                      <div className="flex items-center gap-1 bg-[#111111] p-1 border border-[#E1E6EB]/10">
+                      <div className="flex items-center gap-1 bg-[#111111] p-1 border border-[#E1E6EB]/10 rounded-xl">
                         <button
                           type="button"
                           onClick={() => setPdfViewerMode("native")}
-                          className={`px-2 py-1 text-[10px] font-bold ${
+                          className={`px-2 py-1 text-[10px] font-bold rounded-lg cursor-pointer ${
                             pdfViewerMode === "native"
                               ? "bg-[#81D607] text-[#111111]"
                               : "text-[#9DA4B0]"
@@ -1237,7 +1237,7 @@ export default function AdminTalentAcquisition({
                           <button
                             type="button"
                             onClick={() => setPdfViewerMode("google")}
-                            className={`px-2 py-1 text-[10px] font-bold ${
+                            className={`px-2 py-1 text-[10px] font-bold rounded-lg cursor-pointer ${
                               pdfViewerMode === "google"
                                 ? "bg-[#81D607] text-[#111111]"
                                 : "text-[#9DA4B0]"
@@ -1389,9 +1389,9 @@ export default function AdminTalentAcquisition({
       {/* MODAL 4: DELETE CANDIDATE APPLICATION CONFIRMATION */}
       {deletingApp && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-4 text-left shadow-2xl rounded-none">
+          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-6 space-y-4 text-left shadow-2xl rounded-2xl">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 shrink-0">
+              <div className="w-9 h-9 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 shrink-0 rounded-xl">
                 <Trash2 className="w-5 h-5" />
               </div>
               <div>
@@ -1411,7 +1411,7 @@ export default function AdminTalentAcquisition({
                 type="button"
                 onClick={() => setDeletingApp(null)}
                 disabled={isDeletingApp}
-                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB]"
+                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] rounded-xl cursor-pointer"
               >
                 Cancel
               </button>
@@ -1419,7 +1419,7 @@ export default function AdminTalentAcquisition({
                 type="button"
                 onClick={handleDeleteApp}
                 disabled={isDeletingApp}
-                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold flex items-center gap-2 transition-colors disabled:opacity-50"
+                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold flex items-center gap-2 transition-colors disabled:opacity-50 rounded-xl cursor-pointer"
               >
                 {isDeletingApp ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
                 <span>Confirm Delete</span>

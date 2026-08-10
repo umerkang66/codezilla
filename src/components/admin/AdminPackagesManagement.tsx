@@ -224,7 +224,7 @@ export default function AdminPackagesManagement({
       {/* Toast Notification Banner */}
       {notification && (
         <div
-          className={`p-4 border font-mono text-xs flex items-center justify-between transition-all rounded-none ${
+          className={`p-4 border font-mono text-xs flex items-center justify-between transition-all rounded-xl ${
             notification.type === "success"
               ? "bg-[#81D607]/10 border-[#81D607] text-[#81D607]"
               : "bg-red-950/80 border-red-500 text-red-400"
@@ -240,7 +240,7 @@ export default function AdminPackagesManagement({
           </div>
           <button
             onClick={() => setNotification(null)}
-            className="hover:opacity-75"
+            className="hover:opacity-75 cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -248,10 +248,10 @@ export default function AdminPackagesManagement({
       )}
 
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30 rounded-2xl">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase rounded-full">
               Admin Module
             </span>
             <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
@@ -265,7 +265,7 @@ export default function AdminPackagesManagement({
 
         <button
           onClick={openCreateModal}
-          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-none shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer shrink-0"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Add New Package</span>
@@ -273,7 +273,7 @@ export default function AdminPackagesManagement({
       </div>
 
       {/* Search and Filters */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#1A1A1A] p-4 border border-[#E1E6EB]/10">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#1A1A1A] p-4 border border-[#E1E6EB]/10 rounded-2xl">
         <div className="relative w-full sm:w-80">
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#9DA4B0]" />
           <input
@@ -281,7 +281,7 @@ export default function AdminPackagesManagement({
             placeholder="Search by package name or price..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] pl-9 pr-4 py-2 font-mono text-xs placeholder:text-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607] rounded-none"
+            className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] pl-9 pr-4 py-2 font-mono text-xs placeholder:text-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607] rounded-xl"
           />
         </div>
 
@@ -291,7 +291,7 @@ export default function AdminPackagesManagement({
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors rounded-none border ${
+              className={`px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors rounded-xl border cursor-pointer ${
                 statusFilter === st
                   ? "bg-[#81D607] text-[#111111] border-[#81D607] font-bold"
                   : "bg-[#111111] text-[#9DA4B0] border-[#E1E6EB]/15 hover:border-[#81D607] hover:text-[#E1E6EB]"
@@ -305,7 +305,7 @@ export default function AdminPackagesManagement({
 
       {/* Packages Grid */}
       {filteredPackages.length === 0 ? (
-        <div className="p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-4 rounded-none">
+        <div className="p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-4 rounded-2xl">
           <PackageIcon className="w-10 h-10 text-[#81D607]/40 mx-auto" />
           <div className="space-y-1">
             <h3 className="text-base font-mono font-bold text-[#E1E6EB]">
@@ -329,7 +329,7 @@ export default function AdminPackagesManagement({
                   pkg.featured
                     ? "border-[#81D607]"
                     : "border-[#E1E6EB]/10 hover:border-[#81D607]/60"
-                } transition-all flex flex-col justify-between space-y-6 relative rounded-none ${
+                } transition-all flex flex-col justify-between space-y-6 relative rounded-2xl ${
                   isHidden ? "opacity-60" : ""
                 }`}
               >
@@ -337,13 +337,13 @@ export default function AdminPackagesManagement({
                 <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 pb-4">
                   <div className="flex items-center gap-2">
                     {pkg.featured && (
-                      <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase flex items-center gap-1">
+                      <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase flex items-center gap-1 rounded-full">
                         <Star className="w-3 h-3 fill-current" />
                         <span>Most Popular</span>
                       </span>
                     )}
                     <span
-                      className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase border ${
+                      className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase border rounded-full ${
                         isHidden
                           ? "bg-amber-950/60 border-amber-500/40 text-amber-400"
                           : "bg-emerald-950/60 border-emerald-500/40 text-emerald-400"
@@ -401,14 +401,14 @@ export default function AdminPackagesManagement({
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={() => openEditModal(pkg)}
-                      className="p-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors rounded-none"
+                      className="p-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors rounded-lg cursor-pointer"
                       title="Edit Package"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={() => setDeleteConfirmId(pkg.id)}
-                      className="p-2 bg-[#111111] border border-red-500/40 text-red-400 hover:bg-red-950/50 hover:border-red-500 transition-colors rounded-none"
+                      className="p-2 bg-[#111111] border border-red-500/40 text-red-400 hover:bg-red-950/50 hover:border-red-500 transition-colors rounded-lg cursor-pointer"
                       title="Delete Package"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -424,10 +424,10 @@ export default function AdminPackagesManagement({
       {/* CREATE / EDIT MODAL */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-[#1A1A1A] border border-[#81D607]/40 w-full max-w-2xl my-8 p-6 space-y-6 text-left rounded-none shadow-2xl relative">
+          <div className="bg-[#1A1A1A] border border-[#81D607]/40 w-full max-w-2xl my-8 p-6 space-y-6 text-left rounded-2xl shadow-2xl relative">
             <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 pb-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607]">
+                <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] rounded-lg">
                   <PackageIcon className="w-4 h-4" />
                 </div>
                 <h2 className="text-lg font-mono font-bold text-[#E1E6EB]">
@@ -436,7 +436,7 @@ export default function AdminPackagesManagement({
               </div>
               <button
                 onClick={closeModal}
-                className="text-[#9DA4B0] hover:text-[#E1E6EB] p-1"
+                className="text-[#9DA4B0] hover:text-[#E1E6EB] p-1 rounded-lg cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -455,7 +455,7 @@ export default function AdminPackagesManagement({
                     placeholder="e.g. Starter Package"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -470,7 +470,7 @@ export default function AdminPackagesManagement({
                     placeholder="e.g. $499 or $1,499"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
               </div>
@@ -486,7 +486,7 @@ export default function AdminPackagesManagement({
                     placeholder="e.g. For early prototypes & landing web apps"
                     value={subtitle}
                     onChange={(e) => setSubtitle(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -500,7 +500,7 @@ export default function AdminPackagesManagement({
                     placeholder="e.g. Starting price or Per project"
                     value={period}
                     onChange={(e) => setPeriod(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
               </div>
@@ -514,7 +514,7 @@ export default function AdminPackagesManagement({
                   <button
                     type="button"
                     onClick={addFeatureInput}
-                    className="px-2.5 py-1 bg-[#111111] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] transition-colors rounded-none flex items-center gap-1 text-[11px]"
+                    className="px-2.5 py-1 bg-[#111111] border border-[#81D607] text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] transition-colors rounded-lg cursor-pointer flex items-center gap-1 text-[11px]"
                   >
                     <Plus className="w-3 h-3" />
                     <span>Add Feature</span>
@@ -530,12 +530,12 @@ export default function AdminPackagesManagement({
                         placeholder={`Feature #${fIdx + 1} item detail...`}
                         value={feat}
                         onChange={(e) => handleFeatureChange(fIdx, e.target.value)}
-                        className="flex-1 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2 text-xs focus:outline-none focus:border-[#81D607] rounded-none"
+                        className="flex-1 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2 text-xs focus:outline-none focus:border-[#81D607] rounded-xl"
                       />
                       <button
                         type="button"
                         onClick={() => removeFeatureInput(fIdx)}
-                        className="p-2 text-red-400 hover:text-red-300 hover:bg-red-950/50"
+                        className="p-2 text-red-400 hover:text-red-300 hover:bg-red-950/50 rounded-lg cursor-pointer"
                         title="Remove feature line"
                       >
                         <X className="w-4 h-4" />
@@ -556,7 +556,7 @@ export default function AdminPackagesManagement({
                     placeholder="Choose Package"
                     value={ctaText}
                     onChange={(e) => setCtaText(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -569,7 +569,7 @@ export default function AdminPackagesManagement({
                     type="number"
                     value={displayOrder}
                     onChange={(e) => setDisplayOrder(parseInt(e.target.value) || 0)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
@@ -581,7 +581,7 @@ export default function AdminPackagesManagement({
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value as "active" | "hidden")}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-none"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
                   >
                     <option value="active">Active (Visible)</option>
                     <option value="hidden">Hidden (Draft)</option>
@@ -596,7 +596,7 @@ export default function AdminPackagesManagement({
                     type="checkbox"
                     checked={featured}
                     onChange={(e) => setFeatured(e.target.checked)}
-                    className="w-4 h-4 accent-[#81D607] bg-[#111111]"
+                    className="w-4 h-4 accent-[#81D607] bg-[#111111] rounded cursor-pointer"
                   />
                   <span className="text-[#E1E6EB]">
                     Highlight as <strong className="text-[#81D607]">Most Popular</strong> tier
@@ -609,14 +609,14 @@ export default function AdminPackagesManagement({
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#9DA4B0] hover:text-[#E1E6EB] rounded-none"
+                  className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#9DA4B0] hover:text-[#E1E6EB] rounded-xl cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold rounded-none flex items-center gap-2 transition-colors disabled:opacity-50"
+                  className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-bold rounded-xl cursor-pointer flex items-center gap-2 transition-colors disabled:opacity-50"
                 >
                   {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>{editingPackage ? "Save Changes" : "Create Package"}</span>
@@ -630,8 +630,8 @@ export default function AdminPackagesManagement({
       {/* DELETE CONFIRMATION MODAL */}
       {deleteConfirmId && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#1A1A1A] border border-red-500/60 w-full max-w-md p-6 space-y-4 text-center rounded-none shadow-2xl">
-            <div className="w-12 h-12 bg-red-950/50 border border-red-500 text-red-500 flex items-center justify-center mx-auto">
+          <div className="bg-[#1A1A1A] border border-red-500/60 w-full max-w-md p-6 space-y-4 text-center rounded-2xl shadow-2xl">
+            <div className="w-12 h-12 bg-red-950/50 border border-red-500 text-red-500 flex items-center justify-center mx-auto rounded-xl">
               <Trash2 className="w-6 h-6" />
             </div>
             <div className="space-y-1">
@@ -645,14 +645,14 @@ export default function AdminPackagesManagement({
             <div className="flex items-center justify-center gap-3 pt-2">
               <button
                 onClick={() => setDeleteConfirmId(null)}
-                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] font-mono text-xs"
+                className="px-4 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] font-mono text-xs rounded-xl cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleDelete(deleteConfirmId)}
                 disabled={deletingId === deleteConfirmId}
-                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2"
+                className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs flex items-center gap-2 rounded-xl cursor-pointer"
               >
                 {deletingId === deleteConfirmId && (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />

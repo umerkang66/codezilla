@@ -125,11 +125,11 @@ export default function BlogModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-      <div className="w-full max-w-4xl bg-[#1A1A1A] border border-[#81D607]/40 shadow-2xl rounded-none flex flex-col max-h-[90vh] my-auto text-left">
+      <div className="w-full max-w-4xl bg-[#1A1A1A] border border-[#81D607]/40 shadow-2xl rounded-2xl overflow-hidden flex flex-col max-h-[90vh] my-auto text-left">
         {/* Modal Header */}
         <div className="flex items-center justify-between p-5 border-b border-[#E1E6EB]/10 bg-[#111111]">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-[#1A1A1A] border border-[#81D607] flex items-center justify-center text-[#81D607]">
+            <div className="w-8 h-8 bg-[#1A1A1A] border border-[#81D607] flex items-center justify-center text-[#81D607] rounded-lg">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
@@ -145,7 +145,7 @@ export default function BlogModal({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#1A1A1A] border border-transparent hover:border-[#81D607]/30 transition-colors"
+            className="p-1.5 text-[#9DA4B0] hover:text-[#81D607] hover:bg-[#1A1A1A] border border-transparent hover:border-[#81D607]/30 transition-colors rounded-lg cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -154,7 +154,7 @@ export default function BlogModal({
         {/* Modal Form Content Body */}
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6">
           {errorMsg && (
-            <div className="p-3 bg-red-950/80 border border-red-500/50 text-red-400 text-xs font-mono">
+            <div className="p-3 bg-red-950/80 border border-red-500/50 text-red-400 text-xs font-mono rounded-xl">
               {errorMsg}
             </div>
           )}
@@ -170,7 +170,7 @@ export default function BlogModal({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. 5 Signs Your Business Needs AI Automation in 2026"
-              className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-sm focus:outline-none focus:border-[#81D607] transition-colors"
+              className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-sm focus:outline-none focus:border-[#81D607] transition-colors rounded-xl"
             />
           </div>
 
@@ -183,7 +183,7 @@ export default function BlogModal({
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607]"
+                className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
               >
                 <option value="AI & ML">AI & ML</option>
                 <option value="Hardware">Hardware</option>
@@ -203,7 +203,7 @@ export default function BlogModal({
                 value={readTime}
                 onChange={(e) => setReadTime(e.target.value)}
                 placeholder="e.g. 5 min read"
-                className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607]"
+                className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607] rounded-xl"
               />
             </div>
 
@@ -216,7 +216,7 @@ export default function BlogModal({
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
                 placeholder="e.g. Muhammad Ahmed Pasha"
-                className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607]"
+                className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607] rounded-xl"
               />
             </div>
 
@@ -229,7 +229,7 @@ export default function BlogModal({
                 value={authorRole}
                 onChange={(e) => setAuthorRole(e.target.value)}
                 placeholder="e.g. Founder & CEO"
-                className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607]"
+                className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607] rounded-xl"
               />
             </div>
           </div>
@@ -244,7 +244,7 @@ export default function BlogModal({
               value={excerpt}
               onChange={(e) => setExcerpt(e.target.value)}
               placeholder="Brief 1-2 sentence overview of the article..."
-              className="w-full px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-sans text-xs focus:outline-none focus:border-[#81D607]"
+              className="w-full px-4 py-2 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-sans text-xs focus:outline-none focus:border-[#81D607] rounded-xl"
             />
           </div>
 
@@ -261,14 +261,14 @@ export default function BlogModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] hover:border-[#E1E6EB]/40 font-mono text-xs transition-colors"
+              className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] hover:border-[#E1E6EB]/40 font-mono text-xs transition-colors rounded-xl cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors flex items-center gap-2 disabled:opacity-50"
+              className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors flex items-center gap-2 disabled:opacity-50 rounded-xl cursor-pointer"
             >
               {loading ? (
                 <>

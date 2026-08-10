@@ -59,13 +59,13 @@ export default async function AdminTestimonialsPage() {
   if (!hasAdminAccess) {
     return (
       <main className="h-screen max-h-screen w-screen overflow-hidden bg-[#111111] text-[#E1E6EB] flex flex-col justify-center items-center p-4">
-        <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-8 space-y-6 text-center rounded-none shadow-2xl">
-          <div className="w-14 h-14 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 mx-auto rounded-none">
+        <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/60 p-8 space-y-6 text-center rounded-2xl shadow-2xl">
+          <div className="w-14 h-14 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 mx-auto rounded-xl">
             <ShieldAlert className="w-7 h-7" />
           </div>
 
           <div className="space-y-2">
-            <div className="inline-block px-3 py-1 bg-red-950/80 border border-red-500/40 text-red-400 text-[10px] font-mono font-bold uppercase tracking-wider rounded-none">
+            <div className="inline-block px-3 py-1 bg-red-950/80 border border-red-500/40 text-red-400 text-[10px] font-mono font-bold uppercase tracking-wider rounded-full">
               Access Denied
             </div>
             <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
@@ -80,7 +80,7 @@ export default async function AdminTestimonialsPage() {
             <form action="/auth/signout" method="post">
               <button
                 type="submit"
-                className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs transition-colors rounded-none flex items-center justify-center gap-2"
+                className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer flex items-center justify-center gap-2"
               >
                 <LogOut className="w-4 h-4" />
                 <span>Sign Out</span>
@@ -89,7 +89,7 @@ export default async function AdminTestimonialsPage() {
 
             <Link
               href="/"
-              className="w-full py-3 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] font-mono text-xs text-center transition-colors rounded-none flex items-center justify-center gap-2"
+              className="w-full py-3 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] font-mono text-xs text-center transition-colors rounded-xl cursor-pointer flex items-center justify-center gap-2"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Return to Website</span>

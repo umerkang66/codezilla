@@ -337,10 +337,10 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
   return (
     <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-[#111111] text-[#E1E6EB]">
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-[#1A1A1A] border border-[#81D607]/30 rounded-2xl">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase">
+            <span className="px-2.5 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase rounded-full">
               Admin Module
             </span>
             <h1 className="text-xl font-mono font-extrabold text-[#E1E6EB]">
@@ -354,7 +354,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
 
         <button
           onClick={openCreateModal}
-          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-none shrink-0"
+          className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer shrink-0"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
           <span>Add Team Member</span>
@@ -364,7 +364,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
       {/* Toast Notification Banner */}
       {notification && (
         <div
-          className={`p-4 border font-mono text-xs flex items-center justify-between transition-all ${
+          className={`p-4 border font-mono text-xs flex items-center justify-between transition-all rounded-xl ${
             notification.type === "success"
               ? "bg-[#81D607]/10 border-[#81D607] text-[#81D607]"
               : "bg-red-500/10 border-red-500 text-red-400"
@@ -380,7 +380,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
           </div>
           <button
             onClick={() => setNotification(null)}
-            className="hover:opacity-70 text-current"
+            className="hover:opacity-70 text-current cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -388,7 +388,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
       )}
 
       {/* Control Bar: Search & Status Filter */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 rounded-2xl">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-[#9DA4B0] absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
@@ -396,14 +396,14 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by name, role, or specialty..."
-            className="w-full bg-[#111111] border border-[#E1E6EB]/15 pl-10 pr-4 py-2 text-xs font-mono text-[#E1E6EB] placeholder-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607]"
+            className="w-full bg-[#111111] border border-[#E1E6EB]/15 pl-10 pr-4 py-2 text-xs font-mono text-[#E1E6EB] placeholder-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607] rounded-xl"
           />
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={() => setStatusFilter("all")}
-            className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+            className={`px-3 py-2 text-xs font-mono font-bold transition-colors rounded-xl cursor-pointer ${
               statusFilter === "all"
                 ? "bg-[#81D607] text-[#111111]"
                 : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -413,7 +413,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
           </button>
           <button
             onClick={() => setStatusFilter("active")}
-            className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+            className={`px-3 py-2 text-xs font-mono font-bold transition-colors rounded-xl cursor-pointer ${
               statusFilter === "active"
                 ? "bg-[#81D607] text-[#111111]"
                 : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -423,7 +423,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
           </button>
           <button
             onClick={() => setStatusFilter("inactive")}
-            className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+            className={`px-3 py-2 text-xs font-mono font-bold transition-colors rounded-xl cursor-pointer ${
               statusFilter === "inactive"
                 ? "bg-[#81D607] text-[#111111]"
                 : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -436,8 +436,8 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
 
       {/* Team Members List / Cards */}
       {sortedTeams.length === 0 ? (
-        <div className="p-12 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center space-y-4">
-          <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto">
+        <div className="p-12 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center space-y-4 rounded-2xl">
+          <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto rounded-xl">
             <Users className="w-6 h-6" />
           </div>
           <h3 className="text-base font-bold font-mono text-[#E1E6EB]">No Team Members Found</h3>
@@ -454,23 +454,23 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
               key={member.id}
               className={`p-5 bg-[#1A1A1A] border ${
                 member.is_founder ? "border-[#81D607]" : "border-[#E1E6EB]/15"
-              } flex flex-col justify-between space-y-4 relative group`}
+              } flex flex-col justify-between space-y-4 relative group rounded-2xl`}
             >
               {/* Header Badges */}
               <div className="flex items-center justify-between gap-2 border-b border-[#E1E6EB]/10 pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 bg-[#111111] border border-[#E1E6EB]/20 text-[10px] font-mono text-[#81D607]">
+                  <span className="px-2 py-0.5 bg-[#111111] border border-[#E1E6EB]/20 text-[10px] font-mono text-[#81D607] rounded-md">
                     Order #{member.display_order || 0}
                   </span>
                   {member.is_founder && (
-                    <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-bold uppercase">
+                    <span className="px-2 py-0.5 bg-[#81D607] text-[#111111] text-[10px] font-mono font-bold uppercase rounded-full">
                       Founder
                     </span>
                   )}
                 </div>
 
                 <span
-                  className={`px-2 py-0.5 text-[10px] font-mono uppercase border ${
+                  className={`px-2 py-0.5 text-[10px] font-mono uppercase border rounded-full ${
                     member.status === "active"
                       ? "bg-[#81D607]/10 border-[#81D607] text-[#81D607]"
                       : "bg-red-500/10 border-red-500/50 text-red-400"
@@ -487,10 +487,10 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                     <img
                       src={member.avatar_url}
                       alt={member.name}
-                      className="w-14 h-14 bg-[#111111] border border-[#81D607] object-cover shrink-0"
+                      className="w-14 h-14 bg-[#111111] border border-[#81D607] object-cover shrink-0 rounded-full"
                     />
                   ) : (
-                    <div className="w-14 h-14 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] font-mono font-bold text-lg shrink-0">
+                    <div className="w-14 h-14 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] font-mono font-bold text-lg shrink-0 rounded-full">
                       {derivedInitials(member.name, member.initials)}
                     </div>
                   )}
@@ -523,7 +523,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       href={member.linkedin_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607]"
+                      className="p-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] rounded-lg cursor-pointer"
                       title="LinkedIn"
                     >
                       <LinkedinIcon className="w-3.5 h-3.5" />
@@ -534,7 +534,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       href={member.github_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607]"
+                      className="p-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] rounded-lg cursor-pointer"
                       title="GitHub"
                     >
                       <GithubIcon className="w-3.5 h-3.5" />
@@ -545,7 +545,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       href={member.x_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607]"
+                      className="p-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] rounded-lg cursor-pointer"
                       title="X / Twitter"
                     >
                       <XIcon className="w-3.5 h-3.5" />
@@ -560,7 +560,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                   <button
                     onClick={() => toggleFounderStatus(member)}
                     title={member.is_founder ? "Remove Founder Spotlight" : "Set Founder Spotlight"}
-                    className={`p-2 font-mono text-xs border transition-colors ${
+                    className={`p-2 font-mono text-xs border transition-colors rounded-lg cursor-pointer ${
                       member.is_founder
                         ? "bg-[#81D607] text-[#111111] border-[#81D607]"
                         : "bg-[#111111] text-[#9DA4B0] border-[#E1E6EB]/15 hover:text-[#81D607]"
@@ -572,7 +572,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                   <button
                     onClick={() => toggleMemberStatus(member)}
                     title={member.status === "active" ? "Set to Inactive" : "Set to Active"}
-                    className={`p-2 font-mono text-xs border transition-colors ${
+                    className={`p-2 font-mono text-xs border transition-colors rounded-lg cursor-pointer ${
                       member.status === "active"
                         ? "bg-[#111111] text-[#81D607] border-[#81D607]/40 hover:border-[#81D607]"
                         : "bg-[#111111] text-red-400 border-red-500/40 hover:border-red-500"
@@ -589,7 +589,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => openEditModal(member)}
-                    className="px-3 py-1.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono text-xs font-bold transition-colors inline-flex items-center gap-1.5"
+                    className="px-3 py-1.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono text-xs font-bold transition-colors inline-flex items-center gap-1.5 rounded-lg cursor-pointer"
                   >
                     <Edit2 className="w-3.5 h-3.5" />
                     <span>Edit</span>
@@ -597,7 +597,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
 
                   <button
                     onClick={() => setDeleteConfirmId(member.id)}
-                    className="px-3 py-1.5 bg-[#111111] border border-red-500/40 text-red-400 hover:bg-red-600 hover:text-white font-mono text-xs font-bold transition-colors inline-flex items-center gap-1.5"
+                    className="px-3 py-1.5 bg-[#111111] border border-red-500/40 text-red-400 hover:bg-red-600 hover:text-white font-mono text-xs font-bold transition-colors inline-flex items-center gap-1.5 rounded-lg cursor-pointer"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     <span>Delete</span>
@@ -612,11 +612,11 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
       {/* Modal: Create or Edit Team Member */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-2xl max-h-[90vh] flex flex-col bg-[#1A1A1A] border border-[#81D607] rounded-none shadow-2xl overflow-hidden">
+          <div className="w-full max-w-2xl max-h-[90vh] flex flex-col bg-[#1A1A1A] border border-[#81D607] rounded-2xl shadow-2xl overflow-hidden">
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-[#E1E6EB]/10 p-5 sm:p-6 shrink-0 bg-[#1A1A1A]">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607]">
+                <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] rounded-lg">
                   <UserCheck className="w-4 h-4" />
                 </div>
                 <h2 className="text-lg font-mono font-bold text-[#E1E6EB]">
@@ -626,7 +626,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
               <button
                 type="button"
                 onClick={closeModal}
-                className="p-1 bg-[#111111] border border-[#E1E6EB]/15 text-[#9DA4B0] hover:text-[#81D607] transition-colors"
+                className="p-1 bg-[#111111] border border-[#E1E6EB]/15 text-[#9DA4B0] hover:text-[#81D607] transition-colors rounded-lg cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -647,7 +647,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Muhammad Ahmed Pasha"
-                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                     />
                   </div>
 
@@ -662,7 +662,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       value={role}
                       onChange={(e) => setRole(e.target.value)}
                       placeholder="e.g. Founder & CEO / Lead Full-Stack Architect"
-                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                     />
                   </div>
                 </div>
@@ -677,12 +677,12 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                     value={specialty}
                     onChange={(e) => setSpecialty(e.target.value)}
                     placeholder="e.g. PCB Layout, Next.js & PyTorch Systems"
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                   />
                 </div>
 
                 {/* Computer Picture Selection Area */}
-                <div className="space-y-2 p-4 bg-[#111111] border border-[#81D607]/40">
+                <div className="space-y-2 p-4 bg-[#111111] border border-[#81D607]/40 rounded-xl">
                   <div className="flex items-center justify-between">
                     <label className="block text-xs font-mono font-bold text-[#81D607]">
                       Team Member Picture
@@ -691,7 +691,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       <button
                         type="button"
                         onClick={() => setImageInputMode("file")}
-                        className={`px-2 py-0.5 transition-colors ${
+                        className={`px-2 py-0.5 transition-colors cursor-pointer ${
                           imageInputMode === "file"
                             ? "bg-[#81D607] text-[#111111] font-bold"
                             : "text-[#9DA4B0] hover:text-[#E1E6EB]"
@@ -876,7 +876,7 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                       type="checkbox"
                       checked={isFounder}
                       onChange={(e) => setIsFounder(e.target.checked)}
-                      className="w-4 h-4 accent-[#81D607] bg-[#111111] border border-[#E1E6EB]/20 rounded-none cursor-pointer"
+                      className="w-4 h-4 accent-[#81D607] bg-[#111111] border border-[#E1E6EB]/20 rounded cursor-pointer"
                     />
                     <span className="text-xs font-mono text-[#E1E6EB]">
                       Highlight as Founder / Leadership Spotlight
@@ -890,14 +890,14 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] font-mono text-xs font-bold transition-colors"
+                  className="px-5 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] font-mono text-xs font-bold transition-colors rounded-xl cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting || uploadingImage}
-                  className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono text-xs font-bold transition-colors disabled:opacity-50 flex items-center gap-2"
+                  className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono text-xs font-bold transition-colors disabled:opacity-50 flex items-center gap-2 rounded-xl cursor-pointer"
                 >
                   {submitting && <Loader2 className="w-4 h-4 animate-spin" />}
                   <span>{editingMember ? "Save Changes" : "Create Team Member"}</span>
@@ -911,8 +911,8 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
       {/* Delete Confirmation Modal */}
       {deleteConfirmId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/80 p-6 space-y-6 text-center rounded-none shadow-2xl">
-            <div className="w-12 h-12 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 mx-auto">
+          <div className="w-full max-w-md bg-[#1A1A1A] border border-red-500/80 p-6 space-y-6 text-center rounded-2xl shadow-2xl">
+            <div className="w-12 h-12 bg-[#111111] border border-red-500 flex items-center justify-center text-red-500 mx-auto rounded-xl">
               <AlertCircle className="w-6 h-6" />
             </div>
 
