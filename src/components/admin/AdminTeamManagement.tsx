@@ -19,6 +19,7 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import { TeamMember } from "@/components/Team";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 interface AdminTeamManagementProps {
   initialTeams: TeamMember[];
@@ -824,19 +825,16 @@ export default function AdminTeamManagement({ initialTeams }: AdminTeamManagemen
                     />
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-mono font-bold text-[#E1E6EB]">
-                      Status
-                    </label>
-                    <select
-                      value={status}
-                      onChange={(e) => setStatus(e.target.value as "active" | "inactive")}
-                      className="w-full bg-[#111111] border border-[#E1E6EB]/15 px-3 py-2 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                    >
-                      <option value="active">Active (Visible)</option>
-                      <option value="inactive">Inactive (Hidden)</option>
-                    </select>
-                  </div>
+                  <CustomSelect
+                    label="Status"
+                    value={status}
+                    onChange={(val) => setStatus(val as "active" | "inactive")}
+                    options={[
+                      { label: "Active (Visible)", value: "active" },
+                      { label: "Inactive (Hidden)", value: "inactive" },
+                    ]}
+                    size="md"
+                  />
                 </div>
 
                 {/* Social Profiles */}

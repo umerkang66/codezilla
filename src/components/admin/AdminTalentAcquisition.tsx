@@ -27,6 +27,7 @@ import {
   FileSpreadsheet,
 } from "lucide-react";
 import { exportApplicationsToExcel } from "@/utils/excelExport";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 export interface JobPosting {
   id: string;
@@ -518,15 +519,16 @@ export default function AdminTalentAcquisition({
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <span className="text-xs font-mono text-[#9DA4B0]">Status:</span>
-              <select
+              <CustomSelect
                 value={jobStatusFilter}
-                onChange={(e) => setJobStatusFilter(e.target.value)}
-                className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
-              >
-                <option value="all">All Statuses</option>
-                <option value="active">Active Only</option>
-                <option value="closed">Closed Only</option>
-              </select>
+                onChange={setJobStatusFilter}
+                options={[
+                  { label: "All Statuses", value: "all" },
+                  { label: "Active Only", value: "active" },
+                  { label: "Closed Only", value: "closed" },
+                ]}
+                size="sm"
+              />
 
               <button
                 type="button"
@@ -679,33 +681,31 @@ export default function AdminTalentAcquisition({
               <div className="flex items-center gap-2">
                 <Filter className="w-3.5 h-3.5 text-[#81D607]" />
                 <span className="text-xs font-mono text-[#9DA4B0]">Position:</span>
-                <select
+                <CustomSelect
                   value={appJobFilter}
-                  onChange={(e) => setAppJobFilter(e.target.value)}
-                  className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                >
-                  <option value="all">All Jobs</option>
-                  {jobs.map((j) => (
-                    <option key={j.id} value={j.id}>
-                      {j.title}
-                    </option>
-                  ))}
-                </select>
+                  onChange={setAppJobFilter}
+                  options={[
+                    { label: "All Jobs", value: "all" },
+                    ...jobs.map((j) => ({ label: j.title, value: j.id })),
+                  ]}
+                  size="sm"
+                />
               </div>
 
               <div className="flex items-center gap-2">
                 <span className="text-xs font-mono text-[#9DA4B0]">Status:</span>
-                <select
+                <CustomSelect
                   value={appStatusFilter}
-                  onChange={(e) => setAppStatusFilter(e.target.value)}
-                  className="px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
-                >
-                  <option value="all">All Statuses</option>
-                  <option value="pending">Pending</option>
-                  <option value="reviewing">Reviewing</option>
-                  <option value="shortlisted">Shortlisted</option>
-                  <option value="rejected">Rejected</option>
-                </select>
+                  onChange={setAppStatusFilter}
+                  options={[
+                    { label: "All Statuses", value: "all" },
+                    { label: "Pending", value: "pending" },
+                    { label: "Reviewing", value: "reviewing" },
+                    { label: "Shortlisted", value: "shortlisted" },
+                    { label: "Rejected", value: "rejected" },
+                  ]}
+                  size="sm"
+                />
               </div>
 
               <button
@@ -814,25 +814,18 @@ export default function AdminTalentAcquisition({
                         </td>
 
                         <td className="p-3.5">
-                          <select
+                          <CustomSelect
                             value={app.status}
-                            onChange={(e) => handleUpdateAppStatus(app.id, e.target.value)}
+                            onChange={(val) => handleUpdateAppStatus(app.id, val)}
                             disabled={isUpdatingAppStatus}
-                            className={`px-2 py-1 text-[11px] font-mono font-bold focus:outline-none border rounded-lg cursor-pointer ${
-                              app.status === "shortlisted"
-                                ? "bg-[#81D607]/20 text-[#81D607] border-[#81D607]"
-                                : app.status === "rejected"
-                                ? "bg-red-950/60 text-red-400 border-red-500"
-                                : app.status === "reviewing"
-                                ? "bg-blue-950/60 text-blue-400 border-blue-500"
-                                : "bg-yellow-950/60 text-yellow-400 border-yellow-500"
-                            }`}
-                          >
-                            <option value="pending">Pending</option>
-                            <option value="reviewing">Reviewing</option>
-                            <option value="shortlisted">Shortlisted</option>
-                            <option value="rejected">Rejected</option>
-                          </select>
+                            options={[
+                              { label: "Pending", value: "pending" },
+                              { label: "Reviewing", value: "reviewing" },
+                              { label: "Shortlisted", value: "shortlisted" },
+                              { label: "Rejected", value: "rejected" },
+                            ]}
+                            size="sm"
+                          />
                         </td>
 
                         <td className="p-3.5 text-right space-x-2">
@@ -927,17 +920,16 @@ export default function AdminTalentAcquisition({
                   />
                 </div>
 
-                <div className="space-y-1">
-                  <label className="text-[#9DA4B0]">Status</label>
-                  <select
-                    value={jobStatus}
-                    onChange={(e) => setJobStatus(e.target.value)}
-                    className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
-                  >
-                    <option value="active">Active (Visible on website)</option>
-                    <option value="closed">Closed / Draft</option>
-                  </select>
-                </div>
+                <CustomSelect
+                  label="Status"
+                  value={jobStatus}
+                  onChange={setJobStatus}
+                  options={[
+                    { label: "Active (Visible on website)", value: "active" },
+                    { label: "Closed / Draft", value: "closed" },
+                  ]}
+                  size="md"
+                />
               </div>
 
               <div className="space-y-1">
@@ -1060,25 +1052,18 @@ export default function AdminTalentAcquisition({
 
               <div className="flex items-center gap-3 shrink-0">
                 {/* Status Dropdown */}
-                <select
+                <CustomSelect
                   value={selectedApp.status}
-                  onChange={(e) => handleUpdateAppStatus(selectedApp.id, e.target.value)}
+                  onChange={(val) => handleUpdateAppStatus(selectedApp.id, val)}
                   disabled={isUpdatingAppStatus}
-                  className={`px-3 py-1.5 text-xs font-mono font-bold border focus:outline-none rounded-xl cursor-pointer ${
-                    selectedApp.status === "shortlisted"
-                      ? "bg-[#81D607]/20 text-[#81D607] border-[#81D607]"
-                      : selectedApp.status === "rejected"
-                      ? "bg-red-950/60 text-red-400 border-red-500"
-                      : selectedApp.status === "reviewing"
-                      ? "bg-blue-950/60 text-blue-400 border-blue-500"
-                      : "bg-yellow-950/60 text-yellow-400 border-yellow-500"
-                  }`}
-                >
-                  <option value="pending">Status: Pending</option>
-                  <option value="reviewing">Status: Reviewing</option>
-                  <option value="shortlisted">Status: Shortlisted</option>
-                  <option value="rejected">Status: Rejected</option>
-                </select>
+                  options={[
+                    { label: "Status: Pending", value: "pending" },
+                    { label: "Status: Reviewing", value: "reviewing" },
+                    { label: "Status: Shortlisted", value: "shortlisted" },
+                    { label: "Status: Rejected", value: "rejected" },
+                  ]}
+                  size="sm"
+                />
 
                 <button
                   type="button"

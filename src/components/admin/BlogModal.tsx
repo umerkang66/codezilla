@@ -3,6 +3,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import { X, Save, Loader2, Sparkles } from "lucide-react";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 export interface BlogItem {
   id?: string;
@@ -176,23 +177,20 @@ export default function BlogModal({
 
           {/* Grid Metadata Inputs */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <label className="block text-xs font-mono uppercase text-[#9DA4B0]">
-                Category
-              </label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#E1E6EB] font-mono text-xs focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
-              >
-                <option value="AI & ML">AI & ML</option>
-                <option value="Hardware">Hardware</option>
-                <option value="Web Dev">Web Dev</option>
-                <option value="Software">Software</option>
-                <option value="Embedded">Embedded</option>
-                <option value="Engineering">Engineering</option>
-              </select>
-            </div>
+            <CustomSelect
+              label="CATEGORY"
+              value={category}
+              onChange={setCategory}
+              options={[
+                { label: "AI & ML", value: "AI & ML" },
+                { label: "Hardware", value: "Hardware" },
+                { label: "Web Dev", value: "Web Dev" },
+                { label: "Software", value: "Software" },
+                { label: "Embedded", value: "Embedded" },
+                { label: "Engineering", value: "Engineering" },
+              ]}
+              size="md"
+            />
 
             <div className="space-y-2">
               <label className="block text-xs font-mono uppercase text-[#9DA4B0]">

@@ -17,6 +17,7 @@ import {
   Check,
 } from "lucide-react";
 import { EngineeringPackage } from "@/components/Pricing";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 interface AdminPackagesManagementProps {
   initialPackages: EngineeringPackage[];
@@ -574,19 +575,16 @@ export default function AdminPackagesManagement({
                 </div>
 
                 {/* Status */}
-                <div className="space-y-1.5">
-                  <label className="text-[#9DA4B0] uppercase block">
-                    Visibility Status
-                  </label>
-                  <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value as "active" | "hidden")}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
-                  >
-                    <option value="active">Active (Visible)</option>
-                    <option value="hidden">Hidden (Draft)</option>
-                  </select>
-                </div>
+                <CustomSelect
+                  label="VISIBILITY STATUS"
+                  value={status}
+                  onChange={(val) => setStatus(val as "active" | "hidden")}
+                  options={[
+                    { label: "Active (Visible)", value: "active" },
+                    { label: "Hidden (Draft)", value: "hidden" },
+                  ]}
+                  size="md"
+                />
               </div>
 
               {/* Featured Checkbox */}

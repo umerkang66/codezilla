@@ -24,6 +24,7 @@ import {
   ExternalLink,
   CheckCircle,
 } from "lucide-react";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 export interface PortfolioProject {
   id: string;
@@ -317,17 +318,12 @@ export default function AdminPortfolioManagement({
           {/* Category Filter */}
           <div className="flex items-center gap-1.5">
             <span className="text-xs font-mono text-[#9DA4B0]">Category:</span>
-            <select
+            <CustomSelect
               value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-              className="bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] px-3 py-1.5 font-mono text-xs focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
-            >
-              {uniqueCategories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
+              onChange={setCategoryFilter}
+              options={uniqueCategories.map((cat) => ({ label: cat, value: cat }))}
+              size="sm"
+            />
           </div>
 
           {/* Status Filter */}
@@ -569,22 +565,16 @@ export default function AdminPortfolioManagement({
                 </div>
 
                 {/* Icon Selection */}
-                <div className="space-y-1.5">
-                  <label className="text-[#9DA4B0] uppercase block">
-                    Card Icon
-                  </label>
-                  <select
-                    value={selectedIcon}
-                    onChange={(e) => setSelectedIcon(e.target.value)}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
-                  >
-                    {AVAILABLE_ICONS.map((ic) => (
-                      <option key={ic.name} value={ic.name}>
-                        {ic.name} ({ic.label})
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <CustomSelect
+                  label="CARD ICON"
+                  value={selectedIcon}
+                  onChange={setSelectedIcon}
+                  options={AVAILABLE_ICONS.map((ic) => ({
+                    label: `${ic.name} (${ic.label})`,
+                    value: ic.name,
+                  }))}
+                  size="md"
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-[#E1E6EB]/10 pt-4">
@@ -616,19 +606,16 @@ export default function AdminPortfolioManagement({
                 </div>
 
                 {/* Status */}
-                <div className="space-y-1.5">
-                  <label className="text-[#9DA4B0] uppercase block">
-                    Visibility Status
-                  </label>
-                  <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value as "active" | "hidden")}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
-                  >
-                    <option value="active">Active (Published)</option>
-                    <option value="hidden">Hidden (Draft)</option>
-                  </select>
-                </div>
+                <CustomSelect
+                  label="VISIBILITY STATUS"
+                  value={status}
+                  onChange={(val) => setStatus(val as "active" | "hidden")}
+                  options={[
+                    { label: "Active (Published)", value: "active" },
+                    { label: "Hidden (Draft)", value: "hidden" },
+                  ]}
+                  size="md"
+                />
               </div>
 
               {/* Form Buttons */}

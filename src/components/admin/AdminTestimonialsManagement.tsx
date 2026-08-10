@@ -16,6 +16,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { Testimonial } from "@/components/Testimonials";
+import CustomSelect from "@/components/ui/CustomSelect";
 
 interface AdminTestimonialsManagementProps {
   initialTestimonials: Testimonial[];
@@ -439,22 +440,19 @@ export default function AdminTestimonialsManagement({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Rating */}
-                <div className="space-y-1.5">
-                  <label className="text-[#9DA4B0] uppercase block">
-                    Star Rating (1 to 5)
-                  </label>
-                  <select
-                    value={rating}
-                    onChange={(e) => setRating(Number(e.target.value))}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
-                  >
-                    <option value={5}>★★★★★ (5 Stars)</option>
-                    <option value={4}>★★★★☆ (4 Stars)</option>
-                    <option value={3}>★★★☆☆ (3 Stars)</option>
-                    <option value={2}>★★☆☆☆ (2 Stars)</option>
-                    <option value={1}>★☆☆☆☆ (1 Star)</option>
-                  </select>
-                </div>
+                <CustomSelect
+                  label="STAR RATING (1 TO 5)"
+                  value={String(rating)}
+                  onChange={(val) => setRating(Number(val))}
+                  options={[
+                    { label: "★★★★★ (5 Stars)", value: "5" },
+                    { label: "★★★★☆ (4 Stars)", value: "4" },
+                    { label: "★★★☆☆ (3 Stars)", value: "3" },
+                    { label: "★★☆☆☆ (2 Stars)", value: "2" },
+                    { label: "★☆☆☆☆ (1 Star)", value: "1" },
+                  ]}
+                  size="md"
+                />
 
                 {/* Platform Badge */}
                 <div className="space-y-1.5">
@@ -515,19 +513,16 @@ export default function AdminTestimonialsManagement({
                 </div>
 
                 {/* Status */}
-                <div className="space-y-1.5">
-                  <label className="text-[#9DA4B0] uppercase block">
-                    Visibility Status
-                  </label>
-                  <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value as "active" | "hidden")}
-                    className="w-full bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] p-2.5 focus:outline-none focus:border-[#81D607] rounded-xl cursor-pointer"
-                  >
-                    <option value="active">Active (Visible)</option>
-                    <option value="hidden">Hidden (Draft)</option>
-                  </select>
-                </div>
+                <CustomSelect
+                  label="VISIBILITY STATUS"
+                  value={status}
+                  onChange={(val) => setStatus(val as "active" | "hidden")}
+                  options={[
+                    { label: "Active (Visible)", value: "active" },
+                    { label: "Hidden (Draft)", value: "hidden" },
+                  ]}
+                  size="md"
+                />
               </div>
 
               {/* Form Buttons */}
