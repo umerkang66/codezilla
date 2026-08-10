@@ -69,7 +69,7 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
             Commercial Offerings
           </div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
@@ -85,10 +85,10 @@ export default function Services() {
           {servicesList.map((service, index) => (
             <div
               key={index}
-              className="glass-card p-5 sm:p-6 border border-[#E1E6EB]/10 bg-[#1A1A1A] hover:bg-[#222222] card-hover-effect flex flex-col justify-between group rounded-none text-left"
+              className="glass-card p-5 sm:p-6 border border-[#E1E6EB]/10 bg-[#1A1A1A] hover:bg-[#222222] card-hover-effect flex flex-col justify-between group rounded-xl text-left"
             >
               <div className="space-y-3 sm:space-y-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#111111] border border-[#E1E6EB]/15 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] group-hover:scale-110 group-hover:bg-[#81D607]/10 transition-all duration-300 rounded-none">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#111111] border border-[#E1E6EB]/15 flex items-center justify-center text-[#81D607] group-hover:border-[#81D607] group-hover:scale-110 group-hover:bg-[#81D607]/10 transition-all duration-300 rounded-xl">
                   <service.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </div>
                 <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider">
@@ -105,7 +105,7 @@ export default function Services() {
               <div className="pt-4 sm:pt-6 mt-4 border-t border-[#E1E6EB]/10">
                 <a
                   href="#contact"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#81D607] hover:text-[#72BE06] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#81D607] hover:text-[#72BE06] transition-colors cursor-pointer"
                 >
                   <span>Request Service Quote</span>
                   <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />

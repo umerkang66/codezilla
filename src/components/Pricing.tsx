@@ -46,7 +46,7 @@ export default function Pricing() {
     <section id="pricing" className="py-12 sm:py-20 bg-[#0D0D0D] border-t border-b border-[#E1E6EB]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
             Transparent Investment
           </div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
@@ -59,13 +59,13 @@ export default function Pricing() {
 
         {/* Pricing Tiers Grid or Empty / Loading Panel */}
         {loading ? (
-          <div className="p-12 sm:p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 flex flex-col items-center justify-center space-y-3 rounded-none">
+          <div className="p-12 sm:p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 flex flex-col items-center justify-center space-y-3 rounded-2xl">
             <Loader2 className="w-8 h-8 text-[#81D607] animate-spin" />
             <p className="text-xs font-mono text-[#9DA4B0]">Loading engineering packages...</p>
           </div>
         ) : packages.length === 0 ? (
-          <div className="p-8 sm:p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-4 rounded-none">
-            <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto">
+          <div className="p-8 sm:p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-4 rounded-2xl">
+            <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto rounded-xl">
               <Package className="w-6 h-6" />
             </div>
             <div className="space-y-1">
@@ -98,10 +98,10 @@ export default function Pricing() {
                     tier.featured
                       ? "border-[#81D607] shadow-xl"
                       : "border-[#E1E6EB]/10"
-                  } card-hover-effect flex flex-col justify-between text-left rounded-none relative`}
+                  } card-hover-effect flex flex-col justify-between text-left rounded-2xl relative overflow-hidden`}
                 >
                   {tier.featured && (
-                    <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-extrabold uppercase px-3 py-1 font-mono">
+                    <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-extrabold uppercase px-3 py-1 font-mono rounded-bl-xl">
                       Most Popular
                     </div>
                   )}
@@ -137,7 +137,7 @@ export default function Pricing() {
                   <div className="pt-6 sm:pt-8 mt-6 sm:mt-8 border-t border-[#E1E6EB]/10">
                     <a
                       href="#contact"
-                      className={`w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 font-mono font-bold text-xs rounded-none transition-colors ${
+                      className={`w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 font-mono font-bold text-xs rounded-xl cursor-pointer transition-colors ${
                         tier.featured
                           ? "bg-[#81D607] text-[#111111] hover:bg-[#72BE06]"
                           : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607] hover:text-[#81D607]"
@@ -154,7 +154,7 @@ export default function Pricing() {
         )}
 
         {/* Bespoke Custom Quote Callout */}
-        <div className="mt-8 sm:mt-12 p-5 sm:p-6 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6 rounded-none text-left">
+        <div className="mt-8 sm:mt-12 p-5 sm:p-6 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6 rounded-2xl text-left">
           <div className="space-y-1">
             <h4 className="text-base font-bold text-[#E1E6EB]">Need a Custom Engineering Solution?</h4>
             <p className="text-xs text-[#9DA4B0]">
@@ -163,7 +163,7 @@ export default function Pricing() {
           </div>
           <a
             href="#contact"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#81D607] text-[#111111] font-mono font-bold text-xs shrink-0 hover:bg-[#72BE06] transition-colors rounded-none w-full sm:w-auto text-center"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#81D607] text-[#111111] font-mono font-bold text-xs shrink-0 hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer w-full sm:w-auto text-center"
           >
             <span>Request Custom Quote</span>
             <ArrowRight className="w-3.5 h-3.5" />

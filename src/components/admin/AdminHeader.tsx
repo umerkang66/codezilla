@@ -36,14 +36,14 @@ export default function AdminHeader({
         {onToggleMobileMenu && (
           <button
             onClick={onToggleMobileMenu}
-            className="lg:hidden p-2 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] transition-colors rounded-none"
+            className="lg:hidden p-2 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] transition-colors rounded-lg cursor-pointer"
             aria-label="Toggle admin menu"
           >
             <Menu className="w-5 h-5" />
           </button>
         )}
 
-        <span className="px-2.5 py-1 bg-[#111111] border border-[#81D607]/40 text-[#81D607] font-mono font-bold text-[10px] uppercase tracking-wider rounded-none flex items-center gap-1.5">
+        <span className="px-2.5 py-1 bg-[#111111] border border-[#81D607]/40 text-[#81D607] font-mono font-bold text-[10px] uppercase tracking-wider rounded-full flex items-center gap-1.5">
           <ShieldCheck className="w-3.5 h-3.5" />
           <span>{isSuperAdmin ? "Main Admin Active" : "Sub-Admin Active"}</span>
         </span>
@@ -54,10 +54,10 @@ export default function AdminHeader({
             <img
               src={avatarUrl}
               alt={fullName}
-              className="w-6 h-6 border border-[#81D607] object-cover rounded-none"
+              className="w-6 h-6 border border-[#81D607] object-cover rounded-full"
             />
           ) : (
-            <div className="w-6 h-6 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] rounded-none">
+            <div className="w-6 h-6 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] rounded-full">
               <User className="w-3.5 h-3.5" />
             </div>
           )}
@@ -71,7 +71,7 @@ export default function AdminHeader({
         <Link
           href="/"
           onClick={handleReturnClick}
-          className={`px-3 sm:px-4 py-2 bg-[#111111] border text-xs font-mono transition-colors rounded-none flex items-center gap-1.5 ${
+          className={`px-3 sm:px-4 py-2 bg-[#111111] border text-xs font-mono transition-colors rounded-xl cursor-pointer flex items-center gap-1.5 ${
             isNavigating && navigatingTo === "/"
               ? "border-[#81D607] text-[#81D607] bg-[#81D607]/10"
               : "border-[#E1E6EB]/15 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607]"
@@ -89,7 +89,7 @@ export default function AdminHeader({
         <form action="/auth/signout" method="post">
           <button
             type="submit"
-            className="px-3 sm:px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs transition-colors rounded-none flex items-center gap-1.5"
+            className="px-3 sm:px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer flex items-center gap-1.5"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Logout</span>

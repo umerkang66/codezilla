@@ -35,7 +35,7 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
         {/* Top Tag Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#1A1A1A]/90 border border-[#81D607]/40 text-[#81D607] text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-none max-w-full overflow-hidden truncate backdrop-blur-xs mb-6 sm:mb-8">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#1A1A1A]/90 border border-[#81D607]/40 text-[#81D607] text-xs sm:text-sm font-semibold uppercase tracking-wider rounded-full max-w-full overflow-hidden truncate backdrop-blur-xs mb-6 sm:mb-8">
           <span>Software • AI/ML • Hardware Engineering</span>
         </div>
 
@@ -53,7 +53,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 w-full sm:w-auto mx-auto mb-12 sm:mb-16">
           <a
             href="#contact"
-            className="inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-4 font-bold text-sm sm:text-base text-[#111111] bg-[#81D607] hover:bg-[#72BE06] transition-colors rounded-none w-full sm:w-auto text-center"
+            className="inline-flex items-center justify-center gap-2.5 px-8 sm:px-10 py-4 font-bold text-sm sm:text-base text-[#111111] bg-[#81D607] hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer w-full sm:w-auto text-center"
             id="hero-primary-cta"
           >
             <span>Get a Free Consultation</span>
@@ -62,7 +62,7 @@ export default function Hero() {
 
           <a
             href="#services"
-            className="inline-flex items-center justify-center gap-2 px-8 sm:px-10 py-4 font-semibold text-sm sm:text-base text-[#E1E6EB] bg-[#1A1A1A]/90 hover:bg-[#262626] border border-[#E1E6EB]/15 hover:border-[#81D607]/60 transition-colors rounded-none w-full sm:w-auto text-center backdrop-blur-xs"
+            className="inline-flex items-center justify-center gap-2 px-8 sm:px-10 py-4 font-semibold text-sm sm:text-base text-[#E1E6EB] bg-[#1A1A1A]/90 hover:bg-[#262626] border border-[#E1E6EB]/15 hover:border-[#81D607]/60 transition-colors rounded-xl cursor-pointer w-full sm:w-auto text-center backdrop-blur-xs"
             id="hero-secondary-cta"
           >
             <span>Explore Our Services</span>
@@ -71,15 +71,15 @@ export default function Hero() {
 
         {/* Quick Value Metrics Grid */}
         <div className="w-full max-w-4xl pt-6 sm:pt-8 border-t border-[#E1E6EB]/10 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 text-center">
-          <div className="p-3 sm:p-4 bg-[#1A1A1A]/80 border border-[#E1E6EB]/10 backdrop-blur-xs">
+          <div className="p-3 sm:p-4 bg-[#1A1A1A]/80 border border-[#E1E6EB]/10 rounded-xl backdrop-blur-xs">
             <div className="text-2xl sm:text-3xl font-black text-[#81D607] font-mono">50+</div>
             <div className="text-xs text-[#9DA4B0] uppercase tracking-wider font-mono mt-1">Projects Delivered</div>
           </div>
-          <div className="p-3 sm:p-4 bg-[#1A1A1A]/80 border border-[#E1E6EB]/10 backdrop-blur-xs">
+          <div className="p-3 sm:p-4 bg-[#1A1A1A]/80 border border-[#E1E6EB]/10 rounded-xl backdrop-blur-xs">
             <div className="text-2xl sm:text-3xl font-black text-[#81D607] font-mono">5+</div>
             <div className="text-xs text-[#9DA4B0] uppercase tracking-wider font-mono mt-1">Countries Served</div>
           </div>
-          <div className="p-3 sm:p-4 bg-[#1A1A1A]/80 border border-[#E1E6EB]/10 backdrop-blur-xs">
+          <div className="p-3 sm:p-4 bg-[#1A1A1A]/80 border border-[#E1E6EB]/10 rounded-xl backdrop-blur-xs">
             <div className="text-2xl sm:text-3xl font-black text-[#81D607] font-mono">99%</div>
             <div className="text-xs text-[#9DA4B0] uppercase tracking-wider font-mono mt-1">On-Time Delivery</div>
           </div>

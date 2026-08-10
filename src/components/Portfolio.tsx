@@ -86,7 +86,7 @@ export default function Portfolio() {
   return (
     <section id="portfolio" className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3 sm:space-y-4">
-        <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+        <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
           Proof of Work
         </div>
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
@@ -103,7 +103,7 @@ export default function Portfolio() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono tracking-wide transition-colors rounded-none ${
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-mono tracking-wide transition-colors cursor-pointer rounded-full ${
                   activeCategory === cat
                     ? "bg-[#81D607] text-[#111111] font-bold"
                     : "bg-[#1A1A1A] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -126,7 +126,7 @@ export default function Portfolio() {
         </div>
       ) : filteredProjects.length === 0 ? (
         /* Empty State */
-        <div className="p-8 sm:p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-3 rounded-none max-w-xl mx-auto">
+        <div className="p-8 sm:p-12 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-3 rounded-xl max-w-xl mx-auto">
           <FolderGit2 className="w-8 h-8 text-[#81D607]/40 mx-auto" />
           <h3 className="text-sm font-mono font-bold text-[#E1E6EB]">
             No projects available
@@ -144,10 +144,10 @@ export default function Portfolio() {
             const IconComponent = getIconComponent(project.icon);
 
             const CardContent = (
-              <div className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex flex-col justify-between group rounded-none text-left h-full">
+              <div className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex flex-col justify-between group rounded-xl text-left h-full">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider px-2 py-0.5 bg-[#111111] border border-[#81D607]/30">
+                    <span className="text-[10px] font-mono text-[#81D607] uppercase tracking-wider px-2.5 py-0.5 bg-[#111111] border border-[#81D607]/30 rounded-md">
                       {project.category}
                     </span>
                     <IconComponent className="w-5 h-5 text-[#81D607]" />
@@ -165,7 +165,7 @@ export default function Portfolio() {
 
                   {/* Impact Callout */}
                   {project.impact && (
-                    <div className="p-3 bg-[#111111] border-l-2 border-[#81D607] flex items-center gap-2">
+                    <div className="p-3 bg-[#111111] border-l-2 border-[#81D607] rounded-r-md flex items-center gap-2">
                       <CheckCircle className="w-3.5 h-3.5 text-[#81D607] shrink-0" />
                       <span className="text-xs font-semibold text-[#E1E6EB]">
                         {project.impact}
@@ -181,7 +181,7 @@ export default function Portfolio() {
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-[10px] font-mono px-2 py-0.5 bg-[#111111] text-[#9DA4B0] border border-[#E1E6EB]/10"
+                          className="text-[10px] font-mono px-2 py-0.5 bg-[#111111] text-[#9DA4B0] border border-[#E1E6EB]/10 rounded-md"
                         >
                           {tag}
                         </span>
@@ -204,7 +204,7 @@ export default function Portfolio() {
                   href={project.project_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block h-full focus:outline-none"
+                  className="block h-full focus:outline-none cursor-pointer"
                 >
                   {CardContent}
                 </a>

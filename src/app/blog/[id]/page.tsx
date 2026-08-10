@@ -66,7 +66,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
         {/* Navigation */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-xs font-mono text-[#81D607] hover:underline"
+          className="inline-flex items-center gap-2 text-xs font-mono text-[#81D607] hover:underline cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to All Articles</span>
@@ -75,7 +75,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
         {/* Article Header */}
         <header className="space-y-6 border-b border-[#E1E6EB]/10 pb-8">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-mono px-3 py-1 bg-[#1A1A1A] text-[#81D607] border border-[#81D607]/40 uppercase tracking-wider">
+            <span className="text-xs font-mono px-3 py-1 bg-[#1A1A1A] text-[#81D607] border border-[#81D607]/40 uppercase tracking-wider rounded-full">
               {post.category}
             </span>
             <span className="text-xs font-mono text-[#9DA4B0] flex items-center gap-1">
@@ -111,7 +111,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
         </div>
 
         {/* Article Bottom Call To Action */}
-        <div className="p-8 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-none">
+        <div className="p-8 bg-[#1A1A1A] border border-[#81D607]/40 flex flex-col sm:flex-row items-center justify-between gap-6 rounded-2xl">
           <div className="space-y-1">
             <h3 className="text-base sm:text-lg font-bold text-[#E1E6EB] font-mono">Need Custom Engineering Solutions?</h3>
             <p className="text-xs text-[#9DA4B0] font-sans">
@@ -120,7 +120,7 @@ export default async function BlogDetailPage({ params }: BlogDetailProps) {
           </div>
           <Link
             href="/#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#81D607] text-[#111111] font-mono font-bold text-xs shrink-0 hover:bg-[#72BE06] transition-colors rounded-none"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#81D607] text-[#111111] font-mono font-bold text-xs shrink-0 hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer"
           >
             <MessageSquare className="w-4 h-4" />
             <span>Consult Our Engineers</span>

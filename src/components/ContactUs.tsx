@@ -66,7 +66,7 @@ export default function ContactUs() {
         {/* Left Column: Direct Info & Location */}
         <div className="lg:col-span-5 space-y-6 sm:space-y-8 text-left">
           <div className="space-y-3">
-            <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+            <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
               Let&apos;s Work Together
             </div>
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
@@ -79,38 +79,38 @@ export default function ContactUs() {
 
           {/* Contact Details Grid */}
           <div className="space-y-3 sm:space-y-4 pt-2">
-            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4 rounded-xl">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-lg">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="text-[10px] sm:text-xs text-[#9DA4B0] uppercase font-mono">Email Address</div>
                 <a
                   href="mailto:codzilla.company@gmail.com"
-                  className="text-xs sm:text-sm font-bold text-[#E1E6EB] hover:text-[#81D607] transition-colors break-all block"
+                  className="text-xs sm:text-sm font-bold text-[#E1E6EB] hover:text-[#81D607] transition-colors break-all block cursor-pointer"
                 >
                   codzilla.company@gmail.com
                 </a>
               </div>
             </div>
 
-            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4 rounded-xl">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-lg">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
                 <div className="text-[10px] sm:text-xs text-[#9DA4B0] uppercase font-mono">Phone / WhatsApp</div>
                 <a
                   href="tel:+923339072742"
-                  className="text-xs sm:text-sm font-bold text-[#E1E6EB] hover:text-[#81D607] transition-colors"
+                  className="text-xs sm:text-sm font-bold text-[#E1E6EB] hover:text-[#81D607] transition-colors cursor-pointer"
                 >
                   +92 333 9072742
                 </a>
               </div>
             </div>
 
-            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4 rounded-xl">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-lg">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
@@ -119,8 +119,8 @@ export default function ContactUs() {
               </div>
             </div>
 
-            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+            <div className="p-3.5 sm:p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex items-start gap-3 sm:gap-4 rounded-xl">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 rounded-lg">
                 <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <div>
@@ -133,20 +133,20 @@ export default function ContactUs() {
 
         {/* Right Column: Contact Form */}
         <div className="lg:col-span-7">
-          <div className="bg-[#1A1A1A] border border-[#E1E6EB]/15 p-5 sm:p-8 rounded-none">
+          <div className="bg-[#1A1A1A] border border-[#E1E6EB]/15 p-5 sm:p-8 rounded-2xl">
             <h3 className="text-lg sm:text-xl font-bold text-[#E1E6EB] mb-5 sm:mb-6 flex items-center gap-2">
               <MessageSquare className="w-5 h-5 text-[#81D607]" />
               <span>Send Us a Message</span>
             </h3>
 
             {errorMessage && (
-              <div className="mb-4 p-3 bg-red-950/80 border border-red-500/50 text-red-400 text-xs font-mono">
+              <div className="mb-4 p-3 bg-red-950/80 border border-red-500/50 text-red-400 text-xs font-mono rounded-lg">
                 {errorMessage}
               </div>
             )}
 
             {isSubmitted ? (
-              <div className="p-6 bg-[#111111] border border-[#81D607] text-center space-y-3">
+              <div className="p-6 bg-[#111111] border border-[#81D607] text-center space-y-3 rounded-xl">
                 <CheckCircle2 className="w-10 h-10 text-[#81D607] mx-auto" />
                 <h4 className="text-lg font-bold text-[#E1E6EB]">Message Sent Successfully!</h4>
                 <p className="text-xs text-[#9DA4B0]">
@@ -154,7 +154,7 @@ export default function ContactUs() {
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="mt-4 px-5 py-2 bg-[#81D607] text-[#111111] font-bold text-xs rounded-none"
+                  className="mt-4 px-5 py-2 bg-[#81D607] text-[#111111] font-bold text-xs rounded-xl cursor-pointer"
                 >
                   Send Another Message
                 </button>
@@ -170,7 +170,7 @@ export default function ContactUs() {
                       placeholder="e.g. John Doe"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 bg-[#111111] border border-[#E1E6EB]/15 text-sm text-[#E1E6EB] focus:border-[#81D607] focus:outline-none rounded-none"
+                      className="w-full px-4 py-3 bg-[#111111] border border-[#E1E6EB]/15 text-sm text-[#E1E6EB] focus:border-[#81D607] focus:outline-none rounded-xl"
                     />
                   </div>
 
@@ -182,7 +182,7 @@ export default function ContactUs() {
                       placeholder="name@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 bg-[#111111] border border-[#E1E6EB]/15 text-sm text-[#E1E6EB] focus:border-[#81D607] focus:outline-none rounded-none"
+                      className="w-full px-4 py-3 bg-[#111111] border border-[#E1E6EB]/15 text-sm text-[#E1E6EB] focus:border-[#81D607] focus:outline-none rounded-xl"
                     />
                   </div>
                 </div>
@@ -202,14 +202,14 @@ export default function ContactUs() {
                     placeholder="Briefly describe your project requirements, goals, or timeline..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 bg-[#111111] border border-[#E1E6EB]/15 text-sm text-[#E1E6EB] focus:border-[#81D607] focus:outline-none rounded-none resize-none"
+                    className="w-full px-4 py-3 bg-[#111111] border border-[#E1E6EB]/15 text-sm text-[#E1E6EB] focus:border-[#81D607] focus:outline-none rounded-xl resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full inline-flex items-center justify-center gap-2 px-7 py-4 font-bold text-sm text-[#111111] bg-[#81D607] hover:bg-[#72BE06] transition-colors rounded-none disabled:opacity-50"
+                  className="w-full inline-flex items-center justify-center gap-2 px-7 py-4 font-bold text-sm text-[#111111] bg-[#81D607] hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer disabled:opacity-50"
                   id="contact-submit-btn"
                 >
                   <Send className="w-4 h-4" />

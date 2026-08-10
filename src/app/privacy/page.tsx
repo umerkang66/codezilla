@@ -14,7 +14,7 @@ export default function PrivacyPolicy() {
         {/* Back Link */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs font-mono text-[#81D607] hover:underline"
+          className="inline-flex items-center gap-2 text-xs font-mono text-[#81D607] hover:underline cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Homepage</span>
@@ -22,7 +22,7 @@ export default function PrivacyPolicy() {
 
         {/* Title */}
         <div className="space-y-3 border-b border-[#E1E6EB]/10 pb-8">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
             Legal & Compliance
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB]">
@@ -84,7 +84,7 @@ export default function PrivacyPolicy() {
             <p>
               You have the right to request access to, correction of, or deletion of any personal information held by Codzilla Technologies. For any privacy-related inquiries, please email us directly:
             </p>
-            <div className="p-4 bg-[#1A1A1A] border border-[#81D607]/40 font-mono text-xs text-[#E1E6EB] space-y-1 rounded-none">
+            <div className="p-4 bg-[#1A1A1A] border border-[#81D607]/40 font-mono text-xs text-[#E1E6EB] space-y-1 rounded-xl">
               <p className="font-bold text-[#81D607]">Codzilla Technologies Privacy Office</p>
               <p>Email: codzilla.company@gmail.com</p>
               <p>Phone: +92 333 9072742</p>

@@ -200,7 +200,7 @@ export default function TalentAcquisitionClient({
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
       {/* Header Title */}
       <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-        <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] font-mono text-xs font-semibold uppercase tracking-wider">
+        <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] font-mono text-xs font-semibold uppercase tracking-wider rounded-full">
           Talent Acquisition
         </div>
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#E1E6EB] tracking-tight">
@@ -213,7 +213,7 @@ export default function TalentAcquisitionClient({
 
       <div className="space-y-8">
         {/* Controls Bar: Search & Filter Tabs */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 rounded-2xl">
           {/* Search Field */}
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-[#9DA4B0] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -222,7 +222,7 @@ export default function TalentAcquisitionClient({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by position title, domain, or required skills..."
-              className="w-full bg-[#111111] border border-[#E1E6EB]/15 pl-10 pr-4 py-2 text-xs font-mono text-[#E1E6EB] placeholder-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607]"
+              className="w-full bg-[#111111] border border-[#E1E6EB]/15 pl-10 pr-4 py-2 text-xs font-mono text-[#E1E6EB] placeholder-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607] rounded-xl"
             />
           </div>
 
@@ -233,7 +233,7 @@ export default function TalentAcquisitionClient({
                 key={dom}
                 type="button"
                 onClick={() => setSelectedDomain(dom)}
-                className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+                className={`px-3 py-2 text-xs font-mono font-bold transition-colors cursor-pointer rounded-xl ${
                   selectedDomain === dom
                     ? "bg-[#81D607] text-[#111111]"
                     : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -255,8 +255,8 @@ export default function TalentAcquisitionClient({
 
         {/* Empty Search / No Data Results */}
         {!loading && filteredJobs.length === 0 && (
-          <div className="p-12 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center space-y-4">
-            <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto">
+          <div className="p-12 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center space-y-4 rounded-2xl">
+            <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto rounded-xl">
               <Briefcase className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold font-mono text-[#E1E6EB]">
@@ -275,7 +275,7 @@ export default function TalentAcquisitionClient({
                     setSearchQuery("");
                     setSelectedDomain("All");
                   }}
-                  className="px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold hover:bg-[#72BE06] transition-colors"
+                  className="px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer"
                 >
                   Reset Filters
                 </button>
@@ -292,10 +292,10 @@ export default function TalentAcquisitionClient({
               return (
                 <div
                   key={job.id}
-                  className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all flex flex-col justify-between group relative"
+                  className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all flex flex-col justify-between group relative rounded-2xl overflow-hidden"
                 >
                   {job.type && (
-                    <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase px-2.5 py-1">
+                    <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase px-2.5 py-1 rounded-bl-xl">
                       {job.type}
                     </div>
                   )}
@@ -303,7 +303,7 @@ export default function TalentAcquisitionClient({
                   <div className="space-y-5">
                     {/* Icon Box + Basic Info Header */}
                     <div className="flex items-start gap-4">
-                      <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 group-hover:border-[#81D607] transition-colors">
+                      <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 group-hover:border-[#81D607] transition-colors rounded-xl">
                         <IconComp className="w-8 h-8" />
                       </div>
 
@@ -323,11 +323,11 @@ export default function TalentAcquisitionClient({
                         <div className="text-[10px] font-mono uppercase text-[#9DA4B0] mb-1">
                           Required Tech Stack
                         </div>
-                        <div className="flex flex-wrap gap-1.5 p-2.5 bg-[#111111] border border-[#E1E6EB]/10">
+                        <div className="flex flex-wrap gap-1.5 p-2.5 bg-[#111111] border border-[#E1E6EB]/10 rounded-xl">
                           {job.skills.map((skill) => (
                             <span
                               key={skill}
-                              className="text-[10px] font-mono px-2 py-0.5 bg-[#1A1A1A] text-[#E1E6EB] border border-[#E1E6EB]/10"
+                              className="text-[10px] font-mono px-2 py-0.5 bg-[#1A1A1A] text-[#E1E6EB] border border-[#E1E6EB]/10 rounded-md"
                             >
                               {skill}
                             </span>
@@ -349,7 +349,7 @@ export default function TalentAcquisitionClient({
                     <button
                       type="button"
                       onClick={() => handleOpenApplyModal(job)}
-                      className="w-full px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono font-bold text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center justify-center gap-2"
+                      className="w-full px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono font-bold text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center justify-center gap-2 rounded-xl cursor-pointer"
                     >
                       <span>Apply For Position</span>
                       <ArrowRight className="w-3.5 h-3.5 text-[#81D607]" />
@@ -365,25 +365,25 @@ export default function TalentAcquisitionClient({
       {/* CANDIDATE APPLICATION MODAL */}
       {selectedJob && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto">
-          <div className="relative w-full max-w-xl bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl p-6 sm:p-8 space-y-6 my-8 rounded-none text-left">
+          <div className="relative w-full max-w-xl bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl p-6 sm:p-8 space-y-6 my-8 rounded-2xl text-left">
             {/* Close Button */}
             <button
               type="button"
               onClick={handleCloseModal}
               disabled={isSubmitting}
-              className="absolute top-4 right-4 p-2 text-[#9DA4B0] hover:text-[#E1E6EB] transition-colors"
+              className="absolute top-4 right-4 p-2 text-[#9DA4B0] hover:text-[#E1E6EB] transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             {submitSuccess ? (
               <div className="py-8 text-center space-y-6">
-                <div className="w-16 h-16 bg-[#111111] border-2 border-[#81D607] flex items-center justify-center text-[#81D607] mx-auto rounded-none">
+                <div className="w-16 h-16 bg-[#111111] border-2 border-[#81D607] flex items-center justify-center text-[#81D607] mx-auto rounded-xl">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
 
                 <div className="space-y-2">
-                  <span className="px-3 py-1 bg-[#81D607]/20 border border-[#81D607]/40 text-[#81D607] text-[10px] font-mono uppercase font-bold">
+                  <span className="px-3 py-1 bg-[#81D607]/20 border border-[#81D607]/40 text-[#81D607] text-[10px] font-mono uppercase font-bold rounded-full">
                     Application Received
                   </span>
                   <h3 className="text-lg sm:text-xl font-mono font-bold text-[#E1E6EB]">
@@ -397,7 +397,7 @@ export default function TalentAcquisitionClient({
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-6 py-2.5 bg-[#81D607] text-[#111111] font-mono font-bold text-xs rounded-none hover:bg-[#72BE06] transition-colors"
+                  className="px-6 py-2.5 bg-[#81D607] text-[#111111] font-mono font-bold text-xs rounded-xl hover:bg-[#72BE06] transition-colors cursor-pointer"
                 >
                   Close Window
                 </button>
@@ -406,7 +406,7 @@ export default function TalentAcquisitionClient({
               <>
                 {/* Modal Header */}
                 <div className="space-y-2 border-b border-[#E1E6EB]/10 pb-4 pr-8">
-                  <span className="px-2.5 py-0.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] font-mono text-[10px] uppercase font-bold">
+                  <span className="px-2.5 py-0.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] font-mono text-[10px] uppercase font-bold rounded-md">
                     {selectedJob.domain}
                   </span>
                   <h2 className="text-lg sm:text-xl font-mono font-extrabold text-[#E1E6EB]">
@@ -419,7 +419,7 @@ export default function TalentAcquisitionClient({
 
                 {/* Submit Error Banner */}
                 {submitError && (
-                  <div className="p-3 bg-red-950/60 border border-red-500/60 text-red-400 text-xs font-mono flex items-center gap-2">
+                  <div className="p-3 bg-red-950/60 border border-red-500/60 text-red-400 text-xs font-mono flex items-center gap-2 rounded-lg">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{submitError}</span>
                   </div>
@@ -440,7 +440,7 @@ export default function TalentAcquisitionClient({
                         placeholder="e.g. John Doe"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                       />
                     </div>
 
@@ -456,7 +456,7 @@ export default function TalentAcquisitionClient({
                         placeholder="e.g. john@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                       />
                     </div>
                   </div>
@@ -473,7 +473,7 @@ export default function TalentAcquisitionClient({
                         placeholder="+1 234 567 890"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                       />
                     </div>
 
@@ -488,7 +488,7 @@ export default function TalentAcquisitionClient({
                         placeholder="https://github.com/..."
                         value={portfolioUrl}
                         onChange={(e) => setPortfolioUrl(e.target.value)}
-                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                       />
                     </div>
 
@@ -503,7 +503,7 @@ export default function TalentAcquisitionClient({
                         placeholder="https://linkedin.com/in/..."
                         value={linkedinUrl}
                         onChange={(e) => setLinkedinUrl(e.target.value)}
-                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607]"
+                        className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] rounded-xl"
                       />
                     </div>
                   </div>
@@ -516,7 +516,7 @@ export default function TalentAcquisitionClient({
                       placeholder="Tell us briefly about your background and experience..."
                       value={coverLetter}
                       onChange={(e) => setCoverLetter(e.target.value)}
-                      className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] font-sans text-xs"
+                      className="w-full p-2.5 bg-[#111111] border border-[#E1E6EB]/15 text-[#E1E6EB] focus:outline-none focus:border-[#81D607] font-sans text-xs rounded-xl"
                     ></textarea>
                   </div>
 
@@ -527,7 +527,7 @@ export default function TalentAcquisitionClient({
                       <span>CV / Resume Attachment (.pdf, .docx) <span className="text-red-400">*</span></span>
                     </label>
 
-                    <div className="relative border-2 border-dashed border-[#81D607]/40 hover:border-[#81D607] p-4 bg-[#111111] text-center transition-colors">
+                    <div className="relative border-2 border-dashed border-[#81D607]/40 hover:border-[#81D607] p-4 bg-[#111111] text-center transition-colors rounded-xl cursor-pointer">
                       <input
                         type="file"
                         accept=".pdf,.docx,.doc"
@@ -567,14 +567,14 @@ export default function TalentAcquisitionClient({
                       type="button"
                       onClick={handleCloseModal}
                       disabled={isSubmitting}
-                      className="px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] font-bold text-xs"
+                      className="px-4 py-2.5 bg-[#111111] border border-[#E1E6EB]/20 text-[#9DA4B0] hover:text-[#E1E6EB] font-bold text-xs rounded-xl cursor-pointer"
                     >
                       Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs flex items-center gap-2 transition-colors disabled:opacity-50"
+                      className="px-6 py-2.5 bg-[#81D607] hover:bg-[#72BE06] text-[#111111] font-mono font-bold text-xs flex items-center gap-2 transition-colors rounded-xl cursor-pointer disabled:opacity-50"
                     >
                       {isSubmitting ? (
                         <>

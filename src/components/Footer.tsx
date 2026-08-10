@@ -21,13 +21,13 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-[#0D0D0D] border-t border-[#E1E6EB]/10 pt-16 pb-8 text-[#E1E6EB] relative overflow-hidden rounded-none">
+    <footer className="bg-[#0D0D0D] border-t border-[#E1E6EB]/10 pt-16 pb-8 text-[#E1E6EB] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#E1E6EB]/10">
           {/* Column 1: Brand & Bio (Spans 2 cols on lg) */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-2.5 group w-fit">
-              <div className="w-10 h-10 bg-[#1A1A1A] border border-[#81D607]/60 flex items-center justify-center group-hover:border-[#81D607] transition-all rounded-none overflow-hidden relative">
+            <Link href="/" className="flex items-center gap-2.5 group w-fit cursor-pointer">
+              <div className="w-10 h-10 bg-[#1A1A1A] border border-[#81D607]/60 flex items-center justify-center group-hover:border-[#81D607] transition-all rounded-xl overflow-hidden relative">
                 <Image
                   src="/logo.jpg"
                   alt="Codzilla Technologies Logo"
@@ -58,7 +58,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-9 h-9 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-center justify-center text-[#E1E6EB]/80 hover:text-[#81D607] hover:border-[#81D607]/60 transition-all duration-200 rounded-none"
+                className="w-9 h-9 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-center justify-center text-[#E1E6EB]/80 hover:text-[#81D607] hover:border-[#81D607]/60 transition-all duration-200 rounded-lg cursor-pointer"
               >
                 <svg className="w-4 h-4 fill-none stroke-current stroke-2 stroke-linecap-round stroke-linejoin-round" viewBox="0 0 24 24">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />

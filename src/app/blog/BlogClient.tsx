@@ -45,7 +45,7 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
   return (
     <div className="space-y-8">
       {/* Controls Bar: Search & Filter Tabs */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 rounded-2xl">
         {/* Search Field */}
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-[#9DA4B0] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -54,7 +54,7 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by article title, author, or technical domain..."
-            className="w-full bg-[#111111] border border-[#E1E6EB]/15 pl-10 pr-4 py-2 text-xs font-mono text-[#E1E6EB] placeholder-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607]"
+            className="w-full bg-[#111111] border border-[#E1E6EB]/15 pl-10 pr-4 py-2 text-xs font-mono text-[#E1E6EB] placeholder-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607] rounded-xl"
           />
         </div>
 
@@ -65,7 +65,7 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
               key={cat as string}
               type="button"
               onClick={() => setSelectedCategory(cat as string)}
-              className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+              className={`px-3 py-2 text-xs font-mono font-bold transition-colors cursor-pointer rounded-xl ${
                 selectedCategory === cat
                   ? "bg-[#81D607] text-[#111111]"
                   : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -79,8 +79,8 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
 
       {/* Empty Search / No Data Results */}
       {filteredBlogs.length === 0 && (
-        <div className="p-12 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center space-y-4">
-          <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto">
+        <div className="p-12 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center space-y-4 rounded-2xl">
+          <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto rounded-xl">
             <BookOpen className="w-6 h-6" />
           </div>
           <h3 className="text-lg font-bold font-mono text-[#E1E6EB]">
@@ -99,7 +99,7 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
                   setSearchQuery("");
                   setSelectedCategory("All");
                 }}
-                className="px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold hover:bg-[#72BE06] transition-colors"
+                className="px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer"
               >
                 Reset Filters
               </button>
@@ -114,10 +114,10 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
           {filteredBlogs.map((post) => (
             <div
               key={post.id}
-              className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all flex flex-col justify-between group relative"
+              className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all flex flex-col justify-between group relative rounded-2xl overflow-hidden"
             >
               {post.category && (
-                <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase px-2.5 py-1">
+                <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase px-2.5 py-1 rounded-bl-xl">
                   {post.category}
                 </div>
               )}
@@ -125,11 +125,11 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
               <div className="space-y-5">
                 {/* Icon Box + Header Title */}
                 <div className="flex items-start gap-4">
-                  <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 group-hover:border-[#81D607] transition-colors">
+                  <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] shrink-0 group-hover:border-[#81D607] transition-colors rounded-xl">
                     <BookOpen className="w-8 h-8" />
                   </div>
                   <div className="space-y-1 min-w-0 pr-12">
-                    <Link href={`/blog/${post.id}`} className="block">
+                    <Link href={`/blog/${post.id}`} className="block cursor-pointer">
                       <h3 className="text-base sm:text-lg font-bold text-[#E1E6EB] group-hover:text-[#81D607] transition-colors line-clamp-2">
                         {post.title}
                       </h3>
@@ -145,7 +145,7 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
                   <div className="text-[10px] font-mono uppercase text-[#9DA4B0] mb-1">
                     Author & Reading Time
                   </div>
-                  <div className="flex items-center justify-between p-2.5 bg-[#111111] border border-[#E1E6EB]/10 text-xs font-mono text-[#E1E6EB]">
+                  <div className="flex items-center justify-between p-2.5 bg-[#111111] border border-[#E1E6EB]/10 text-xs font-mono text-[#E1E6EB] rounded-lg">
                     <span className="truncate flex items-center gap-1.5">
                       <User className="w-3.5 h-3.5 text-[#81D607]" />
                       {post.author}
@@ -169,7 +169,7 @@ export default function BlogClient({ initialBlogs }: BlogClientProps) {
               <div className="pt-4 mt-6 border-t border-[#E1E6EB]/10">
                 <Link
                   href={`/blog/${post.id}`}
-                  className="w-full px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono font-bold text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center justify-center gap-2"
+                  className="w-full px-3 py-2 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono font-bold text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center justify-center gap-2 rounded-xl cursor-pointer"
                 >
                   <span>Read Full Article</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#81D607]" />

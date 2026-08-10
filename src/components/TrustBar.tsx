@@ -37,9 +37,9 @@ export default function TrustBar() {
           {badges.map((badge, idx) => (
             <div
               key={idx}
-              className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-center gap-4 card-hover-effect group rounded-none"
+              className="p-5 bg-[#1A1A1A] border border-[#E1E6EB]/10 flex items-center gap-4 card-hover-effect group rounded-xl"
             >
-              <div className="w-10 h-10 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] shrink-0 rounded-none group-hover:scale-110 group-hover:border-[#81D607] group-hover:bg-[#81D607]/10 transition-all duration-300">
+              <div className="w-10 h-10 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] shrink-0 rounded-lg group-hover:scale-110 group-hover:border-[#81D607] group-hover:bg-[#81D607]/10 transition-all duration-300">
                 <badge.icon className="w-5 h-5" />
               </div>
               <div className="text-left">

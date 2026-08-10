@@ -32,7 +32,7 @@ export default function Stats() {
 
   return (
     <section id="stats" className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="bg-[#1A1A1A] border border-[#81D607]/40 p-6 sm:p-12 rounded-none">
+      <div className="bg-[#1A1A1A] border border-[#81D607]/40 p-6 sm:p-12 rounded-2xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-[#E1E6EB]/10">
           {statItems.map((stat, idx) => (
             <div

@@ -110,7 +110,7 @@ export default function AdminSignInForm({ initialUser }: AdminSignInFormProps) {
       <div className="text-left">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs font-mono text-[#81D607] hover:underline"
+          className="inline-flex items-center gap-2 text-xs font-mono text-[#81D607] hover:underline cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Homepage</span>
@@ -118,8 +118,8 @@ export default function AdminSignInForm({ initialUser }: AdminSignInFormProps) {
       </div>
 
       {/* Header Card */}
-      <div className="bg-[#1A1A1A] border border-[#81D607]/40 p-8 space-y-6 rounded-none text-center">
-        <div className="w-16 h-16 bg-[#111111] border border-[#81D607] flex items-center justify-center mx-auto rounded-none overflow-hidden relative">
+      <div className="bg-[#1A1A1A] border border-[#81D607]/40 p-8 space-y-6 rounded-2xl text-center">
+        <div className="w-16 h-16 bg-[#111111] border border-[#81D607] flex items-center justify-center mx-auto rounded-xl overflow-hidden relative">
           <Image
             src="/logo.jpg"
             alt="Codzilla Technologies Logo"
@@ -131,7 +131,7 @@ export default function AdminSignInForm({ initialUser }: AdminSignInFormProps) {
         </div>
 
         <div className="space-y-2">
-          <div className="inline-block px-3 py-1 bg-[#111111] border border-[#81D607]/30 text-[#81D607] text-[10px] font-mono font-bold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#111111] border border-[#81D607]/30 text-[#81D607] text-[10px] font-mono font-bold uppercase tracking-wider rounded-full">
             Restricted Area
           </div>
           <h1 className="text-2xl font-extrabold text-[#E1E6EB]">
@@ -144,7 +144,7 @@ export default function AdminSignInForm({ initialUser }: AdminSignInFormProps) {
 
         {/* Error Message Alert */}
         {errorMessage && (
-          <div className="p-4 bg-[#111111] border border-red-500/60 text-red-400 text-xs font-sans text-left flex items-start gap-3 rounded-none">
+          <div className="p-4 bg-[#111111] border border-red-500/60 text-red-400 text-xs font-sans text-left flex items-start gap-3 rounded-xl">
             <AlertTriangle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
             <span>{errorMessage}</span>
           </div>
@@ -152,16 +152,16 @@ export default function AdminSignInForm({ initialUser }: AdminSignInFormProps) {
 
         {/* Logged In User Banner */}
         {loggedInUser && (
-          <div className="p-4 bg-[#111111] border border-[#81D607] text-left space-y-4 rounded-none shadow-lg">
+          <div className="p-4 bg-[#111111] border border-[#81D607] text-left space-y-4 rounded-xl shadow-lg">
             <div className="flex items-center gap-3">
               {loggedInUser.avatarUrl ? (
                 <img
                   src={loggedInUser.avatarUrl}
                   alt={loggedInUser.name}
-                  className="w-12 h-12 border-2 border-[#81D607] object-cover rounded-none shrink-0"
+                  className="w-12 h-12 border-2 border-[#81D607] object-cover rounded-full shrink-0"
                 />
               ) : (
-                <div className="w-12 h-12 bg-[#1A1A1A] border-2 border-[#81D607] flex items-center justify-center text-[#81D607] rounded-none shrink-0">
+                <div className="w-12 h-12 bg-[#1A1A1A] border-2 border-[#81D607] flex items-center justify-center text-[#81D607] rounded-full shrink-0">
                   <User className="w-6 h-6" />
                 </div>
               )}
@@ -189,7 +189,7 @@ export default function AdminSignInForm({ initialUser }: AdminSignInFormProps) {
 
               <button
                 onClick={() => router.push("/admin")}
-                className="w-full py-2.5 bg-[#81D607] text-[#111111] hover:bg-[#72BE06] font-mono font-bold text-xs transition-colors rounded-none flex items-center justify-center gap-2"
+                className="w-full py-2.5 bg-[#81D607] text-[#111111] hover:bg-[#72BE06] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer flex items-center justify-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Go to Admin Dashboard Now</span>
@@ -203,7 +203,7 @@ export default function AdminSignInForm({ initialUser }: AdminSignInFormProps) {
           <button
             onClick={handleGoogleSignIn}
             disabled={loading || !!loggedInUser}
-            className="w-full inline-flex items-center justify-center gap-3 px-6 py-4 font-mono font-bold text-sm text-[#111111] bg-[#81D607] hover:bg-[#72BE06] transition-colors rounded-none disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full inline-flex items-center justify-center gap-3 px-6 py-4 font-mono font-bold text-sm text-[#111111] bg-[#81D607] hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
             id="google-signin-btn"
           >
             {/* Google SVG Icon */}

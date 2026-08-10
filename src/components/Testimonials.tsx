@@ -45,7 +45,7 @@ export default function Testimonials() {
     <section id="testimonials" className="py-12 sm:py-20 bg-[#0D0D0D] border-t border-b border-[#E1E6EB]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
             Client Feedback
           </div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
@@ -58,14 +58,14 @@ export default function Testimonials() {
 
         {/* Loading state */}
         {loading ? (
-          <div className="p-12 sm:p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 flex flex-col items-center justify-center space-y-3 rounded-none">
+          <div className="p-12 sm:p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 flex flex-col items-center justify-center space-y-3 rounded-2xl">
             <Loader2 className="w-8 h-8 text-[#81D607] animate-spin" />
             <p className="text-xs font-mono text-[#9DA4B0]">Loading client reviews...</p>
           </div>
         ) : reviews.length === 0 ? (
           /* Empty state */
-          <div className="p-8 sm:p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-4 rounded-none">
-            <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto">
+          <div className="p-8 sm:p-16 text-center bg-[#1A1A1A] border border-[#E1E6EB]/10 space-y-4 rounded-2xl">
+            <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto rounded-xl">
               <MessageSquareQuote className="w-6 h-6" />
             </div>
             <div className="space-y-1">
@@ -96,7 +96,7 @@ export default function Testimonials() {
               return (
                 <div
                   key={rev.id}
-                  className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex flex-col justify-between rounded-none group"
+                  className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex flex-col justify-between rounded-2xl group"
                 >
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
@@ -124,7 +124,7 @@ export default function Testimonials() {
                       <img
                         src={avatar}
                         alt={rev.author}
-                        className="w-10 h-10 border border-[#81D607] object-cover shrink-0 rounded-none"
+                        className="w-10 h-10 border border-[#81D607] object-cover shrink-0 rounded-full"
                       />
                     ) : null}
                     <div className="flex flex-col min-w-0">

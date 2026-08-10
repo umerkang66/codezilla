@@ -47,7 +47,7 @@ export default function CustomSelect({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full px-4 py-3 bg-[#111111] border text-sm text-[#E1E6EB] flex items-center justify-between transition-colors rounded-none focus:outline-none ${
+        className={`w-full px-4 py-3 bg-[#111111] border text-sm text-[#E1E6EB] flex items-center justify-between transition-colors rounded-xl cursor-pointer focus:outline-none ${
           isOpen
             ? "border-[#81D607] bg-[#161616]"
             : "border-[#E1E6EB]/15 hover:border-[#81D607]/60"
@@ -63,7 +63,7 @@ export default function CustomSelect({
 
       {/* Options Menu */}
       {isOpen && (
-        <div className="absolute left-0 right-0 top-full mt-1 bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl z-50 rounded-none max-h-60 overflow-y-auto divide-y divide-[#E1E6EB]/5">
+        <div className="absolute left-0 right-0 top-full mt-1 bg-[#1A1A1A] border border-[#81D607]/60 shadow-2xl z-50 rounded-xl max-h-60 overflow-y-auto divide-y divide-[#E1E6EB]/5 overflow-hidden">
           {options.map((option) => {
             const isSelected = option.value === value;
             return (
@@ -73,7 +73,7 @@ export default function CustomSelect({
                   onChange(option.value);
                   setIsOpen(false);
                 }}
-                className={`px-4 py-3 text-sm cursor-pointer flex items-center justify-between transition-colors rounded-none ${
+                className={`px-4 py-3 text-sm cursor-pointer flex items-center justify-between transition-colors ${
                   isSelected
                     ? "bg-[#81D607]/15 text-[#81D607] font-semibold"
                     : "text-[#E1E6EB] hover:bg-[#81D607] hover:text-[#111111]"

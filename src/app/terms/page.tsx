@@ -14,7 +14,7 @@ export default function TermsOfService() {
         {/* Back Link */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs font-mono text-[#81D607] hover:underline"
+          className="inline-flex items-center gap-2 text-xs font-mono text-[#81D607] hover:underline cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Homepage</span>
@@ -22,7 +22,7 @@ export default function TermsOfService() {
 
         {/* Title */}
         <div className="space-y-3 border-b border-[#E1E6EB]/10 pb-8">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
             Commercial Terms
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold text-[#E1E6EB]">
@@ -73,7 +73,7 @@ export default function TermsOfService() {
             <p>
               For questions regarding our service agreements, engineering terms, or active milestone contracts, please contact us:
             </p>
-            <div className="p-4 bg-[#1A1A1A] border border-[#81D607]/40 font-mono text-xs text-[#E1E6EB] space-y-1 rounded-none">
+            <div className="p-4 bg-[#1A1A1A] border border-[#81D607]/40 font-mono text-xs text-[#E1E6EB] space-y-1 rounded-xl">
               <p className="font-bold text-[#81D607]">Codzilla Technologies Contracts Office</p>
               <p>Email: codzilla.company@gmail.com</p>
               <p>Phone: +92 333 9072742</p>

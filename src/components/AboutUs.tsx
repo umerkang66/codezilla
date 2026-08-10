@@ -9,10 +9,10 @@ export default function AboutUs() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Left Column: Visual Card / Stats Grid */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-[#1A1A1A] border border-[#E1E6EB]/15 p-5 sm:p-8 rounded-none space-y-6 sm:space-y-8">
+          <div className="bg-[#1A1A1A] border border-[#E1E6EB]/15 p-5 sm:p-8 rounded-2xl space-y-6 sm:space-y-8">
             <div className="space-y-2 text-left">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-[#111111] border border-[#81D607] flex items-center justify-center rounded-none overflow-hidden relative shrink-0">
+                <div className="w-10 h-10 bg-[#111111] border border-[#81D607] flex items-center justify-center rounded-xl overflow-hidden relative shrink-0">
                   <Image
                     src="/logo.jpg"
                     alt="Codzilla Technologies Logo"
@@ -36,7 +36,7 @@ export default function AboutUs() {
             </div>
 
             {/* Mission Box */}
-            <div className="p-3.5 sm:p-4 bg-[#111111] border-l-2 border-[#81D607] text-left">
+            <div className="p-3.5 sm:p-4 bg-[#111111] border-l-2 border-[#81D607] rounded-lg text-left">
               <div className="text-[10px] sm:text-xs text-[#9DA4B0] uppercase font-mono mb-1">Our Core Mission</div>
               <p className="text-xs sm:text-sm font-semibold text-[#E1E6EB] italic">
                 &ldquo;To create opportunities through skills, not just software.&rdquo;
@@ -45,19 +45,19 @@ export default function AboutUs() {
 
             {/* Quick Stats Grid */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-3 sm:pt-4 border-t border-[#E1E6EB]/10 text-center">
-              <div className="p-2 sm:p-3 bg-[#111111] border border-[#E1E6EB]/10">
+              <div className="p-2 sm:p-3 bg-[#111111] border border-[#E1E6EB]/10 rounded-lg">
                 <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-[#81D607] mx-auto mb-1" />
                 <div className="text-base sm:text-lg font-bold text-[#E1E6EB]">50+</div>
                 <div className="text-[9px] sm:text-[10px] text-[#9DA4B0] uppercase font-mono">Projects</div>
               </div>
 
-              <div className="p-2 sm:p-3 bg-[#111111] border border-[#E1E6EB]/10">
+              <div className="p-2 sm:p-3 bg-[#111111] border border-[#E1E6EB]/10 rounded-lg">
                 <Globe2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#81D607] mx-auto mb-1" />
                 <div className="text-base sm:text-lg font-bold text-[#E1E6EB]">5+</div>
                 <div className="text-[9px] sm:text-[10px] text-[#9DA4B0] uppercase font-mono">Countries</div>
               </div>
 
-              <div className="p-2 sm:p-3 bg-[#111111] border border-[#E1E6EB]/10">
+              <div className="p-2 sm:p-3 bg-[#111111] border border-[#E1E6EB]/10 rounded-lg">
                 <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#81D607] mx-auto mb-1" />
                 <div className="text-base sm:text-lg font-bold text-[#E1E6EB]">10+</div>
                 <div className="text-[9px] sm:text-[10px] text-[#9DA4B0] uppercase font-mono">Engineers</div>
@@ -68,7 +68,7 @@ export default function AboutUs() {
 
         {/* Right Column: Origin Story & Core Philosophy */}
         <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
             About Our Company
           </div>
 
@@ -86,7 +86,7 @@ export default function AboutUs() {
 
           {/* Key Value Checklist */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-2 sm:pt-4">
-            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect">
+            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect rounded-xl">
               <ShieldCheck className="w-5 h-5 text-[#81D607] shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-bold text-[#E1E6EB]">Direct Communication</h4>
@@ -94,7 +94,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect">
+            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect rounded-xl">
               <Target className="w-5 h-5 text-[#81D607] shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-bold text-[#E1E6EB]">Quality & Compliance</h4>
@@ -102,7 +102,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect">
+            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect rounded-xl">
               <Award className="w-5 h-5 text-[#81D607] shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-bold text-[#E1E6EB]">Cross-Domain Skills</h4>
@@ -110,7 +110,7 @@ export default function AboutUs() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect">
+            <div className="flex items-start gap-3 p-3 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect rounded-xl">
               <CheckCircle2 className="w-5 h-5 text-[#81D607] shrink-0 mt-0.5" />
               <div>
                 <h4 className="text-sm font-bold text-[#E1E6EB]">Post-Launch Support</h4>

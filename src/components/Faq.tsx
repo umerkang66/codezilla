@@ -43,7 +43,7 @@ export default function Faq() {
   return (
     <section id="faq" className="py-12 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
-        <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+        <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
           Got Questions?
         </div>
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
@@ -61,7 +61,7 @@ export default function Faq() {
           return (
             <div
               key={idx}
-              className={`border transition-all duration-300 rounded-none ${
+              className={`border transition-all duration-300 rounded-xl overflow-hidden ${
                 isOpen
                   ? "bg-[#1A1A1A] border-[#81D607] shadow-[0_0_15px_rgba(129,214,7,0.15)]"
                   : "bg-[#1A1A1A]/80 border-[#E1E6EB]/10 hover:border-[#81D607]/60"
@@ -70,14 +70,14 @@ export default function Faq() {
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : idx)}
-                className="w-full px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 text-left font-mono font-bold text-xs sm:text-base text-[#E1E6EB] focus:outline-none group"
+                className="w-full px-4 sm:px-6 py-3.5 sm:py-4 flex items-center justify-between gap-3 sm:gap-4 text-left font-mono font-bold text-xs sm:text-base text-[#E1E6EB] focus:outline-none cursor-pointer group"
               >
                 <span className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                   <HelpCircle className={`w-4 h-4 shrink-0 transition-colors duration-300 ${isOpen ? "text-[#81D607]" : "text-[#81D607]/70 group-hover:text-[#81D607]"}`} />
                   <span className={`transition-colors duration-200 ${isOpen ? "text-[#81D607]" : "text-[#E1E6EB] group-hover:text-[#81D607]"}`}>{faq.question}</span>
                 </span>
                 <span
-                  className={`w-6 h-6 bg-[#111111] border flex items-center justify-center text-[#81D607] shrink-0 rounded-none transition-all duration-300 ${
+                  className={`w-6 h-6 bg-[#111111] border flex items-center justify-center text-[#81D607] shrink-0 rounded-md transition-all duration-300 ${
                     isOpen
                       ? "border-[#81D607] bg-[#81D607]/10 rotate-180"
                       : "border-[#81D607]/40 group-hover:border-[#81D607] rotate-0"

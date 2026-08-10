@@ -45,7 +45,7 @@ export default function Process() {
     <section id="process" className="py-12 sm:py-20 bg-[#0D0D0D] border-t border-b border-[#E1E6EB]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
             Proven Workflow
           </div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
@@ -61,14 +61,14 @@ export default function Process() {
           {steps.map((step, idx) => (
             <div
               key={idx}
-              className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex flex-col justify-between text-left group rounded-none relative"
+              className="p-5 sm:p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 card-hover-effect flex flex-col justify-between text-left group rounded-xl relative"
             >
               <div className="space-y-3 sm:space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xl sm:text-2xl font-extrabold text-[#81D607] font-mono">
                     {step.number}
                   </span>
-                  <div className="w-8 h-8 bg-[#111111] border border-[#E1E6EB]/10 flex items-center justify-center text-[#81D607] rounded-none">
+                  <div className="w-8 h-8 bg-[#111111] border border-[#E1E6EB]/10 flex items-center justify-center text-[#81D607] rounded-lg">
                     <step.icon className="w-4 h-4" />
                   </div>
                 </div>

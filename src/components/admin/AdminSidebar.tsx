@@ -96,7 +96,7 @@ export default function AdminSidebar({
         {/* Sidebar Brand Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-[#111111] border border-[#81D607] flex items-center justify-center rounded-none overflow-hidden relative">
+            <div className="w-9 h-9 bg-[#111111] border border-[#81D607] flex items-center justify-center rounded-lg overflow-hidden relative">
               <Image
                 src="/logo.jpg"
                 alt="Codzilla Logo"
@@ -133,7 +133,7 @@ export default function AdminSidebar({
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleLinkClick(e, item.href)}
-                className={`flex items-center gap-3 px-3 py-2.5 font-mono font-bold text-xs transition-all rounded-none ${
+                className={`flex items-center gap-3 px-3 py-2.5 font-mono font-bold text-xs transition-all rounded-xl cursor-pointer ${
                   isItemLoading
                     ? "bg-[#81D607]/15 text-[#81D607] border border-[#81D607]/40"
                     : item.active
@@ -160,10 +160,10 @@ export default function AdminSidebar({
             <img
               src={avatarUrl}
               alt={fullName}
-              className="w-8 h-8 border border-[#81D607] object-cover shrink-0 rounded-none"
+              className="w-8 h-8 border border-[#81D607] object-cover shrink-0 rounded-full"
             />
           ) : (
-            <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] shrink-0 rounded-none">
+            <div className="w-8 h-8 bg-[#111111] border border-[#81D607] flex items-center justify-center text-[#81D607] shrink-0 rounded-full">
               <User className="w-4 h-4" />
             </div>
           )}
@@ -180,7 +180,7 @@ export default function AdminSidebar({
         <Link
           href="/"
           onClick={(e) => handleLinkClick(e, "/")}
-          className="w-full inline-flex items-center justify-center gap-2 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none"
+          className="w-full inline-flex items-center justify-center gap-2 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer"
         >
           {isNavigating && navigatingTo === "/" ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin" />

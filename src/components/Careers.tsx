@@ -31,7 +31,7 @@ export default function Careers() {
     <section id="careers" className="py-20 bg-[#0D0D0D] border-t border-b border-[#E1E6EB]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
             Talent Acquisition
           </div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight">
@@ -47,14 +47,14 @@ export default function Careers() {
           {openRoles.map((role, idx) => (
             <div
               key={idx}
-              className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-none"
+              className="p-6 bg-[#1A1A1A] border border-[#E1E6EB]/10 hover:border-[#81D607] transition-all duration-200 flex flex-col justify-between group rounded-xl"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] rounded-none">
+                  <div className="w-10 h-10 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] rounded-xl">
                     <role.icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono px-2.5 py-1 bg-[#111111] text-[#81D607] border border-[#81D607]/30">
+                  <span className="text-[10px] font-mono px-2.5 py-1 bg-[#111111] text-[#81D607] border border-[#81D607]/30 rounded-md">
                     {role.type}
                   </span>
                 </div>
@@ -71,7 +71,7 @@ export default function Careers() {
                   {role.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="text-[10px] font-mono px-2 py-0.5 bg-[#111111] text-[#9DA4B0] border border-[#E1E6EB]/10"
+                      className="text-[10px] font-mono px-2 py-0.5 bg-[#111111] text-[#9DA4B0] border border-[#E1E6EB]/10 rounded-md"
                     >
                       {skill}
                     </span>
@@ -82,7 +82,7 @@ export default function Careers() {
               <div className="pt-6 mt-6 border-t border-[#E1E6EB]/10">
                 <a
                   href="#contact"
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 bg-[#111111] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer"
                 >
                   <span>Apply For Role</span>
                   <ArrowRight className="w-3.5 h-3.5" />

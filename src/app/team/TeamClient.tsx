@@ -73,7 +73,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
   return (
     <div className="space-y-8">
       {/* Controls Bar: Search & Filter Tabs */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 p-4 bg-[#1A1A1A] border border-[#E1E6EB]/10 rounded-2xl">
         {/* Search Field */}
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-[#9DA4B0] absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -82,7 +82,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by name, role, or technical domain..."
-            className="w-full bg-[#111111] border border-[#E1E6EB]/15 pl-10 pr-4 py-2 text-xs font-mono text-[#E1E6EB] placeholder-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607]"
+            className="w-full bg-[#111111] border border-[#E1E6EB]/15 pl-10 pr-4 py-2 text-xs font-mono text-[#E1E6EB] placeholder-[#9DA4B0]/60 focus:outline-none focus:border-[#81D607] rounded-xl"
           />
         </div>
 
@@ -90,7 +90,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setFilterRole("all")}
-            className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+            className={`px-3 py-2 text-xs font-mono font-bold transition-colors cursor-pointer rounded-xl ${
               filterRole === "all"
                 ? "bg-[#81D607] text-[#111111]"
                 : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -101,7 +101,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
 
           <button
             onClick={() => setFilterRole("founders")}
-            className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+            className={`px-3 py-2 text-xs font-mono font-bold transition-colors cursor-pointer rounded-xl ${
               filterRole === "founders"
                 ? "bg-[#81D607] text-[#111111]"
                 : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -112,7 +112,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
 
           <button
             onClick={() => setFilterRole("engineers")}
-            className={`px-3 py-2 text-xs font-mono font-bold transition-colors ${
+            className={`px-3 py-2 text-xs font-mono font-bold transition-colors cursor-pointer rounded-xl ${
               filterRole === "engineers"
                 ? "bg-[#81D607] text-[#111111]"
                 : "bg-[#111111] text-[#E1E6EB] border border-[#E1E6EB]/15 hover:border-[#81D607]"
@@ -125,8 +125,8 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
 
       {/* Empty Search / No Data Results */}
       {filteredTeams.length === 0 && (
-        <div className="p-12 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center space-y-4">
-          <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto">
+        <div className="p-12 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center space-y-4 rounded-2xl">
+          <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/40 flex items-center justify-center text-[#81D607] mx-auto rounded-xl">
             <Users className="w-6 h-6" />
           </div>
           <h3 className="text-lg font-bold font-mono text-[#E1E6EB]">
@@ -141,7 +141,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
             <div className="pt-2">
               <Link
                 href="/talent-acquisition"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold hover:bg-[#72BE06] transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer"
               >
                 <span>Join Our Engineering Team</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -159,10 +159,10 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
               key={member.id}
               className={`p-6 bg-[#1A1A1A] border ${
                 member.is_founder ? "border-[#81D607]" : "border-[#E1E6EB]/10"
-              } hover:border-[#81D607] transition-all flex flex-col justify-between group relative`}
+              } hover:border-[#81D607] transition-all flex flex-col justify-between group relative rounded-2xl overflow-hidden`}
             >
               {member.is_founder && (
-                <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase px-2.5 py-1">
+                <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-mono font-extrabold uppercase px-2.5 py-1 rounded-bl-xl">
                   Leadership / Founder
                 </div>
               )}
@@ -171,7 +171,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
                 {/* Avatar Box + Basic Info Header */}
                 <div className="flex items-start gap-4">
                   {member.avatar_url ? (
-                    <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 overflow-hidden shrink-0 group-hover:border-[#81D607] transition-colors">
+                    <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 overflow-hidden shrink-0 group-hover:border-[#81D607] transition-colors rounded-full">
                       <img
                         src={member.avatar_url}
                         alt={member.name}
@@ -179,7 +179,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
                       />
                     </div>
                   ) : (
-                    <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] text-lg font-bold font-mono shrink-0 group-hover:border-[#81D607] transition-colors">
+                    <div className="w-20 h-20 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] text-lg font-bold font-mono shrink-0 group-hover:border-[#81D607] transition-colors rounded-full">
                       {getInitials(member)}
                     </div>
                   )}
@@ -200,7 +200,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
                     <div className="text-[10px] font-mono uppercase text-[#9DA4B0] mb-1">
                       Technical Domain & Focus
                     </div>
-                    <p className="text-xs font-mono text-[#E1E6EB] bg-[#111111] p-2.5 border border-[#E1E6EB]/10">
+                    <p className="text-xs font-mono text-[#E1E6EB] bg-[#111111] p-2.5 border border-[#E1E6EB]/10 rounded-xl">
                       {member.specialty}
                     </p>
                   </div>
@@ -222,7 +222,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
                       href={member.linkedin_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5"
+                      className="px-3 py-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-lg cursor-pointer"
                     >
                       <LinkedinIcon className="w-3.5 h-3.5 text-[#81D607]" />
                       <span>LinkedIn</span>
@@ -233,7 +233,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
                       href={member.github_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5"
+                      className="px-3 py-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-lg cursor-pointer"
                     >
                       <GithubIcon className="w-3.5 h-3.5 text-[#81D607]" />
                       <span>GitHub</span>
@@ -244,7 +244,7 @@ export default function TeamClient({ initialTeams }: TeamClientProps) {
                       href={member.x_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5"
+                      className="px-3 py-1.5 bg-[#111111] border border-[#E1E6EB]/15 text-xs font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-lg cursor-pointer"
                     >
                       <XIcon className="w-3.5 h-3.5 text-[#81D607]" />
                       <span>X</span>

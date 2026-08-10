@@ -89,7 +89,7 @@ export default function Team({ initialTeams }: TeamProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3 sm:space-y-4">
-          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-none">
+          <div className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] text-xs font-semibold uppercase tracking-wider rounded-full">
             Leadership & Engineering Talent
           </div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#E1E6EB] tracking-tight leading-tight">
@@ -110,8 +110,8 @@ export default function Team({ initialTeams }: TeamProps) {
 
         {/* Empty State */}
         {!loading && teams.length === 0 && (
-          <div className="p-8 sm:p-10 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center max-w-lg mx-auto space-y-4 rounded-none">
-            <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/50 flex items-center justify-center text-[#81D607] mx-auto">
+          <div className="p-8 sm:p-10 bg-[#1A1A1A] border border-[#E1E6EB]/10 text-center max-w-lg mx-auto space-y-4 rounded-2xl">
+            <div className="w-12 h-12 bg-[#111111] border border-[#81D607]/50 flex items-center justify-center text-[#81D607] mx-auto rounded-xl">
               <Users className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold font-mono text-[#E1E6EB]">Our Team is Expanding</h3>
@@ -121,7 +121,7 @@ export default function Team({ initialTeams }: TeamProps) {
             <div className="pt-2">
               <Link
                 href="/talent-acquisition"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold hover:bg-[#72BE06] transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[#81D607] text-[#111111] font-mono text-xs font-bold hover:bg-[#72BE06] transition-colors rounded-xl cursor-pointer"
               >
                 <span>Join Our Team</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -138,10 +138,10 @@ export default function Team({ initialTeams }: TeamProps) {
                 key={member.id}
                 className={`p-5 sm:p-6 bg-[#1A1A1A] border ${
                   member.is_founder ? "border-[#81D607]" : "border-[#E1E6EB]/10"
-                } card-hover-effect text-left flex flex-col justify-between group rounded-none relative`}
+                } card-hover-effect text-left flex flex-col justify-between group rounded-2xl relative overflow-hidden`}
               >
                 {member.is_founder && (
-                  <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-extrabold uppercase px-2.5 py-1">
+                  <div className="absolute top-0 right-0 bg-[#81D607] text-[#111111] text-[10px] font-extrabold uppercase px-2.5 py-1 font-mono rounded-bl-xl">
                     Founder Spotlight
                   </div>
                 )}
@@ -149,7 +149,7 @@ export default function Team({ initialTeams }: TeamProps) {
                 <div className="space-y-4">
                   {/* Avatar Box / Image */}
                   {member.avatar_url ? (
-                    <div className="w-16 h-16 bg-[#111111] border border-[#81D607]/60 overflow-hidden group-hover:border-[#81D607] transition-colors rounded-none">
+                    <div className="w-16 h-16 bg-[#111111] border border-[#81D607]/60 overflow-hidden group-hover:border-[#81D607] transition-colors rounded-full shrink-0">
                       <img
                         src={member.avatar_url}
                         alt={member.name}
@@ -157,7 +157,7 @@ export default function Team({ initialTeams }: TeamProps) {
                       />
                     </div>
                   ) : (
-                    <div className="w-16 h-16 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] text-xl font-bold font-mono rounded-none group-hover:border-[#81D607] transition-colors">
+                    <div className="w-16 h-16 bg-[#111111] border border-[#81D607]/60 flex items-center justify-center text-[#81D607] text-xl font-bold font-mono rounded-full group-hover:border-[#81D607] transition-colors shrink-0">
                       {getInitials(member)}
                     </div>
                   )}
@@ -187,7 +187,7 @@ export default function Team({ initialTeams }: TeamProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${member.name} LinkedIn`}
-                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5"
+                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-md cursor-pointer"
                       >
                         <LinkedinIcon className="w-3 h-3 text-[#81D607]" />
                         <span>LinkedIn</span>
@@ -199,7 +199,7 @@ export default function Team({ initialTeams }: TeamProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${member.name} GitHub`}
-                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5"
+                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-md cursor-pointer"
                       >
                         <GithubIcon className="w-3 h-3 text-[#81D607]" />
                         <span>GitHub</span>
@@ -211,7 +211,7 @@ export default function Team({ initialTeams }: TeamProps) {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`${member.name} X`}
-                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5"
+                        className="px-2.5 py-1 bg-[#111111] border border-[#E1E6EB]/15 text-[11px] font-mono text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-colors inline-flex items-center gap-1.5 rounded-md cursor-pointer"
                       >
                         <XIcon className="w-3 h-3 text-[#81D607]" />
                         <span>X</span>
@@ -228,7 +228,7 @@ export default function Team({ initialTeams }: TeamProps) {
         <div className="mt-12 text-center">
           <Link
             href="/team"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-none"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1A1A1A] border border-[#81D607]/40 text-[#81D607] hover:bg-[#81D607] hover:text-[#111111] font-mono font-bold text-xs transition-colors rounded-xl cursor-pointer"
           >
             <span>Explore Full Team Directory</span>
             <ArrowRight className="w-4 h-4" />
