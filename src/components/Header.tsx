@@ -115,43 +115,52 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "py-3 border-b border-[#81D607]/20 bg-[#111111]/30 backdrop-blur-xs"
-          : "bg-transparent py-5"
+      className={`fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-500 ease-in-out ${
+        isScrolled ? "py-3" : "py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        {/* Desktop Container */}
+        <div className="hidden lg:flex items-center justify-between w-full relative">
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-2.5 group transition-transform duration-200 cursor-pointer"
-            id="header-logo"
+          <div
+            className={`flex items-center transition-all duration-500 ease-in-out origin-left whitespace-nowrap overflow-hidden ${
+              isScrolled
+                ? "opacity-0 max-w-0 -translate-x-10 pointer-events-none"
+                : "opacity-100 max-w-[320px] translate-x-0 pointer-events-auto"
+            }`}
           >
-            <div className="w-10 h-10 bg-[#1A1A1A] border border-[#81D607]/60 flex items-center justify-center group-hover:border-[#81D607] transition-colors rounded-xl overflow-hidden relative">
-              <Image
-                src="/logo.jpg"
-                alt="Codzilla Technologies Logo"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-                priority
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-mono font-bold text-lg tracking-tight text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-none">
-                CODZILLA
-              </span>
-              <span className="text-[10px] font-mono font-semibold tracking-widest text-[#9DA4B0] uppercase">
-                Technologies
-              </span>
-            </div>
-          </Link>
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 group transition-transform duration-200 cursor-pointer"
+              id="header-logo"
+            >
+              <div className="w-10 h-10 bg-[#1A1A1A] border border-[#81D607]/60 flex items-center justify-center group-hover:border-[#81D607] transition-colors rounded-xl overflow-hidden relative">
+                <Image
+                  src="/logo.jpg"
+                  alt="Codzilla Technologies Logo"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                  priority
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-mono font-bold text-lg tracking-tight text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-none">
+                  CODZILLA
+                </span>
+                <span className="text-[10px] font-mono font-semibold tracking-widest text-[#9DA4B0] uppercase">
+                  Technologies
+                </span>
+              </div>
+            </Link>
+          </div>
 
           {/* Desktop Navigation with PillNav GSAP hover animation */}
           <nav
-            className="hidden lg:flex items-center gap-0.5 xl:gap-1 px-2.5 xl:px-3.5 py-1.5 border border-[#81D607]/40 rounded-full shadow-lg"
+            className={`flex items-center gap-0.5 xl:gap-1 px-2.5 xl:px-3.5 py-1.5 border border-[#81D607]/40 rounded-full shadow-lg pointer-events-auto transition-all duration-500 ease-in-out ${
+              isScrolled ? "mx-auto" : ""
+            }`}
             style={{
               backgroundColor: "rgba(255, 255, 255, 0.08)",
               backdropFilter: "blur(16px) saturate(180%)",
@@ -190,7 +199,13 @@ export default function Header() {
           </nav>
 
           {/* Header CTA & Quick Contact */}
-          <div className="hidden lg:flex items-center gap-4 xl:gap-5">
+          <div
+            className={`flex items-center gap-4 xl:gap-5 transition-all duration-500 ease-in-out origin-right whitespace-nowrap overflow-hidden ${
+              isScrolled
+                ? "opacity-0 max-w-0 translate-x-10 pointer-events-none"
+                : "opacity-100 max-w-[400px] translate-x-0 pointer-events-auto"
+            }`}
+          >
             <a
               href="tel:+923339072742"
               className="flex items-center gap-2 text-xs font-mono text-[#E1E6EB] hover:text-[#81D607] transition-colors group cursor-pointer"
@@ -210,26 +225,77 @@ export default function Header() {
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
+        </div>
 
-          {/* Mobile / Tablet Menu Button */}
+        {/* Mobile / Tablet Floating Header Bar (lg:hidden) */}
+        <div
+          className={`lg:hidden flex items-center justify-between pointer-events-auto transition-all duration-500 ease-in-out ${
+            isScrolled
+              ? "max-w-[92%] mx-auto px-4 py-2 border border-[#81D607]/40 rounded-full shadow-2xl"
+              : "w-full"
+          }`}
+          style={
+            isScrolled
+              ? {
+                  backgroundColor: "rgba(255, 255, 255, 0.08)",
+                  backdropFilter: "blur(16px) saturate(180%)",
+                  WebkitBackdropFilter: "blur(16px) saturate(180%)",
+                }
+              : undefined
+          }
+        >
+          {/* Logo */}
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 group transition-transform duration-200 cursor-pointer"
+            id="header-logo-mobile"
+          >
+            <div className="w-9 h-9 bg-[#1A1A1A] border border-[#81D607]/60 flex items-center justify-center group-hover:border-[#81D607] transition-colors rounded-xl overflow-hidden relative">
+              <Image
+                src="/logo.jpg"
+                alt="Codzilla Technologies Logo"
+                width={36}
+                height={36}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-mono font-bold text-base tracking-tight text-[#E1E6EB] group-hover:text-[#81D607] transition-colors leading-none">
+                CODZILLA
+              </span>
+              <span className="text-[9px] font-mono font-semibold tracking-widest text-[#9DA4B0] uppercase">
+                Technologies
+              </span>
+            </div>
+          </Link>
+
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2.5 bg-[#1A1A1A] border border-[#81D607]/40 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-all rounded-xl cursor-pointer"
+            className="p-2 bg-[#1A1A1A] border border-[#81D607]/40 text-[#E1E6EB] hover:text-[#81D607] hover:border-[#81D607] transition-all rounded-xl cursor-pointer"
             aria-label="Toggle navigation menu"
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-[#81D607]" />
+              <X className="w-5 h-5 text-[#81D607]" />
             ) : (
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5" />
             )}
           </button>
         </div>
       </div>
 
-      {/* Mobile / Tablet Drawer Menu */}
+      {/* Mobile Drawer Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden glass-header border-b border-[#81D607]/30 px-4 sm:px-6 pt-4 pb-6 mt-3 space-y-4 rounded-2xl max-h-[calc(100vh-5rem)] overflow-y-auto shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+        <div
+          className="lg:hidden pointer-events-auto border border-[#81D607]/30 px-4 sm:px-6 pt-4 pb-6 mt-3 max-w-[92%] mx-auto space-y-4 rounded-2xl max-h-[calc(100vh-5rem)] overflow-y-auto shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200"
+          style={{
+            backgroundColor: "rgba(17, 17, 17, 0.95)",
+            backdropFilter: "blur(16px) saturate(180%)",
+            WebkitBackdropFilter: "blur(16px) saturate(180%)",
+          }}
+        >
           <div className="flex flex-col space-y-1.5">
             {navLinks.map((link) => (
               <Link

@@ -23,7 +23,7 @@ describe("PillNav Component", () => {
 describe("Header Component with PillNav Hover Animation", () => {
   it("renders header with logo and all navbar links with label-stack", () => {
     render(<Header />);
-    expect(screen.getByText("CODZILLA")).toBeInTheDocument();
+    expect(screen.getAllByText("CODZILLA")[0]).toBeInTheDocument();
     expect(screen.getByRole("menuitem", { name: "Home" })).toBeInTheDocument();
     expect(screen.getByRole("menuitem", { name: "Services" })).toBeInTheDocument();
     expect(screen.getByRole("menuitem", { name: "Contact" })).toBeInTheDocument();
