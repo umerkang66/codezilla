@@ -40,9 +40,6 @@ export function middleware(request: NextRequest) {
   const allowedOrigins = [
     process.env.NEXT_PUBLIC_APP_URL || '',
     process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-    'https://codezillatech.vercel.app',
-    'http://localhost:3000',
-    'http://localhost:3001',
   ].filter(Boolean);
 
   if (origin && allowedOrigins.includes(origin)) {
